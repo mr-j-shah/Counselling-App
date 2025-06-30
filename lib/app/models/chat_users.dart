@@ -1,0 +1,4 @@
+enum ChatUser {
+  user,
+  assistant,
+}
