@@ -37,7 +37,7 @@ class _IntroscreenState extends State<Introscreen> {
                       left: animationController.getLeft(),
                       right: animationController.getRight(),
                       child: CircleAvatar(
-                        radius: Dimensions.width(150),
+                        radius: Dimensions.radius(140),
                         backgroundColor: primaryColor,
                       ),
                     ),
@@ -51,7 +51,7 @@ class _IntroscreenState extends State<Introscreen> {
                       foregroundImage: AssetImage(
                         Appassets.IntroScreenMainImage,
                       ),
-                      radius: Dimensions.radius(336) / 2,
+                      radius: Dimensions.radius(168),
                       backgroundColor: Colors.blue,
                     ),
                   ),

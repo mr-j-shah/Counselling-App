@@ -1,127 +1,103 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
+import 'package:project_counselling/app/views/Presentation/HomeScreen/Widgets/SideMenu.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/controller/HomeController.dart';
+import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/MainWidget.dart';
 import 'package:project_counselling/app/views/Utils/dimensions.dart';
-import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/SideMenu.dart';
 
-class Homescreen extends StatelessWidget {
-  final Homecontroller homecontroller = Get.put(Homecontroller());
-
-  Homescreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Stack(
+    // Ensure dimensions are initialized once at app start.
+    Dimensions.init(context);
+
+    return Scaffold(
+      body: Stack(
         children: [
           Sidemenu(),
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 300),
-            top: homecontroller.isMenuOpen.value
-                ? Dimensions.baseHeight * 0.2
-                : 0,
-            bottom: homecontroller.isMenuOpen.value
-                ? Dimensions.baseHeight * 0.2
-                : 0,
-            left: homecontroller.isMenuOpen.value
-                ? Dimensions.baseWidth * 0.65
-                : 0,
-            right: homecontroller.isMenuOpen.value
-                ? -Dimensions.baseWidth * 0.65
-                : 0, // <-- hide part
-            child: Opacity(opacity: 0.3, child: MainWidget()),
-          ),
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 300),
-            top: homecontroller.isMenuOpen.value
-            
-                ? Dimensions.baseHeight * 0.1
-                : 0,
-            bottom: homecontroller.isMenuOpen.value
-                ? Dimensions.baseHeight * 0.1
-                : 0,
-            left: homecontroller.isMenuOpen.value
-                ? Dimensions.baseWidth * 0.75
-                : 0,
-            right: homecontroller.isMenuOpen.value
-                ? -Dimensions.baseWidth * 0.75
-                : 0, // <-- hide part
-            child: MainWidget(),
-          ),
+          const _AnimatedHomeLayers(),
         ],
-      );
-    });
+      ),
+    );
   }
+}
 
-  Transform MainWidget() {
-    return Transform.scale(
-      scale: homecontroller.isMenuOpen.value ? 0.8 : 1.0,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(
-          homecontroller.isMenuOpen.value ? 50 : 0,
-        ),
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text("Counselling Application"),
-            leading: IconButton(
-              onPressed: homecontroller.toggleMenu,
-              icon: Icon(Icons.menu),
-            ),
-          ),
-          body: Center(
-            child: Card(
-              elevation: 6,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              margin: const EdgeInsets.all(16),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Agent image
-                    Lottie.asset('assets/lottie/agent.json'),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton.icon(
-                          onPressed: homecontroller.navigateToCounsellingHindi,
-                          icon: const Icon(Icons.language),
-                          label: const Text("हिन्दी"),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.orangeAccent,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        ElevatedButton.icon(
-                          onPressed:
-                              homecontroller.navigateToCounsellingEnglish,
-                          icon: const Icon(Icons.language),
-                          label: const Text("English"),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+class _AnimatedHomeLayers extends StatelessWidget {
+  const _AnimatedHomeLayers();
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.find<Homecontroller>();
+    return Obx(() {
+      final bool menuOpen = controller.isMenuOpen.value;
+
+      // Shared animation settings
+      const Duration animationDuration = Duration(milliseconds: 300);
+      const Curve animationCurve = Curves.easeInOut;
+      final borderRadius = BorderRadius.circular(menuOpen ? 50 : 0);
+      final double scale = menuOpen ? 0.8 : 1.0;
+
+      return Stack(
+        children: [
+          // Background layer: faded peek of content
+          AnimatedPositioned(
+            duration: animationDuration,
+            curve: animationCurve,
+            top: menuOpen ? Dimensions.baseHeight * 0.2 : 0,
+            bottom: menuOpen ? Dimensions.baseHeight * 0.2 : 0,
+            left: menuOpen ? Dimensions.baseWidth * 0.7 : 0,
+            right: menuOpen ? -Dimensions.baseWidth * 0.7 : 0,
+            child: AnimatedScale(
+              scale: scale,
+              duration: animationDuration,
+              curve: animationCurve,
+              child: AnimatedOpacity(
+                opacity: menuOpen ? 0.1 : 1.0,
+                duration: animationDuration,
+                curve: animationCurve,
+                child: AnimatedContainer(
+                  duration: animationDuration,
+                  curve: animationCurve,
+                  decoration: BoxDecoration(
+                    borderRadius: borderRadius,
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: const Scaffold(
+                    backgroundColor: Colors.white,
+                    body: Center(child: Text('Background Layer')),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ),
-    );
+
+          // Foreground layer: main content
+          AnimatedPositioned(
+            duration: animationDuration,
+            curve: animationCurve,
+            top: menuOpen ? Dimensions.baseHeight * 0.1 : 0,
+            bottom: menuOpen ? Dimensions.baseHeight * 0.1 : 0,
+            left: menuOpen ? Dimensions.baseWidth * 0.75 : 0,
+            right: menuOpen ? -Dimensions.baseWidth * 0.75 : 0,
+            child: AnimatedScale(
+              scale: scale,
+              duration: animationDuration,
+              curve: animationCurve,
+              child: AnimatedContainer(
+                duration: animationDuration,
+                curve: animationCurve,
+                decoration: BoxDecoration(
+                  borderRadius: borderRadius,
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: Mainwidget(),
+              ),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }

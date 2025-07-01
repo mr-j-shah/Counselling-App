@@ -27,7 +27,7 @@ class AppRoutes {
   static final List<GetPage> routes = [
     GetPage(
       name: Routes.HOME,
-      page: () => Homescreen(),
+      page: () => HomeScreen(),
       binding: Homebinding(),
       transition: Transition.rightToLeft,
     ),

@@ -32,11 +32,11 @@ class Introcontroller extends GetxController {
   double getTop() {
     switch (positionIndex.value) {
       case 1:
-        return Dimensions.width(100);
+        return Dimensions.height(105);
       case 3:
-        return Dimensions.width(100); // center height
+        return Dimensions.height(105); // center height
       default:
-        return -Dimensions.width(20); // top
+        return -Dimensions.height(20); // top
     }
   }
 
