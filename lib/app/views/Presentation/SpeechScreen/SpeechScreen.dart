@@ -6,6 +6,8 @@ import 'package:project_counselling/app/views/Presentation/SpeechScreen/controll
 class SpeechScreen extends StatelessWidget {
   final controller = Get.put(SpeechController());
 
+  SpeechScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +73,6 @@ class SpeechScreen extends StatelessWidget {
   // Animated dots for listening message
   String _buildLiveText() {
     final time = DateTime.now().second % 4;
-    return "Listening" + "." * time;
+    return "Listening${"." * time}";
   }
 }

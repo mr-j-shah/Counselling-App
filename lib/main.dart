@@ -16,13 +16,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       builder: (context, child) {
-        Dimensions.init(context);
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Dimensions.init(context); 
+        });
         return child!;
       },
       debugShowCheckedModeBanner: false,
       title: 'GetX Router Demo',
       theme: ThemeData(
-        fontFamily:'Rubik',
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),

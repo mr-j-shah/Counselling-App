@@ -14,7 +14,7 @@ class PrimaryButton extends StatelessWidget {
   final FontWeight? fontWeight;
 
   const PrimaryButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPressed,
     this.backgroundColor = primaryColor,
@@ -23,7 +23,7 @@ class PrimaryButton extends StatelessWidget {
     this.height,
     this.fontSize = 18,
     this.fontWeight = FontWeight.bold,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

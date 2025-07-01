@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:project_counselling/app/Constants/AppAssets.dart';
 import 'package:project_counselling/app/Constants/AppString.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/Widget/SocialButton.dart';
@@ -6,9 +7,10 @@ import 'package:project_counselling/app/views/Utils/dimensions.dart';
 
 class Socialbuttonsrow extends StatelessWidget {
   const Socialbuttonsrow({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
+    Dimensions.init(context);
     return Padding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: Dimensions.padding(20)),
       child: Row(
@@ -16,12 +18,25 @@ class Socialbuttonsrow extends StatelessWidget {
         children: [
           socialButton(
             Appstring.google,
-            Image.asset(Appassets.socialButtonGoogle),
+            // Image.asset(Appassets.socialButtonGoogle),
+            SvgPicture.asset(
+              Appassets.socialButtonGoogle,
+              height: Dimensions.height(18),
+              width: Dimensions.width(18),
+              fit: BoxFit.contain,
+              placeholderBuilder: (ctx) =>  Center(child: CircularProgressIndicator()),
+            ),
           ),
           SizedBox(width: Dimensions.width(15)),
           socialButton(
             Appstring.facebook,
-            Image.asset(Appassets.socialButtonFacebook),
+            SvgPicture.asset(
+              Appassets.socialButtonFacebook,
+              height: Dimensions.height(18),
+              width: Dimensions.width(18),
+              fit: BoxFit.contain,
+              placeholderBuilder: (ctx) =>  Center(child: CircularProgressIndicator()),
+            ),
           ),
         ],
       ),

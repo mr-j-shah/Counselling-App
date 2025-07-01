@@ -6,9 +6,8 @@ import 'package:project_counselling/app/models/chat_users.dart';
 class UserChatScreen extends StatelessWidget {
   final List<ChatMessage> messages;
 
-  UserChatScreen({Key? key})
-      : messages = Get.arguments ?? [],
-        super(key: key);
+  UserChatScreen({super.key})
+      : messages = Get.arguments ?? [];
  
   @override
   Widget build(BuildContext context) {

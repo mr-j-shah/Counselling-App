@@ -19,12 +19,13 @@ class AppText extends StatelessWidget {
     this.align,
     this.maxLines,
     this.overflow,
-    this.onClick
+    this.onClick,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: onClick,
       child: Text(
         text,
         maxLines: maxLines,

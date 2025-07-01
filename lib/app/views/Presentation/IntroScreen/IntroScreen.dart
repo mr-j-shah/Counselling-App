@@ -26,8 +26,8 @@ class _IntroscreenState extends State<Introscreen> {
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
-              height: Dimensions.baseHeight / 3 * 2,
+            Expanded(
+              flex: 4,
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
@@ -43,8 +43,12 @@ class _IntroscreenState extends State<Introscreen> {
                       ),
                     ),
                   ),
-                  Center(
+                  Positioned(
+                    left: Dimensions.width(20),
+                    right: Dimensions.width(20),
+                    top: Dimensions.height(100),
                     child: CircleAvatar(
+                      // child: Image.asset(),
                       foregroundImage: AssetImage(
                         Appassets.IntroScreenMainImage,
                       ),
@@ -55,6 +59,7 @@ class _IntroscreenState extends State<Introscreen> {
                 ],
               ),
             ),
+            SizedBox(height: Dimensions.height(40)),
             Obx(
               () => AnimatedOpacity(
                 opacity:
@@ -90,7 +95,7 @@ class _IntroscreenState extends State<Introscreen> {
                 ),
               );
             }),
-            SizedBox(height: Dimensions.height(20)),
+            Spacer(),
             PrimaryButton(
               text: Appstring.introButtonText,
               onPressed: () {
@@ -100,10 +105,17 @@ class _IntroscreenState extends State<Introscreen> {
               textColor: white,
             ),
             SizedBox(height: Dimensions.height(25)),
-            AppText(
-              onClick: animationController.navigateToHome,
-              text: Appstring.skip,
+            Padding(
+              padding: EdgeInsetsGeometry.only(
+                bottom: MediaQuery.of(context).padding.bottom,
+              ),
+              child: AppText(
+                onClick: animationController.navigateToHome,
+                text: Appstring.skip,
+                fontSize: Dimensions.font(14),
+              ),
             ),
+            SizedBox(height: Dimensions.height(10)),
           ],
         ),
       ),

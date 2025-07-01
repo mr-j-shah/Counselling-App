@@ -61,9 +61,7 @@ class SpeechController extends GetxController {
   void onInit() {
     super.onInit();
     // Safe default assignment
-    language = Get.arguments != null
-        ? Get.arguments
-        : languageEnum.Language.ENGLISH;
+    language = Get.arguments ?? languageEnum.Language.ENGLISH;
     debugPrint("Start Covo in ${language.toLanguageSign()}");
     init();
     debugPrint("LLMController initialized.");
@@ -130,7 +128,7 @@ class SpeechController extends GetxController {
     isThinking.value = true;
     debugPrint(text);
 
-    var response = await getCounsellorResponse(
+    var response = getCounsellorResponse(
       text,
     ); // assuming this returns Future<String?>
 
@@ -218,7 +216,7 @@ class SpeechController extends GetxController {
     try {
       // NEW: Create content for the model
       final content = [
-        Content.text(userMessage + "You are a compassionate and thoughtful counselling assistant trained to support users with emotional well-being, stress management, motivation, and personal development. You should listen actively, ask reflective questions, and guide the user to think positively and constructively. Do not give medical or clinical advice or diagnose conditions. Always respond with empathy, calmness, and encouragement. Keep your tone warm, supportive, and human-like. If a user is in crisis, gently recommend seeking help from a real-life professional or helpline."),
+        Content.text("${userMessage}You are a compassionate and thoughtful counselling assistant trained to support users with emotional well-being, stress management, motivation, and personal development. You should listen actively, ask reflective questions, and guide the user to think positively and constructively. Do not give medical or clinical advice or diagnose conditions. Always respond with empathy, calmness, and encouragement. Keep your tone warm, supportive, and human-like. If a user is in crisis, gently recommend seeking help from a real-life professional or helpline."),
       ];
 
       // NEW: Generate content using the GenerativeModel
