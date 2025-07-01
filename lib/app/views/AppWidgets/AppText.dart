@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
 class AppText extends StatelessWidget {
   final String text;
@@ -33,7 +34,7 @@ class AppText extends StatelessWidget {
         textAlign: align,
         style: TextStyle(
           fontFamily: 'Rubik', // Rubik is now used here
-          fontSize: fontSize,
+          fontSize: Dimensions.font(fontSize),
           fontWeight: fontWeight,
           color: color,
         ),

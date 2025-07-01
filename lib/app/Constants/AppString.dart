@@ -1,6 +1,8 @@
 class Appstring {
 
   static const skip = "Skip";
+  static const email = "Email";
+  static const continueTxt = "Continue";
   //login screen text
   static const google="Google";
   static const facebook="Facebook";
@@ -19,6 +21,9 @@ class Appstring {
   static const signUpScreenButton= "Sign up";
   static const haveAnAccont= "Have an account? Log in";
 
+  // Forgpot Password Screen
+  static const forgotPasTitle= "Forgot password";
+  static const forgotPasSubTitle= "Enter your email for the verification process,\nwe will send password reset link to your email.";
 
 
   

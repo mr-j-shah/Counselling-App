@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/Constants/AppString.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppTextField.dart';
+import 'package:project_counselling/app/views/Presentation/AuthScreens/Widget/ForgotPassword.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/Widget/SocialButtonsRow.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/controller/AuthContoller.dart';
 
@@ -96,6 +97,9 @@ class Loginscreen extends StatelessWidget {
                       color: primaryColor,
                       fontSize: Dimensions.font(14),
                       fontWeight: FontWeight.bold,
+                      onClick: () {
+                        showForgotPasswordBottomSheet(context);
+                      },
                     ),
                     SizedBox(height: Dimensions.height(45)),
                     AppText(
@@ -113,76 +117,6 @@ class Loginscreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  void showForgotPasswordBottomSheet(BuildContext context) {
-    Get.bottomSheet(
-      Padding(
-        padding: EdgeInsetsGeometry.only(
-          bottom: MediaQuery.of(context).padding.bottom,
-        ),
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Drag Handle
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  margin: const EdgeInsets.only(bottom: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-              Text(
-                "Forgot password",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-
-              SizedBox(height: 8),
-              const Text(
-                "Enter your email for the verification process,\nwe will send 4 digits code to your email.",
-                style: TextStyle(fontSize: 14, color: Colors.grey),
-              ),
-
-              const SizedBox(height: 20),
-
-              // Email TextField
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Email",
-                  filled: true,
-                  fillColor: Colors.grey.shade100,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 14,
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              // Continue Button
-              PrimaryButton(text: "Continue", onPressed: () {}),
-            ],
-          ),
-        ),
-      ),
-      isScrollControlled: true,
     );
   }
 }
