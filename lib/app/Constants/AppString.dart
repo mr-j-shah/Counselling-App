@@ -25,6 +25,9 @@ class Appstring {
   static const forgotPasTitle= "Forgot password";
   static const forgotPasSubTitle= "Enter your email for the verification process,\nwe will send password reset link to your email.";
 
+  // Privacy Policy
+  static const privacyPolicy= "Privacy policy";
+
 
   
 }

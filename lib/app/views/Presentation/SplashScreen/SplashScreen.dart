@@ -23,13 +23,12 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: DefaultBackground(
-        context,
-        Center(child: Image.asset('assets/images/Splash_Logo.png')),
+      body: Defaultbackground(
+        child: Center(child: Image.asset('assets/images/Splash_Logo.png'),),
       ),
     );
   }
-  
+
   void navigateToNext() {
     Get.offAllNamed(Routes.INTRO_SCREEN);
     // if (AppPref.getPin() != null) {

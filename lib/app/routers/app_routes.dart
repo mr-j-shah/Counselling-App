@@ -5,6 +5,7 @@ import 'package:project_counselling/app/views/Presentation/HomeScreen/bindings/H
 import 'package:project_counselling/app/views/Presentation/IntroScreen/IntroScreen.dart';
 import 'package:project_counselling/app/views/Presentation/IntroScreen/bindings/IntroBindings.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/LoginScreen/LoginScreen.dart';
+import 'package:project_counselling/app/views/Presentation/PrivacyPolicyScreen/PrivacyPolicyScreen.dart';
 import 'package:project_counselling/app/views/Presentation/SplashScreen/SplashScreen.dart';
 import 'package:project_counselling/app/views/Presentation/SpeechScreen/binding/SpeechBindings.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/HomeScreen.dart';
@@ -19,6 +20,7 @@ abstract class Routes {
   static const String INTRO_SCREEN = '/intro-screen';
   static const String LOGIN_SCREEN = '/login-screen';
   static const String SIGNUP_SCREEN = '/signup-screen';
+  static const String POLICY_SCREEN = '/policy-screen';
 }
 
 class AppRoutes {
@@ -56,6 +58,11 @@ class AppRoutes {
     GetPage(
       name: Routes.SIGNUP_SCREEN,
       page: () => Signupscreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: Routes.POLICY_SCREEN,
+      page: () => PrivacyPolicyScreen(),
       transition: Transition.cupertino,
     ),
     // GetPage(

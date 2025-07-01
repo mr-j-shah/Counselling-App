@@ -21,9 +21,8 @@ class _IntroscreenState extends State<Introscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: DefaultBackground(
-        context,
-        Column(
+      body: Defaultbackground(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(

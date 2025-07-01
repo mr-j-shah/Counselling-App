@@ -10,6 +10,7 @@ class AppText extends StatelessWidget {
   final int? maxLines;
   final TextOverflow? overflow;
   final VoidCallback? onClick;
+  final TextStyle? style;
 
   const AppText({
     super.key,
@@ -21,6 +22,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.onClick,
+    this.style,
   });
 
   @override
@@ -32,12 +34,14 @@ class AppText extends StatelessWidget {
         maxLines: maxLines,
         overflow: overflow,
         textAlign: align,
-        style: TextStyle(
-          fontFamily: 'Rubik', // Rubik is now used here
-          fontSize: Dimensions.font(fontSize),
-          fontWeight: fontWeight,
-          color: color,
-        ),
+        style: style != null
+            ? style!.copyWith(fontFamily: 'Rubik')
+            : TextStyle(
+                fontFamily: 'Rubik', // Rubik is now used here
+                fontSize: Dimensions.font(fontSize),
+                fontWeight: fontWeight,
+                color: color,
+              ),
       ),
     );
   }

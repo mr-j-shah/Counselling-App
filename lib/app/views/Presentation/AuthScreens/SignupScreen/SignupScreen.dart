@@ -23,9 +23,8 @@ class Signupscreen extends StatelessWidget {
         padding: EdgeInsetsGeometry.only(
           bottom: MediaQuery.of(context).padding.bottom,
         ),
-        child: DefaultBackground(
-          context,
-          SingleChildScrollView(
+        child: Defaultbackground(
+          child: SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height,
