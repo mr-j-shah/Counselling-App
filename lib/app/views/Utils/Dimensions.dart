@@ -1,24 +1,36 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
+import 'package:flutter/widgets.dart';
 
 class Dimensions {
-  // Screen height & width
-  static double screenHeight = 0;
-  static double screenWidth = 0;
+  static late double screenWidth;
+  static late double screenHeight;
 
-  // Common ratios (use based on 812 x 375 base iPhone design)
-  static double baseHeight = 812.0;
-  static double baseWidth = 375.0;
+  /// Use the actual device’s shorter side as baseWidth,
+  /// and longer side as baseHeight, so foldables/tablets work too.
+  static late double baseWidth;
+  static late double baseHeight;
 
-  // Initialize dimensions from context
+  /// Call this in your root widget’s build or in a Builder
   static void init(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    screenHeight = size.height;
     screenWidth = size.width;
+    screenHeight = size.height;
+
+    // On any device/orientation, treat the short side as baseWidth
+    // and the long side as baseHeight
+    final minSide = min(screenWidth, screenHeight);
+    final maxSide = max(screenWidth, screenHeight);
+    baseWidth = minSide;
+    baseHeight = maxSide;
   }
 
-  // Scale height, width, font based on base screen
+  /// Scale a height value from the “base” reference to the real screen
   static double height(double value) => (screenHeight / baseHeight) * value;
+
+  /// Scale a width value
   static double width(double value) => (screenWidth / baseWidth) * value;
+
+  /// For fonts, radii, padding, you can pick height‑based or width‑based scaling
   static double font(double value) => height(value);
   static double radius(double value) => height(value);
   static double padding(double value) => height(value);

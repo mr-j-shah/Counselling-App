@@ -13,7 +13,7 @@ class Introcontroller extends GetxController {
   }
 
   void _startCycle() {
-    Timer.periodic(const Duration(seconds: 10), (_) {
+    Timer.periodic(const Duration(seconds: 5), (_) {
       // Main stay states: 0 (left), 2 (right), 4 (left again)
       if (positionIndex.value == 0) {
         positionIndex.value = 1; // to center
@@ -32,9 +32,9 @@ class Introcontroller extends GetxController {
   double getTop() {
     switch (positionIndex.value) {
       case 1:
-        return Dimensions.height(105);
+        return Dimensions.height(110);
       case 3:
-        return Dimensions.height(105); // center height
+        return Dimensions.height(110); // center height
       default:
         return -Dimensions.height(20); // top
     }

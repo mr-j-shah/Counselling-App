@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/Constants/AppAssets.dart';
@@ -36,9 +38,12 @@ class _IntroscreenState extends State<Introscreen> {
                       top: animationController.getTop(),
                       left: animationController.getLeft(),
                       right: animationController.getRight(),
-                      child: CircleAvatar(
-                        radius: Dimensions.radius(140),
-                        backgroundColor: primaryColor,
+                      child: ImageFiltered(
+                        imageFilter: ImageFilter.blur(sigmaX: 10,sigmaY: 10),
+                        child: CircleAvatar(
+                          radius: Dimensions.radius(140),
+                          backgroundColor: primaryColor,
+                        ),
                       ),
                     ),
                   ),
@@ -94,7 +99,7 @@ class _IntroscreenState extends State<Introscreen> {
                 ),
               );
             }),
-            Spacer(),
+            SizedBox(height: Dimensions.height(35)),
             PrimaryButton(
               text: Appstring.introButtonText,
               onPressed: () {

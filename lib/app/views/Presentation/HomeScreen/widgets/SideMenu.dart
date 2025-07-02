@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/Constants/AppAssets.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/controller/HomeController.dart';
+import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/SideMenuTiles.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
@@ -14,7 +15,7 @@ class Sidemenu extends StatelessWidget {
     Dimensions.init(context);
     return Scaffold(
       body: Container(
-        height: Dimensions.baseHeight,
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Color(0xFF6F7FA1), Color(0xFF536184)],
@@ -82,39 +83,33 @@ class Sidemenu extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  ListTile(
-                    title: Text("My Chats", style: TextStyle(color: white)),
-                    leading: Icon(Icons.chat),
-                    iconColor: Colors.white,
-                    trailing: Icon(Icons.arrow_right),
+                  SideMenuTile(
+                    index: 1,
+                    title: "My Chats",
+                    leadingIcon: Icon(Icons.chat,color: white,),
                   ),
-                  ListTile(
-                    title: Text("Payments", style: TextStyle(color: white)),
-                    leading: Icon(Icons.payment),
-                    iconColor: Colors.white,
-                    trailing: Icon(Icons.arrow_right),
+                  SideMenuTile(
+                    index: 2,
+                    title: "Payments",
+                    leadingIcon: Icon(Icons.payment,color: white,),
                   ),
-                  ListTile(
-                    title: Text(
-                      "Privacy & Policy",
-                      style: TextStyle(color: white),
-                    ),
-                    leading: Icon(Icons.policy),
-                    iconColor: Colors.white,
-                    trailing: Icon(Icons.arrow_right),
-                    onTap: _homecontroller.navigateToPrivacyPolicy,
+                  SideMenuTile(
+                    index: 3,
+                    title: "Privacy & Policy",
+                    leadingIcon: Icon(Icons.policy,color: white,),
+                    onTap: (){
+                      _homecontroller.navigateToPrivacyPolicy();
+                    },
                   ),
-                  ListTile(
-                    title: Text("Help Center", style: TextStyle(color: white)),
-                    leading: Icon(Icons.help_center),
-                    iconColor: Colors.white,
-                    trailing: Icon(Icons.arrow_right),
+                  SideMenuTile(
+                    index: 4,
+                    title: "Help Center",
+                    leadingIcon: Icon(Icons.help_center,color: white,),
                   ),
-                  ListTile(
-                    title: Text("Settings", style: TextStyle(color: white)),
-                    leading: Icon(Icons.settings),
-                    iconColor: Colors.white,
-                    trailing: Icon(Icons.arrow_right),
+                  SideMenuTile(
+                    index: 5,
+                    title: "Settings",
+                    leadingIcon: Icon(Icons.settings,color: white,),
                   ),
                 ],
               ),
