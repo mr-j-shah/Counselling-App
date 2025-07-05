@@ -1,7 +1,9 @@
 class Appassets {
 
-  // Intro Screen
+  static const backIcon = 'assets/icons/back_icon.svg';
+
   static const IntroScreenMainImage = 'assets/images/intro_screen.png';
+  // Intro Screen
 
   // Login Screen
   static const socialButtonGoogle = 'assets/icons/google_icon.svg';

@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/controller/SideMenuController.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';
 import 'package:project_counselling/app/views/Utils/dimensions.dart';
@@ -38,7 +39,7 @@ class SideMenuTile extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           _sidemenucontroller.selectedTile.value = index;
-          Timer(Duration(milliseconds: 400), () {
+          Timer(Duration(milliseconds: _sidemenucontroller.tilesOnClickPauseTime), () {
             _sidemenucontroller.selectedTile.value = -1;
             if (onTap != null) {
               onTap!();
@@ -49,9 +50,9 @@ class SideMenuTile extends StatelessWidget {
           return Stack(
             children: [
               AnimatedContainer(
-                duration: Duration(milliseconds: 200),
+                duration: Duration(milliseconds: _sidemenucontroller.tilesAnimationTime),
                 width: _sidemenucontroller.selectedTile.value == index
-                    ? 500
+                    ? Dimensions.width(500)
                     : 0,
                 height: Dimensions.height(50),
                 decoration: BoxDecoration(
@@ -81,7 +82,7 @@ class SideMenuTile extends StatelessWidget {
                         SizedBox(width: Dimensions.width(16)),
                       ],
                       Expanded(
-                        child: Text(
+                        child: AppText(text: 
                           title,
                           style: TextStyle(
                             fontSize: Dimensions.font(16),
