@@ -1,4 +1,4 @@
-package com.example.project_counselling
+package com.ai.project_counselling
 
 import io.flutter.embedding.android.FlutterActivity
 

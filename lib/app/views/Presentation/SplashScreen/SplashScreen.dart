@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/routers/app_routes.dart';
@@ -24,17 +25,17 @@ class _SplashscreenState extends State<Splashscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Defaultbackground(
-        child: Center(child: Image.asset('assets/images/Splash_Logo.png'),),
+        child: Center(child: Image.asset('assets/images/Splash_Logo.png')),
       ),
     );
   }
 
   void navigateToNext() {
-    Get.offAllNamed(Routes.INTRO_SCREEN);
-    // if (AppPref.getPin() != null) {
-    //   Get.offAllNamed(Routes.HOME);
-    // } else {
-    //   // todo login screen from here
-    // }
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      Get.offAllNamed(Routes.HOME);
+    } else {
+      Get.offAllNamed(Routes.INTRO_SCREEN);
+    }
   }
 }

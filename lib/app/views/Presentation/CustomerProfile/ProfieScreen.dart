@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_counselling/app/Constants/AppString.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
 import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart';
@@ -19,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
             width: double.infinity,
             color: primaryColor,
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            child: CustomAppbar(title: "Profile", titleColor: white),
+            child: CustomAppbar(title: Appstring.profileTitle, titleColor: white),
           ),
           Expanded(
             child: SingleChildScrollView(
@@ -46,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
                             horizontal: Dimensions.padding(20),
                           ),
                           child: AppText(
-                            text: "Set up your profile",
+                            text: Appstring.setUpYourProfile,
                             fontSize: Dimensions.font(18),
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
@@ -59,7 +60,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           child: AppText(
                             text:
-                                "Update your profile to connect your doctor with better impression.",
+                                Appstring.updateProfileTitle,
                             style: TextStyle(
                               fontSize: Dimensions.font(14),
                               color: Colors.white,
@@ -99,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppText(
-                          text: "Personal information",
+                          text: Appstring.personalInfo,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: Dimensions.font(18),
@@ -107,25 +108,25 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         SizedBox(height: Dimensions.height(16)),
                         Personalinfrotiles(
-                          label: "Name",
-                          value: "Abdullah Mamun",
+                          label: Appstring.name,
+                          value: "Jinay Shah",
                         ),
                         Personalinfrotiles(
-                          label: "Contact Number",
-                          value: "+8801800000000",
+                          label: Appstring.contactNumber,
+                          value: "+91 9978530638",
                         ),
                         Personalinfrotiles(
-                          label: "Date of birth",
+                          label: Appstring.dateOfBirth,
                           value: "DD MM YYYY",
                         ),
                         Personalinfrotiles(
-                          label: "Location",
+                          label: Appstring.location,
                           value: "Add Details",
                           showEdit: false,
                         ),
                         Center(
                           child: PrimaryButton(
-                            text: "Continue",
+                            text: Appstring.continueTxt,
                             onPressed: () {},
                           ),
                         ),

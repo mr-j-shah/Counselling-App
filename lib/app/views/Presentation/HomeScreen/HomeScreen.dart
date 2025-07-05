@@ -36,6 +36,11 @@ class _AnimatedHomeLayers extends StatelessWidget {
             controller.isMenuOpen.value = false;
           }
         },
+        onTap: () {
+          if (menuOpen) {
+            controller.isMenuOpen.value = false;
+          }
+        },
         child: Stack(
           children: [
             // Background layer: faded peek of content

@@ -1,4 +1,4 @@
-import 'package:project_counselling/app/models/chat_message.dart';
+import 'package:project_counselling/app/data/models/chat_message.dart';
 
 class ChatRequest {
   final List<ChatMessage> messages;

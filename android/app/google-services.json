@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1042813184744",
+    "project_id": "counsellingapp-8bd4c",
+    "storage_bucket": "counsellingapp-8bd4c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042813184744:android:ab28fcb31d95d8e101f75d",
+        "android_client_info": {
+          "package_name": "com.ai.project_counselling"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCyDBw59Yq0qbjvIIaZMIDT_HbuaK9VHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

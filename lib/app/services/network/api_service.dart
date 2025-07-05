@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
-import 'package:project_counselling/app/models/apimodel/ChatRequest.dart';
-import 'package:project_counselling/app/models/apimodel/ChatResponse.dart';
+import 'package:project_counselling/app/data/models/apimodel/ChatRequest.dart';
+import 'package:project_counselling/app/data/models/apimodel/ChatResponse.dart';
 import 'package:project_counselling/app/services/network/callback.dart';
 import 'package:project_counselling/app/services/network/dio_client.dart';
 import 'package:project_counselling/app/services/network/exeption_handler.dart';

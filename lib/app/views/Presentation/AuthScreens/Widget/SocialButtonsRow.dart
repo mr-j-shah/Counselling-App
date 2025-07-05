@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:project_counselling/app/Constants/AppAssets.dart';
 import 'package:project_counselling/app/Constants/AppString.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/Widget/SocialButton.dart';
+import 'package:project_counselling/app/views/Presentation/AuthScreens/controller/AuthContoller.dart';
 import 'package:project_counselling/app/views/Utils/dimensions.dart';
 
 class Socialbuttonsrow extends StatelessWidget {
-  const Socialbuttonsrow({super.key});
-
+  Socialbuttonsrow({super.key});
+  final Authcontroller _authcontroller = Get.find<Authcontroller>();
   @override
   Widget build(BuildContext context) {
     Dimensions.init(context);
@@ -24,8 +26,12 @@ class Socialbuttonsrow extends StatelessWidget {
               height: Dimensions.height(18),
               width: Dimensions.width(18),
               fit: BoxFit.contain,
-              placeholderBuilder: (ctx) =>  Center(child: CircularProgressIndicator()),
+              placeholderBuilder: (ctx) =>
+                  Center(child: CircularProgressIndicator()),
             ),
+            () {
+              _authcontroller.loginWithGoogle();
+            },
           ),
           SizedBox(width: Dimensions.width(15)),
           socialButton(
@@ -35,8 +41,10 @@ class Socialbuttonsrow extends StatelessWidget {
               height: Dimensions.height(18),
               width: Dimensions.width(18),
               fit: BoxFit.contain,
-              placeholderBuilder: (ctx) =>  Center(child: CircularProgressIndicator()),
+              placeholderBuilder: (ctx) =>
+                  Center(child: CircularProgressIndicator()),
             ),
+            () {},
           ),
         ],
       ),

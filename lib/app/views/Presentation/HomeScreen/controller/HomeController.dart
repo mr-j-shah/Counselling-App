@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:project_counselling/app/models/language.dart';
+import 'package:project_counselling/app/data/models/language.dart';
 import 'package:project_counselling/app/routers/app_routes.dart';
 
 class Homecontroller extends GetxController {

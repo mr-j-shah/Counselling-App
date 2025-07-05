@@ -31,10 +31,21 @@ class Appstring {
   static const privacyPolicy = "Privacy policy";
 
   // Side Menu
-  static const myChats = "My Chats";
+  static const mySessions = "My Sessions";
   static const payments = "Payments";
   static const privacyAndPolicy = "Privacy & Policy";
   static const helpCenter = "Help Center";
   static const settings = "Settings";
   static const logOut = "Log Out";
+
+  // Profile Screen
+  static const profileTitle = "Profie";
+  static const setUpYourProfile = "Set up your profile";
+  static const updateProfileTitle = "Update your profile to connect your doctor with better impression.";
+  static const personalInfo = "Personal information";
+  static const name = "Name";
+  static const contactNumber = "Contact Number";
+  static const dateOfBirth ="Date of birth";
+  static const location ="Location";
+
 }
