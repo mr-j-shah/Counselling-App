@@ -36,4 +36,5 @@ class Appstring {
   static const privacyAndPolicy = "Privacy & Policy";
   static const helpCenter = "Help Center";
   static const settings = "Settings";
+  static const logOut = "Log Out";
 }

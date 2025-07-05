@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:project_counselling/app/Constants/AppAssets.dart';
+import 'package:project_counselling/app/Constants/AppString.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/controller/SideMenuController.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/model/SideMenu.dart';
@@ -35,7 +38,9 @@ class Sidemenu extends StatelessWidget {
             GestureDetector(
               onTap: _sidemenucontroller.navigateToProfileScreen,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: Dimensions.padding(20)),
+                padding: EdgeInsets.symmetric(
+                  horizontal: Dimensions.padding(20),
+                ),
                 child: Row(
                   children: [
                     CircleAvatar(
@@ -82,7 +87,7 @@ class Sidemenu extends StatelessWidget {
                     SideMenuTile(
                       index: sideMenutileData.index,
                       title: sideMenutileData.title,
-                      leadingIcon: Icon(Icons.payment, color: white),
+                      leadingIcon: SvgPicture.asset(sideMenutileData.icon),
                       onTap: () {
                         _sidemenucontroller.sideMenuClick(
                           sideMenutileData.index,
@@ -96,12 +101,12 @@ class Sidemenu extends StatelessWidget {
             Spacer(),
             ListTile(
               title: AppText(
-                text: "Log Out",
+                text: Appstring.logOut,
                 style: TextStyle(color: white),
                 fontSize: Dimensions.font(16),
                 fontWeight: FontWeight.w500,
               ),
-              leading: Icon(Icons.logout_outlined),
+              leading: SvgPicture.asset(Appassets.logoutIcon),
               iconColor: Colors.white,
               onTap: _sidemenucontroller.logOutUser,
             ),

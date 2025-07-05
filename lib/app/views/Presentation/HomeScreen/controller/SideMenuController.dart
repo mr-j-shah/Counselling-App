@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:project_counselling/app/Constants/AppAssets.dart';
 import 'package:project_counselling/app/Constants/AppString.dart';
 import 'package:project_counselling/app/routers/app_routes.dart';
 import 'package:project_counselling/app/views/AppWidgets/CustomDialog.dart';
@@ -45,10 +46,10 @@ class Sidemenucontroller extends GetxController {
   }
 
   List<SidemenuModel> sideMenuItems = [
-    SidemenuModel(index: 1, title: Appstring.myChats),
-    SidemenuModel(index: 2, title: Appstring.payments),
-    SidemenuModel(index: 3, title: Appstring.privacyAndPolicy),
-    SidemenuModel(index: 4, title: Appstring.helpCenter),
-    SidemenuModel(index: 5, title: Appstring.settings),
+    SidemenuModel(index: 1, title: Appstring.myChats, icon: Appassets.mySessionsIcon),
+    SidemenuModel(index: 2, title: Appstring.payments,icon: Appassets.paymentsIcon),
+    SidemenuModel(index: 3, title: Appstring.privacyAndPolicy,icon: Appassets.privacyPolicyIcon),
+    SidemenuModel(index: 4, title: Appstring.helpCenter,icon: Appassets.helpIcon),
+    SidemenuModel(index: 5, title: Appstring.settings, icon: Appassets.settingsIcon),
   ];
 }

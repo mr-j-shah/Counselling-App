@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/Widgets/SideMenu.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/controller/HomeController.dart';
-import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/MainWidget.dart';
+import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/HomeMainWidget.dart';
 import 'package:project_counselling/app/views/Utils/dimensions.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -59,7 +59,7 @@ class _AnimatedHomeLayers extends StatelessWidget {
                     curve: animationCurve,
                     decoration: BoxDecoration(borderRadius: borderRadius),
                     clipBehavior: Clip.antiAlias,
-                    child: Mainwidget(),
+                    child: HomeMainwidget(),
                   ),
                 ),
               ),
@@ -82,7 +82,7 @@ class _AnimatedHomeLayers extends StatelessWidget {
                   curve: animationCurve,
                   decoration: BoxDecoration(borderRadius: borderRadius),
                   clipBehavior: Clip.antiAlias,
-                  child: Mainwidget(),
+                  child: HomeMainwidget(),
                 ),
               ),
             ),

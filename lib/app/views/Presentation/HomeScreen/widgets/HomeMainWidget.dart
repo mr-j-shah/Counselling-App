@@ -6,9 +6,9 @@ import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/Ho
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/HomeBottomnavigation.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
-class Mainwidget extends StatelessWidget {
+class HomeMainwidget extends StatelessWidget {
   final Homecontroller _homecontroller = Get.find<Homecontroller>();
-  Mainwidget({super.key});
+  HomeMainwidget({super.key});
 
   @override
   Widget build(BuildContext context) {
