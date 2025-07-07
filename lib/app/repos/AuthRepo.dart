@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project_counselling/app/data/enums/AuthFailedState.dart';
 import 'package:project_counselling/app/data/models/apimodel/FirebaseAuthResponse.dart';
-import 'package:project_counselling/app/data/enums/failstate.dart';
 import 'package:project_counselling/app/data/models/apimodel/UserLoginWithPass.dart';
 import 'package:project_counselling/app/data/models/apimodel/UserSignupRequest.dart';
 
@@ -81,7 +80,7 @@ class Authrepo {
             password: signupRequest.password,
           );
       print("User created: ${userCredential.user!.email}");
-      return Firebaseauthresponse(userCredential: userCredential);
+      return Firebaseauthresponse(userCredential: userCredential, message: "User Created Successfully!");
     } on FirebaseAuthException catch (e) {
       String message = "Signup failed";
       if (e.code == 'email-already-in-use') {

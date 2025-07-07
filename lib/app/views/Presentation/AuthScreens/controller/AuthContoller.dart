@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/constants/AppString.dart';
 import 'package:project_counselling/app/data/enums/AuthFailedState.dart';
@@ -12,7 +11,6 @@ import '../../../../data/models/User.dart' as localUser;
 import 'package:project_counselling/app/repos/AuthRepo.dart';
 import 'package:project_counselling/app/repos/UserRepo.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
-import 'package:project_counselling/app/data/enums/failstate.dart';
 import 'package:project_counselling/app/views/Utils/CustomSnackbar.dart';
 import 'package:project_counselling/app/views/Utils/Loading.dart';
 
@@ -45,6 +43,26 @@ class Authcontroller extends GetxController {
   }
 
   void loginWithPassword() async {
+    var email = emailLoginController.text;
+    var password = passwordLoginController.text;
+
+    if (email.isEmpty || email.length < 3) {
+      Customsnackbar.show(
+        title: Appstring.login,
+        subtitle: "Please enter valid E-Mail!",
+      );
+      return;
+    }
+
+    if (password.isEmpty || password.length < 8) {
+      Customsnackbar.show(
+        title: Appstring.login,
+        subtitle:
+            "Please enter valid Password!",
+      );
+      return;
+    }
+
     Loading.show();
     await _authrepo
         .signInWithEmailPassword(
@@ -55,6 +73,13 @@ class Authcontroller extends GetxController {
         )
         .then((value) {
           if (value.failedState == Authfailedstate.NONE) {
+            Customsnackbar.show(
+              title: Appstring.login,
+              subtitle: value.message,
+              leadingIcon: Icon(Icons.check),
+            );
+            Get.offAllNamed(Routes.HOME);
+            Loading.hide();
           } else {
             Loading.hide();
             Customsnackbar.show(
@@ -96,7 +121,8 @@ class Authcontroller extends GetxController {
     if (password.isEmpty || password.length < 8) {
       Customsnackbar.show(
         title: Appstring.login,
-        subtitle: "Please enter valid Password! It must be gratter than or equal 8 Characters",
+        subtitle:
+            "Please enter valid Password! It must be gratter than or equal 8 Characters",
       );
       return;
     }
@@ -104,29 +130,19 @@ class Authcontroller extends GetxController {
     Loading.show();
     await _authrepo
         .signUpWithEmail(
-          Usersignuprequest(
-            email: email,
-            name: name,
-            password: password,
-          ),
+          Usersignuprequest(email: email, name: name, password: password),
         )
         .then((value) {
           if (value.failedState == Authfailedstate.NONE) {
-            _userrepo
-                .addUser(
-                  localUser.User(
-                    name: name,
-                    email: email,
-                  ),
-                )
-                .then((addValue) {
-                  Customsnackbar.show(
-                    title: Appstring.login,
-                    subtitle: value.message,
-                    leadingIcon: Icon(Icons.check),
-                  );
-                  Get.offAllNamed(Routes.HOME);
-                });
+            _userrepo.addUser(localUser.User(name: name, email: email)).then((
+              addValue,
+            ) {
+              Customsnackbar.show(
+                title: Appstring.login,
+                subtitle: value.message,
+                leadingIcon: Icon(Icons.check),
+              );
+            });
           } else {
             Loading.hide();
             Customsnackbar.show(

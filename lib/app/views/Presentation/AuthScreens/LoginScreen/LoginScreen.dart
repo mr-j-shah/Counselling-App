@@ -18,7 +18,6 @@ class Loginscreen extends StatelessWidget {
   final Authcontroller authcontroller = Get.find<Authcontroller>();
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
     return Scaffold(
       body: Padding(
         padding: EdgeInsetsGeometry.only(
