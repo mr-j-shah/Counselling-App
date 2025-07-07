@@ -55,7 +55,7 @@ class Sidemenu extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AppText(
-                            text: "Jinay Shah",
+                            text: _sidemenucontroller.getUserName(),
                             style: TextStyle(
                               fontSize: Dimensions.font(16),
                               fontWeight: FontWeight.w500,
@@ -63,7 +63,7 @@ class Sidemenu extends StatelessWidget {
                             ),
                           ),
                           AppText(
-                            text: "+91 9978530638",
+                            text: _sidemenucontroller.getEmail(),
                             style: TextStyle(
                               fontSize: Dimensions.font(12),
                               color: Colors.white,

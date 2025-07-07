@@ -109,16 +109,16 @@ class _IntroscreenState extends State<Introscreen> {
               textColor: white,
             ),
             SizedBox(height: Dimensions.height(25)),
-            Padding(
-              padding: EdgeInsetsGeometry.only(
-                bottom: MediaQuery.of(context).padding.bottom,
-              ),
-              child: AppText(
-                onClick: animationController.navigateToHome,
-                text: Appstring.skip,
-                fontSize: Dimensions.font(14),
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsetsGeometry.only(
+            //     bottom: MediaQuery.of(context).padding.bottom,
+            //   ),
+            //   child: AppText(
+            //     onClick: animationController.navigateToHome,
+            //     text: Appstring.skip,
+            //     fontSize: Dimensions.font(14),
+            //   ),
+            // ),
             SizedBox(height: Dimensions.height(10)),
           ],
         ),

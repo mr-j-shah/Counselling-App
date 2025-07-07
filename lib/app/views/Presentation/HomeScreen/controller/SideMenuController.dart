@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/Constants/AppAssets.dart';
 import 'package:project_counselling/app/Constants/AppString.dart';
@@ -10,11 +11,10 @@ class Sidemenucontroller extends GetxController {
   Rx<int> selectedTile = (-1).obs;
   int tilesAnimationTime = 200;
   int tilesOnClickPauseTime = 400;
-
-  Authrepo _authrepo = new Authrepo();
+  final User? _user = FirebaseAuth.instance.currentUser;
+  final Authrepo _authrepo = Authrepo();
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
   }
 
@@ -32,7 +32,7 @@ class Sidemenucontroller extends GetxController {
       title: "Log Out",
       subtitle: "Are you sure you want to logout?",
       cancelText: "Cancel",
-      onConfirm: () async{
+      onConfirm: () async {
         await _authrepo.signOut();
         Get.offAllNamed(Routes.LOGIN_SCREEN);
       },
@@ -48,11 +48,39 @@ class Sidemenucontroller extends GetxController {
     }
   }
 
+  String getUserName() {
+    return _user?.displayName ?? "User";
+  }
+
+  String getEmail() {
+    return "+91 9978530638";
+  }
+
   List<SidemenuModel> sideMenuItems = [
-    SidemenuModel(index: 1, title: Appstring.mySessions, icon: Appassets.mySessionsIcon),
-    SidemenuModel(index: 2, title: Appstring.payments,icon: Appassets.paymentsIcon),
-    SidemenuModel(index: 3, title: Appstring.privacyAndPolicy,icon: Appassets.privacyPolicyIcon),
-    SidemenuModel(index: 4, title: Appstring.helpCenter,icon: Appassets.helpIcon),
-    SidemenuModel(index: 5, title: Appstring.settings, icon: Appassets.settingsIcon),
+    SidemenuModel(
+      index: 1,
+      title: Appstring.mySessions,
+      icon: Appassets.mySessionsIcon,
+    ),
+    SidemenuModel(
+      index: 2,
+      title: Appstring.payments,
+      icon: Appassets.paymentsIcon,
+    ),
+    SidemenuModel(
+      index: 3,
+      title: Appstring.privacyAndPolicy,
+      icon: Appassets.privacyPolicyIcon,
+    ),
+    SidemenuModel(
+      index: 4,
+      title: Appstring.helpCenter,
+      icon: Appassets.helpIcon,
+    ),
+    SidemenuModel(
+      index: 5,
+      title: Appstring.settings,
+      icon: Appassets.settingsIcon,
+    ),
   ];
 }

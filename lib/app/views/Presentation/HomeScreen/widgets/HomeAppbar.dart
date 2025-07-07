@@ -39,13 +39,13 @@ class Homeappbar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: Dimensions.baseWidth * 0.6,
+                      width: Dimensions.baseWidth * 0.75,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AppText(
-                            text: "Hi Jinay!",
+                            text: "Hi, ${_homecontroller.getUserName()}!",
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                           SizedBox(height: 4),
@@ -67,8 +67,8 @@ class Homeappbar extends StatelessWidget {
                       child: CircleAvatar(
                         radius: Dimensions.radius(30),
                         backgroundImage: NetworkImage(
-                                "https://i.imgur.com/BoN9kdC.png",
-                              ),
+                           "https://i.imgur.com/BoN9kdC.png",
+                        ),
                       ),
                     ),
                   ],

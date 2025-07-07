@@ -25,94 +25,87 @@ class Signupscreen extends StatelessWidget {
         ),
         child: Defaultbackground(
           child: SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height,
-              ),
-              child: IntrinsicHeight(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: Dimensions.height(100)),
-                    AppText(
-                      text: Appstring.signUpScreenTitle,
-                      fontSize: Dimensions.font(28),
-                      fontWeight: FontWeight.bold,
-                      align: TextAlign.center,
-                    ),
-                    SizedBox(height: Dimensions.height(10)),
-                    Padding(
-                      padding: EdgeInsetsGeometry.symmetric(
-                        horizontal: Dimensions.padding(45),
-                      ),
-                      child: AppText(
-                        text: Appstring.signUpScreenSubTitle,
-                        fontSize: 14,
-                        align: TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(height: Dimensions.height(50)),
-                    Padding(
-                      padding: EdgeInsetsGeometry.symmetric(
-                        horizontal: Dimensions.padding(20),
-                      ),
-                      child: Socialbuttonsrow(),
-                    ),
-                    SizedBox(height: Dimensions.height(37)),
-                    // Email Field
-                    Padding(
-                      padding: EdgeInsetsGeometry.symmetric(
-                        horizontal: Dimensions.width(20),
-                      ),
-                      child: Apptextfield(
-                        controller: TextEditingController(),
-                        hintText: "Name",
-                      ),
-                    ),
-                    SizedBox(height: Dimensions.height(18)),
-                    Padding(
-                      padding: EdgeInsetsGeometry.symmetric(
-                        horizontal: Dimensions.width(20),
-                      ),
-                      child: Apptextfield(
-                        controller: TextEditingController(),
-                        hintText: "Email",
-                      ),
-                    ),
-                    SizedBox(height: Dimensions.height(18)),
-                    Padding(
-                      padding: EdgeInsetsGeometry.symmetric(
-                        horizontal: Dimensions.width(20),
-                      ),
-                      child: Apptextfield(
-                        controller: TextEditingController(),
-                        hintText: "Password",
-                        obscureText: true,
-                      ),
-                    ),
-                    SizedBox(height: Dimensions.height(14)),
-                    Padding(
-                      padding: EdgeInsetsGeometry.symmetric(
-                        horizontal: Dimensions.width(20),
-                      ),
-                      child: Termsandcondition(),
-                    ),
-                    SizedBox(height: Dimensions.height(32)),
-                    PrimaryButton(
-                      text: Appstring.signUpScreenButton,
-                      onPressed: () {},
-                    ),
-                    SizedBox(height: Dimensions.height(19)),
-                    AppText(
-                      text: Appstring.haveAnAccont,
-                      color: primaryColor,
-                      fontSize: Dimensions.font(14),
-                      fontWeight: FontWeight.bold,
-                      onClick: authcontrollerSignup.navigateBackToLogin,
-                    ),
-                  ],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: Dimensions.height(100)),
+                AppText(
+                  text: Appstring.signUpScreenTitle,
+                  fontSize: Dimensions.font(28),
+                  fontWeight: FontWeight.bold,
+                  align: TextAlign.center,
                 ),
-              ),
+                SizedBox(height: Dimensions.height(10)),
+                Padding(
+                  padding: EdgeInsetsGeometry.symmetric(
+                    horizontal: Dimensions.padding(45),
+                  ),
+                  child: AppText(
+                    text: Appstring.signUpScreenSubTitle,
+                    fontSize: 14,
+                    align: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: Dimensions.height(50)),
+                Padding(
+                  padding: EdgeInsetsGeometry.symmetric(
+                    horizontal: Dimensions.padding(20),
+                  ),
+                  child: Socialbuttonsrow(),
+                ),
+                SizedBox(height: Dimensions.height(37)),
+                // Email Field
+                Padding(
+                  padding: EdgeInsetsGeometry.symmetric(
+                    horizontal: Dimensions.width(20),
+                  ),
+                  child: Apptextfield(
+                    controller: TextEditingController(),
+                    hintText: "Name",
+                  ),
+                ),
+                SizedBox(height: Dimensions.height(18)),
+                Padding(
+                  padding: EdgeInsetsGeometry.symmetric(
+                    horizontal: Dimensions.width(20),
+                  ),
+                  child: Apptextfield(
+                    controller: TextEditingController(),
+                    hintText: "Email",
+                  ),
+                ),
+                SizedBox(height: Dimensions.height(18)),
+                Padding(
+                  padding: EdgeInsetsGeometry.symmetric(
+                    horizontal: Dimensions.width(20),
+                  ),
+                  child: Apptextfield(
+                    controller: TextEditingController(),
+                    hintText: "Password",
+                    obscureText: true,
+                  ),
+                ),
+                SizedBox(height: Dimensions.height(14)),
+                Padding(
+                  padding: EdgeInsetsGeometry.symmetric(
+                    horizontal: Dimensions.width(20),
+                  ),
+                  child: Termsandcondition(),
+                ),
+                SizedBox(height: Dimensions.height(32)),
+                PrimaryButton(
+                  text: Appstring.signUpScreenButton,
+                  onPressed: () {},
+                ),
+                SizedBox(height: Dimensions.height(19)),
+                AppText(
+                  text: Appstring.haveAnAccont,
+                  color: primaryColor,
+                  fontSize: Dimensions.font(14),
+                  fontWeight: FontWeight.bold,
+                  onClick: authcontrollerSignup.navigateBackToLogin,
+                ),
+              ],
             ),
           ),
         ),
