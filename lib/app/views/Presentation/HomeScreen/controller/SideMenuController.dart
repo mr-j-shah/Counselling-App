@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:project_counselling/app/Constants/AppAssets.dart';
-import 'package:project_counselling/app/Constants/AppString.dart';
-import 'package:project_counselling/app/data/repos/AuthRepo.dart';
+import 'package:project_counselling/app/constants/AppAssets.dart';
+import 'package:project_counselling/app/constants/AppString.dart';
+import 'package:project_counselling/app/repos/AuthRepo.dart';
 import 'package:project_counselling/app/routers/app_routes.dart';
-import 'package:project_counselling/app/views/AppWidgets/CustomDialog.dart';
+import 'package:project_counselling/app/views/Utils/CustomDialog.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/model/SideMenu.dart';
 
 class Sidemenucontroller extends GetxController {
@@ -29,9 +29,9 @@ class Sidemenucontroller extends GetxController {
   void logOutUser() {
     CustomDialog.show(
       context: Get.context!,
-      title: "Log Out",
-      subtitle: "Are you sure you want to logout?",
-      cancelText: "Cancel",
+      title: Appstring.logOut,
+      subtitle: Appstring.sureToLogOut,
+      cancelText: Appstring.cancel,
       onConfirm: () async {
         await _authrepo.signOut();
         Get.offAllNamed(Routes.LOGIN_SCREEN);

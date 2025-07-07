@@ -86,7 +86,7 @@ class Loginscreen extends StatelessWidget {
                     SizedBox(height: Dimensions.height(32)),
 
                     PrimaryButton(
-                      text: Appstring.loginButtonText,
+                      text: Appstring.login,
                       onPressed: () {},
                     ),
                     SizedBox(height: Dimensions.height(19)),

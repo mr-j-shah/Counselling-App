@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:project_counselling/app/data/models/apimodel/FirebaseAuthResponse.dart';
 
 class Authrepo {
-  Future<UserCredential> signInWithGoogle() async {
+  Future<Firebaseauthresponse> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
@@ -10,7 +11,8 @@ class Authrepo {
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    var authCred = await FirebaseAuth.instance.signInWithCredential(credential);
+    return Firebaseauthresponse(userCredential: authCred, message: "");
   }
 
   Future<UserCredential?> signInWithEmailPassword(
@@ -30,6 +32,28 @@ class Authrepo {
         print('Wrong password provided for that user.');
       } else {
         print('Error: ${e.code}');
+      }
+      return null;
+    }
+  }
+
+  Future<UserCredential?> signUpWithEmail(String email, String password) async {
+    try {
+      final userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: email.trim(),
+            password: password,
+          );
+      print("User created: ${userCredential.user!.email}");
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      String message = "Signup failed";
+      if (e.code == 'email-already-in-use') {
+        message = 'Email already in use';
+      } else if (e.code == 'invalid-email') {
+        message = 'Invalid email format';
+      } else if (e.code == 'weak-password') {
+        message = 'Password is too weak';
       }
       return null;
     }

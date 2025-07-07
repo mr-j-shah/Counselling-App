@@ -1,7 +1,9 @@
 class Appstring {
   static const skip = "Skip";
   static const email = "Email";
+  static const password = "Password";
   static const continueTxt = "Continue";
+  static const cancel = "Cancel";
   //login screen text
   static const google = "Google";
   static const facebook = "Facebook";
@@ -10,7 +12,7 @@ class Appstring {
       "It’s okay to pause. Let’s continue moving forward, together.";
   static const loginForgotPass = "Forget Password";
   static const loginDontHaveAcc = "Don’t have an account? Join us";
-  static const loginButtonText = "Login";
+  static const login = "Login";
 
   // Intro Screen text
   static const introButtonText = "Get Started";
@@ -37,6 +39,7 @@ class Appstring {
   static const helpCenter = "Help Center";
   static const settings = "Settings";
   static const logOut = "Log Out";
+  static const sureToLogOut = "Are you sure you want to logout?";
 
   // Profile Screen
   static const profileTitle = "Profie";

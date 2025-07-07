@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:project_counselling/app/Constants/AppAssets.dart';
+import 'package:project_counselling/app/constants/AppAssets.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/Utils/dimensions.dart';
 

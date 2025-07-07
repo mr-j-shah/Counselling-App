@@ -9,6 +9,7 @@ class Apptextfield extends StatelessWidget {
   final Color iconColor;
   final Color borderColor;
   final bool obscureText;
+  final TextInputType keyboardType;
 
   const Apptextfield({
     super.key,
@@ -17,7 +18,8 @@ class Apptextfield extends StatelessWidget {
     this.suffixIcon,
     this.iconColor = textFieldSuffixIconColor,
     this.borderColor = textFieldBorder,
-    this.obscureText = false
+    this.obscureText = false,
+    this.keyboardType = TextInputType.text
   });
 
   @override
@@ -27,6 +29,7 @@ class Apptextfield extends StatelessWidget {
 
     return TextFormField(
       controller: controller,
+      keyboardType: keyboardType,
       decoration: InputDecoration(
         hintText: hintText,
         suffixIcon: suffixIcon,

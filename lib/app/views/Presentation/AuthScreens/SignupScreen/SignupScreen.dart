@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_counselling/app/Constants/AppString.dart';
+import 'package:project_counselling/app/constants/AppString.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppTextField.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
@@ -60,8 +60,9 @@ class Signupscreen extends StatelessWidget {
                     horizontal: Dimensions.width(20),
                   ),
                   child: Apptextfield(
-                    controller: TextEditingController(),
-                    hintText: "Name",
+                    keyboardType: TextInputType.name,
+                    controller: authcontrollerSignup.nameController,
+                    hintText: Appstring.name,
                   ),
                 ),
                 SizedBox(height: Dimensions.height(18)),
@@ -70,8 +71,9 @@ class Signupscreen extends StatelessWidget {
                     horizontal: Dimensions.width(20),
                   ),
                   child: Apptextfield(
-                    controller: TextEditingController(),
-                    hintText: "Email",
+                    keyboardType: TextInputType.emailAddress,
+                    controller: authcontrollerSignup.emailController,
+                    hintText: Appstring.email,
                   ),
                 ),
                 SizedBox(height: Dimensions.height(18)),
@@ -79,11 +81,17 @@ class Signupscreen extends StatelessWidget {
                   padding: EdgeInsetsGeometry.symmetric(
                     horizontal: Dimensions.width(20),
                   ),
-                  child: Apptextfield(
-                    controller: TextEditingController(),
-                    hintText: "Password",
-                    obscureText: true,
-                  ),
+                  child: Obx(() {
+                    return Apptextfield(
+                      suffixIcon: authcontrollerSignup.isPasswordVisible.value
+                          ? InkWell(child: Icon(Icons.visibility),onTap: authcontrollerSignup.togglePasswordVisiblity,)
+                          : InkWell(child: Icon(Icons.visibility_off),onTap: authcontrollerSignup.togglePasswordVisiblity,),
+                      controller: authcontrollerSignup.passwordController,
+                      hintText: Appstring.password,
+                      obscureText:
+                          !authcontrollerSignup.isPasswordVisible.value,
+                    );
+                  }),
                 ),
                 SizedBox(height: Dimensions.height(14)),
                 Padding(

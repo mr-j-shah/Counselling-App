@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_counselling/app/Constants/AppAssets.dart';
-import 'package:project_counselling/app/Constants/AppString.dart';
+import 'package:project_counselling/app/constants/AppAssets.dart';
+import 'package:project_counselling/app/constants/AppString.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/Presentation/IntroScreen/controller/IntroController.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';

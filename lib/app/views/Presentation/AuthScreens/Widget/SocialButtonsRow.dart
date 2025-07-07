@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:project_counselling/app/Constants/AppAssets.dart';
-import 'package:project_counselling/app/Constants/AppString.dart';
+import 'package:project_counselling/app/constants/AppAssets.dart';
+import 'package:project_counselling/app/constants/AppString.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/Widget/SocialButton.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/controller/AuthContoller.dart';
 import 'package:project_counselling/app/views/Utils/dimensions.dart';
@@ -44,7 +44,9 @@ class Socialbuttonsrow extends StatelessWidget {
               placeholderBuilder: (ctx) =>
                   Center(child: CircularProgressIndicator()),
             ),
-            () {},
+            () {
+              _authcontroller.loginWithFaceBook();
+            },
           ),
         ],
       ),
