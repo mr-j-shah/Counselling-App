@@ -1,10 +1,16 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/constants/AppString.dart';
+import 'package:project_counselling/app/data/enums/AuthFailedState.dart';
+import 'package:project_counselling/app/data/models/apimodel/UserLoginWithPass.dart';
+import 'package:project_counselling/app/data/models/apimodel/UserSignupRequest.dart';
+import '../../../../data/models/User.dart' as localUser;
 import 'package:project_counselling/app/repos/AuthRepo.dart';
+import 'package:project_counselling/app/repos/UserRepo.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/data/enums/failstate.dart';
 import 'package:project_counselling/app/views/Utils/CustomSnackbar.dart';
@@ -14,9 +20,13 @@ class Authcontroller extends GetxController {
   RxBool isAgreed = false.obs;
   RxBool isPasswordVisible = false.obs;
   Authrepo _authrepo = new Authrepo();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  Userrepo _userrepo = new Userrepo();
+  TextEditingController nameSignUpController = TextEditingController();
+  TextEditingController emailSignUpController = TextEditingController();
+  TextEditingController passwordSignUpController = TextEditingController();
+
+  TextEditingController emailLoginController = TextEditingController();
+  TextEditingController passwordLoginController = TextEditingController();
 
   void toggleAgreement() {
     isAgreed.value = !isAgreed.value;
@@ -34,22 +44,127 @@ class Authcontroller extends GetxController {
     Get.back();
   }
 
+  void loginWithPassword() async {
+    Loading.show();
+    await _authrepo
+        .signInWithEmailPassword(
+          Userloginwithpass(
+            email: emailLoginController.text,
+            password: passwordLoginController.text,
+          ),
+        )
+        .then((value) {
+          if (value.failedState == Authfailedstate.NONE) {
+          } else {
+            Loading.hide();
+            Customsnackbar.show(
+              title: Appstring.login,
+              subtitle: value.message,
+            );
+          }
+        });
+  }
+
+  void signUpUser() async {
+    var name = nameSignUpController.text;
+    var email = emailSignUpController.text;
+    var password = passwordSignUpController.text;
+    if (!isAgreed.value) {
+      Customsnackbar.show(
+        title: Appstring.login,
+        subtitle: "Please accept terms and condition",
+      );
+      return;
+    }
+
+    if (name.isEmpty || name.length < 3) {
+      Customsnackbar.show(
+        title: Appstring.login,
+        subtitle: "Please enter valid name!",
+      );
+      return;
+    }
+
+    if (email.isEmpty || email.length < 3) {
+      Customsnackbar.show(
+        title: Appstring.login,
+        subtitle: "Please enter valid E-Mail!",
+      );
+      return;
+    }
+
+    if (password.isEmpty || password.length < 8) {
+      Customsnackbar.show(
+        title: Appstring.login,
+        subtitle: "Please enter valid Password! It must be gratter than or equal 8 Characters",
+      );
+      return;
+    }
+
+    Loading.show();
+    await _authrepo
+        .signUpWithEmail(
+          Usersignuprequest(
+            email: email,
+            name: name,
+            password: password,
+          ),
+        )
+        .then((value) {
+          if (value.failedState == Authfailedstate.NONE) {
+            _userrepo
+                .addUser(
+                  localUser.User(
+                    name: name,
+                    email: email,
+                  ),
+                )
+                .then((addValue) {
+                  Customsnackbar.show(
+                    title: Appstring.login,
+                    subtitle: value.message,
+                    leadingIcon: Icon(Icons.check),
+                  );
+                  Get.offAllNamed(Routes.HOME);
+                });
+          } else {
+            Loading.hide();
+            Customsnackbar.show(
+              title: Appstring.login,
+              subtitle: value.message,
+            );
+          }
+        })
+        .catchError((e) {
+          Loading.hide();
+          Customsnackbar.show(title: Appstring.login, subtitle: e.toString());
+        });
+  }
+
   void loginWithGoogle() async {
     Loading.show();
     await _authrepo.signInWithGoogle().then((value) {
-      Loading.hide();
-      if (value.failedState == FailedState.NONE) {
-        Customsnackbar.show(
-          title: Appstring.login,
-          subtitle: value.message!,
-          leadingIcon: Icon(Icons.check),
-        );
-        Get.offAllNamed(Routes.HOME);
+      if (value.failedState == Authfailedstate.NONE) {
+        var firebaseUser = FirebaseAuth.instance.currentUser;
+        _userrepo
+            .addUser(
+              localUser.User(
+                name: firebaseUser!.displayName!,
+                email: firebaseUser.email!,
+              ),
+            )
+            .then((addValue) {
+              Loading.hide();
+              Customsnackbar.show(
+                title: Appstring.login,
+                subtitle: value.message,
+                leadingIcon: Icon(Icons.check),
+              );
+              Get.offAllNamed(Routes.HOME);
+            });
       } else {
-        Customsnackbar.show(
-          title: Appstring.login,
-          subtitle: value.message!,
-        );
+        Loading.hide();
+        Customsnackbar.show(title: Appstring.login, subtitle: value.message);
       }
     });
   }

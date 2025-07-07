@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_counselling/app/data/models/apimodel/chat_message.dart';
+import 'package:project_counselling/app/data/models/apimodel/ChatMessage.dart';
 import 'package:project_counselling/app/data/enums/chat_users.dart';
 
 class UserChatScreen extends StatelessWidget {

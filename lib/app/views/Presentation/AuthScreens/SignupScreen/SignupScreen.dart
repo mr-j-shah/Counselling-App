@@ -61,7 +61,7 @@ class Signupscreen extends StatelessWidget {
                   ),
                   child: Apptextfield(
                     keyboardType: TextInputType.name,
-                    controller: authcontrollerSignup.nameController,
+                    controller: authcontrollerSignup.nameSignUpController,
                     hintText: Appstring.name,
                   ),
                 ),
@@ -72,7 +72,7 @@ class Signupscreen extends StatelessWidget {
                   ),
                   child: Apptextfield(
                     keyboardType: TextInputType.emailAddress,
-                    controller: authcontrollerSignup.emailController,
+                    controller: authcontrollerSignup.emailSignUpController,
                     hintText: Appstring.email,
                   ),
                 ),
@@ -86,7 +86,7 @@ class Signupscreen extends StatelessWidget {
                       suffixIcon: authcontrollerSignup.isPasswordVisible.value
                           ? InkWell(child: Icon(Icons.visibility),onTap: authcontrollerSignup.togglePasswordVisiblity,)
                           : InkWell(child: Icon(Icons.visibility_off),onTap: authcontrollerSignup.togglePasswordVisiblity,),
-                      controller: authcontrollerSignup.passwordController,
+                      controller: authcontrollerSignup.passwordSignUpController,
                       hintText: Appstring.password,
                       obscureText:
                           !authcontrollerSignup.isPasswordVisible.value,
@@ -103,7 +103,9 @@ class Signupscreen extends StatelessWidget {
                 SizedBox(height: Dimensions.height(32)),
                 PrimaryButton(
                   text: Appstring.signUpScreenButton,
-                  onPressed: () {},
+                  onPressed: () {
+                    authcontrollerSignup.signUpUser();
+                  },
                 ),
                 SizedBox(height: Dimensions.height(19)),
                 AppText(

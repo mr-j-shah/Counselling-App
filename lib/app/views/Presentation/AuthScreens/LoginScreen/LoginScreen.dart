@@ -66,8 +66,8 @@ class Loginscreen extends StatelessWidget {
                         horizontal: Dimensions.width(20),
                       ),
                       child: Apptextfield(
-                        controller: emailController,
-                        hintText: 'itsmemamun1@gmail.com',
+                        controller: authcontroller.emailLoginController,
+                        hintText: Appstring.email,
                       ),
                     ),
                     SizedBox(height: Dimensions.height(18)),
@@ -78,19 +78,19 @@ class Loginscreen extends StatelessWidget {
                         horizontal: Dimensions.width(20),
                       ),
                       child: Apptextfield(
-                        controller: TextEditingController(),
-                        hintText: 'Password',
+                        controller: authcontroller.passwordLoginController,
+                        hintText: Appstring.password,
                         obscureText: true,
                       ),
                     ),
                     SizedBox(height: Dimensions.height(32)),
-
                     PrimaryButton(
                       text: Appstring.login,
-                      onPressed: () {},
+                      onPressed: () {
+                        authcontroller.loginWithPassword();
+                      },
                     ),
                     SizedBox(height: Dimensions.height(19)),
-
                     AppText(
                       text: Appstring.loginForgotPass,
                       color: primaryColor,

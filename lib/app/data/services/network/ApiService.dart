@@ -24,10 +24,7 @@ class ApiService implements ApiImpl {
       apiCall: _dio.post(
         Apiendpoints.chat,
         data: request.toJson(),
-        options: Options(
-          // <--- ADD THIS OPTIONS PARAMETER
-          contentType: Headers.jsonContentType, // <--- Set Content-Type here
-        ),
+        options: Options(contentType: Headers.jsonContentType),
       ),
       callback: callback,
       parser: (data) => ChatResponse.fromJson(data),

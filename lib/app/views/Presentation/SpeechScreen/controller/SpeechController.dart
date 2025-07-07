@@ -5,7 +5,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:project_counselling/app/data/models/apimodel/ChatRequest.dart';
 import 'package:project_counselling/app/data/models/apimodel/ChatResponse.dart';
-import 'package:project_counselling/app/data/models/apimodel/chat_message.dart';
+import 'package:project_counselling/app/data/models/apimodel/ChatMessage.dart';
 import 'package:project_counselling/app/data/enums/chat_users.dart';
 import 'package:project_counselling/app/data/enums/language.dart' as languageEnum;
 import 'package:project_counselling/app/routers/AppRoutes.dart';
