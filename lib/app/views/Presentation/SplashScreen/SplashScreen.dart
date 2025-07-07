@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_counselling/app/routers/app_routes.dart';
+import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
 
 class Splashscreen extends StatefulWidget {

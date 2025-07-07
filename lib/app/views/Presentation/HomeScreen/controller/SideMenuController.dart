@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:project_counselling/app/constants/AppAssets.dart';
 import 'package:project_counselling/app/constants/AppString.dart';
 import 'package:project_counselling/app/repos/AuthRepo.dart';
-import 'package:project_counselling/app/routers/app_routes.dart';
+import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/Utils/CustomDialog.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/model/SideMenu.dart';
 

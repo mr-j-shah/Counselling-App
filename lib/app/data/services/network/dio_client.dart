@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'api_constants.dart';
+import 'ApiConstants.dart';
 
 class DioClient {
   late Dio _dio;

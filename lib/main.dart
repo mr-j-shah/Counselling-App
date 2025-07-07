@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:project_counselling/app/bindings/AppBinding.dart';
-import 'package:project_counselling/app/routers/app_routes.dart';
+import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
 void main() async {

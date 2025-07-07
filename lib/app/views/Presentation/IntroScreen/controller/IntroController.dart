@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:project_counselling/app/routers/app_routes.dart';
+import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
 class Introcontroller extends GetxController {

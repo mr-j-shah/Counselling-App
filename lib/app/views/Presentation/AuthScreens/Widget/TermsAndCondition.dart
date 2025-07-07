@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_counselling/app/routers/app_routes.dart';
+import 'package:project_counselling/app/routers/AppRoutes.dart';
 
 import 'package:project_counselling/app/views/Presentation/AuthScreens/controller/AuthContoller.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';

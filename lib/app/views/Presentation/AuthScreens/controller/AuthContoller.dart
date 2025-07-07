@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/constants/AppString.dart';
 import 'package:project_counselling/app/repos/AuthRepo.dart';
-import 'package:project_counselling/app/routers/app_routes.dart';
+import 'package:project_counselling/app/routers/AppRoutes.dart';
+import 'package:project_counselling/app/data/enums/failstate.dart';
 import 'package:project_counselling/app/views/Utils/CustomSnackbar.dart';
 import 'package:project_counselling/app/views/Utils/Loading.dart';
 
@@ -33,8 +35,23 @@ class Authcontroller extends GetxController {
   }
 
   void loginWithGoogle() async {
-    await _authrepo.signInWithGoogle();
-    Get.offAllNamed(Routes.HOME);
+    Loading.show();
+    await _authrepo.signInWithGoogle().then((value) {
+      Loading.hide();
+      if (value.failedState == FailedState.NONE) {
+        Customsnackbar.show(
+          title: Appstring.login,
+          subtitle: value.message!,
+          leadingIcon: Icon(Icons.check),
+        );
+        Get.offAllNamed(Routes.HOME);
+      } else {
+        Customsnackbar.show(
+          title: Appstring.login,
+          subtitle: value.message!,
+        );
+      }
+    });
   }
 
   void loginWithFaceBook() {

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart'; // For debugPrint, kDebugMode// Adjust import path
 import 'callback.dart';
-import 'failstate.dart';
+import '../../enums/failstate.dart';
 
 Future<void> handleDioCall<T>(
     {required Future<Response<dynamic>> apiCall,

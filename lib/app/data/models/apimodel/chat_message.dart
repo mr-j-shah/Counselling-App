@@ -1,4 +1,4 @@
-import 'package:project_counselling/app/data/models/chat_users.dart';
+import 'package:project_counselling/app/data/enums/chat_users.dart';
 
 class ChatMessage {
   final ChatUser user;

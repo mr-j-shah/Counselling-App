@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:project_counselling/app/services/network/api_service.dart';
-import 'package:project_counselling/app/services/network/dio_client.dart';
+import 'package:project_counselling/app/data/services/network/ApiService.dart';
+import 'package:project_counselling/app/data/services/network/dio_client.dart';
 
 class InitialBinding extends Bindings {
   @override

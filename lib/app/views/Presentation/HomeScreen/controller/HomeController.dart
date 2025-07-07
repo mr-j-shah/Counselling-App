@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:project_counselling/app/data/models/language.dart';
-import 'package:project_counselling/app/routers/app_routes.dart';
+import 'package:project_counselling/app/data/enums/language.dart';
+import 'package:project_counselling/app/routers/AppRoutes.dart';
 
 class Homecontroller extends GetxController {
   var isMenuOpen = false.obs;

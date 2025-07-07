@@ -1,4 +1,4 @@
-import 'package:project_counselling/app/services/network/failstate.dart';
+import 'package:project_counselling/app/data/enums/failstate.dart';
 
 abstract class ApiResponse<T> {
   void onSuccess(T response);
