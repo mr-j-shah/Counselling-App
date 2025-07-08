@@ -78,7 +78,7 @@ class Authcontroller extends GetxController {
     if (email.isEmpty || email.length < 3) {
       Customsnackbar.show(
         title: Appstring.login,
-        subtitle: "Please enter valid E-Mail!",
+        subtitle: Appstring.errorEmailValidation,
       );
       return;
     }
@@ -86,7 +86,7 @@ class Authcontroller extends GetxController {
     if (password.isEmpty || password.length < 8) {
       Customsnackbar.show(
         title: Appstring.login,
-        subtitle: "Please enter valid Password!",
+        subtitle: Appstring.errorPasswordValidation,
       );
       return;
     }
@@ -125,7 +125,7 @@ class Authcontroller extends GetxController {
     if (!isAgreed.value) {
       Customsnackbar.show(
         title: Appstring.login,
-        subtitle: "Please accept terms and condition",
+        subtitle: Appstring.errorTnCSignUp,
       );
       return;
     }
@@ -133,7 +133,7 @@ class Authcontroller extends GetxController {
     if (name.isEmpty || name.length < 3) {
       Customsnackbar.show(
         title: Appstring.signUp,
-        subtitle: "Please enter valid name!",
+        subtitle: Appstring.errorNameSignUp,
       );
       return;
     }
@@ -141,25 +141,17 @@ class Authcontroller extends GetxController {
     if (email.isEmpty || email.length < 3) {
       Customsnackbar.show(
         title: Appstring.signUp,
-        subtitle: "Please enter valid E-Mail!",
+        subtitle: Appstring.errorEmailValidation,
       );
       return;
     }
 
-    if (password.isEmpty || password.length < 8) {
+    if (password.isEmpty ||
+        password.length < 8 ||
+        !passwordRegExp.hasMatch(password)) {
       Customsnackbar.show(
         title: Appstring.signUp,
-        subtitle:
-            "Please enter valid Password! It must be gratter than or equal 8 Characters",
-      );
-      return;
-    }
-
-    if (!passwordRegExp.hasMatch(password)) {
-      Customsnackbar.show(
-        title: Appstring.signUp,
-        subtitle:
-            "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.",
+        subtitle: Appstring.errorPasswordSignUp,
       );
       return;
     }
@@ -229,8 +221,7 @@ class Authcontroller extends GetxController {
       Loading.hide();
       Customsnackbar.show(
         title: Appstring.login,
-        subtitle:
-            "Currently Facebook login is Suspended! Please try some other Social Login.",
+        subtitle: Appstring.faceBookSuspend,
       );
     });
   }

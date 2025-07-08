@@ -4,6 +4,7 @@ class Appstring {
   static const password = "Password";
   static const continueTxt = "Continue";
   static const cancel = "Cancel";
+
   //login screen text
   static const google = "Google";
   static const facebook = "Facebook";
@@ -14,6 +15,10 @@ class Appstring {
   static const loginDontHaveAcc = "Don’t have an account? Join us";
   static const login = "Login";
   static const signUp = "Sign Up";
+  static const errorEmailValidation = "Please enter valid E-Mail!";
+  static const errorPasswordValidation = "Please enter valid Password!";
+  static const errorUserNotFound = 'No user found for that email.';
+  static const errorWrongPassword = 'Wrong password provided for that user.';
 
   // Intro Screen text
   static const introButtonText = "Get Started";
@@ -24,6 +29,22 @@ class Appstring {
       "Sign up and take the first step toward emotional clarity and self-discovery — with AI support that listens.";
   static const signUpScreenButton = "Sign up";
   static const haveAnAccont = "Have an account? Log in";
+  static const errorPasswordSignUp = "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.";
+  static const errorNameSignUp = "Please enter Valid name!";
+  static const errorTnCSignUp = "Please accept terms and condition";
+  static const faceBookSuspend = "Currently Facebook login is Suspended! Please try some other Social Login.";
+  static const successGoogleLogin = "Google login success!";
+  static const successUserCreate = "User Created Successfully!";
+  static const errorEmailInUse = 'Email already in use';
+  static const errorEmailInvalid = 'Invalid email format';
+  static const errorWeakPassword = 'Password is too weak';
+  static const errorFailedSignUp = "Signup failed due to some unknown reason";
+
+
+
+  static const somethingWrong = "Something went wrong!";
+  
+
 
   // Forgpot Password Screen
   static const forgotPasTitle = "Forgot password";
@@ -51,5 +72,6 @@ class Appstring {
   static const contactNumber = "Contact Number";
   static const dateOfBirth ="Date of birth";
   static const location ="Location";
+
 
 }

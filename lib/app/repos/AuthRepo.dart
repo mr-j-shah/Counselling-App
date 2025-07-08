@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:project_counselling/app/constants/AppString.dart';
 import 'package:project_counselling/app/data/enums/AuthFailedState.dart';
 import 'package:project_counselling/app/data/models/apimodel/FirebaseAuthResponse.dart';
 import 'package:project_counselling/app/data/models/apimodel/UserLoginWithPass.dart';
@@ -20,12 +21,12 @@ class Authrepo {
       );
       return Firebaseauthresponse(
         userCredential: authCred,
-        message: "Google login success!",
+        message: Appstring.successGoogleLogin,
       );
     } catch (e) {
       return Firebaseauthresponse(
         userCredential: null,
-        message: "Something went wrong!",
+        message: Appstring.somethingWrong,
         failedState: Authfailedstate.UNKNOWN_ERROR,
       );
     }
@@ -43,16 +44,16 @@ class Authrepo {
     } on FirebaseAuthException catch (e) {
       String message;
       if (e.code == 'user-not-found') {
-        message = 'No user found for that email.';
-        print('No user found for that email.');
+        message = Appstring.errorUserNotFound;
+        print(Appstring.errorUserNotFound);
         return Firebaseauthresponse(
           userCredential: null,
           message: message,
           failedState: Authfailedstate.USER_NOTFOUND,
         );
       } else if (e.code == 'wrong-password') {
-        message = 'Wrong password provided for that user.';
-        print('Wrong password provided for that user.');
+        message = Appstring.errorWrongPassword;
+        print(Appstring.errorWrongPassword);
         return Firebaseauthresponse(
           userCredential: null,
           message: message,
@@ -80,25 +81,28 @@ class Authrepo {
             password: signupRequest.password,
           );
       print("User created: ${userCredential.user!.email}");
-      return Firebaseauthresponse(userCredential: userCredential, message: "User Created Successfully!");
+      return Firebaseauthresponse(
+        userCredential: userCredential,
+        message: Appstring.successUserCreate,
+      );
     } on FirebaseAuthException catch (e) {
-      String message = "Signup failed";
+      String message = Appstring.errorFailedSignUp;
       if (e.code == 'email-already-in-use') {
-        message = 'Email already in use';
+        message = Appstring.errorEmailInUse;
         return Firebaseauthresponse(
           userCredential: null,
           message: message,
           failedState: Authfailedstate.USER_ALREADY_IN_USE,
         );
       } else if (e.code == 'invalid-email') {
-        message = 'Invalid email format';
+        message = Appstring.errorEmailInvalid;
         return Firebaseauthresponse(
           userCredential: null,
           message: message,
           failedState: Authfailedstate.INVALID_REQUEST,
         );
       } else if (e.code == 'weak-password') {
-        message = 'Password is too weak';
+        message = Appstring.errorWeakPassword;
         return Firebaseauthresponse(
           userCredential: null,
           message: message,
