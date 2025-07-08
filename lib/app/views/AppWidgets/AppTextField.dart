@@ -5,34 +5,42 @@ import 'package:project_counselling/app/views/Utils/dimensions.dart';
 class Apptextfield extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final String? suffixIconMessage;
   final Widget? suffixIcon;
-  final Color iconColor;
-  final Color borderColor;
+  final Color borderColor = textFieldBorder;
   final bool obscureText;
   final TextInputType keyboardType;
+  final Function(String)? onChanged;
 
   const Apptextfield({
     super.key,
     required this.controller,
     this.hintText = 'example@gmail.com',
-    this.suffixIcon,
-    this.iconColor = textFieldSuffixIconColor,
-    this.borderColor = textFieldBorder,
     this.obscureText = false,
-    this.keyboardType = TextInputType.text
+    this.keyboardType = TextInputType.text,
+    this.suffixIcon,
+    this.suffixIconMessage,
+    this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
-    Dimensions.init(context); 
+    Dimensions.init(context);
     var borderRadius = BorderRadius.all(Radius.circular(Dimensions.radius(12)));
 
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
+      onChanged: (value) {
+        if (onChanged != null) {
+          onChanged!(value);
+        }
+      },
       decoration: InputDecoration(
         hintText: hintText,
-        suffixIcon: suffixIcon,
+        suffixIcon: suffixIconMessage != null
+            ? Tooltip(message: suffixIconMessage, child: suffixIcon)
+            : suffixIcon,
         contentPadding: EdgeInsets.symmetric(
           vertical: Dimensions.padding(16),
           horizontal: Dimensions.padding(16),

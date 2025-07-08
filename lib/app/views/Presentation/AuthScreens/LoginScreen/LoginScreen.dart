@@ -64,10 +64,19 @@ class Loginscreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                         horizontal: Dimensions.width(20),
                       ),
-                      child: Apptextfield(
-                        controller: authcontroller.emailLoginController,
-                        hintText: Appstring.email,
-                      ),
+                      child: Obx(() {
+                        return Apptextfield(
+                          controller: authcontroller.emailLoginController,
+                          hintText: Appstring.email,
+                          suffixIcon: Visibility(
+                            visible: !authcontroller.isLoginEmailValid.value,
+                            child: Icon(Icons.error, color: Colors.redAccent),
+                          ),
+                          onChanged: (value) {
+                            authcontroller.onChanegdLoginEmail(value);
+                          },
+                        );
+                      }),
                     ),
                     SizedBox(height: Dimensions.height(18)),
 
@@ -76,11 +85,22 @@ class Loginscreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                         horizontal: Dimensions.width(20),
                       ),
-                      child: Apptextfield(
-                        controller: authcontroller.passwordLoginController,
-                        hintText: Appstring.password,
-                        obscureText: true,
-                      ),
+                      child: Obx(() {
+                        return Apptextfield(
+                          suffixIcon: authcontroller.isPasswordVisible.value
+                              ? InkWell(
+                                  child: Icon(Icons.visibility),
+                                  onTap: authcontroller.togglePasswordVisiblity,
+                                )
+                              : InkWell(
+                                  child: Icon(Icons.visibility_off),
+                                  onTap: authcontroller.togglePasswordVisiblity,
+                                ),
+                          controller: authcontroller.passwordLoginController,
+                          hintText: Appstring.password,
+                          obscureText: !authcontroller.isPasswordVisible.value,
+                        );
+                      }),
                     ),
                     SizedBox(height: Dimensions.height(32)),
                     PrimaryButton(

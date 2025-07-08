@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 import 'package:project_counselling/app/bindings/AppBinding.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
@@ -8,6 +9,10 @@ import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 void main() async {
   // await AppPref.init();
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -20,7 +25,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       builder: (context, child) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          Dimensions.init(context); 
+          Dimensions.init(context);
         });
         return child!;
       },

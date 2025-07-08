@@ -70,11 +70,19 @@ class Signupscreen extends StatelessWidget {
                   padding: EdgeInsetsGeometry.symmetric(
                     horizontal: Dimensions.width(20),
                   ),
-                  child: Apptextfield(
-                    keyboardType: TextInputType.emailAddress,
-                    controller: authcontrollerSignup.emailSignUpController,
-                    hintText: Appstring.email,
-                  ),
+                  child: Obx(() {
+                        return Apptextfield(
+                          controller: authcontrollerSignup.emailSignUpController,
+                          hintText: Appstring.email,
+                          suffixIcon: Visibility(
+                            visible: !authcontrollerSignup.isSignUpEmailValid.value,
+                            child: Icon(Icons.error, color: Colors.redAccent),
+                          ),
+                          onChanged: (value) {
+                            authcontrollerSignup.onChanegdSignUpEmail(value);
+                          },
+                        );
+                      }),
                 ),
                 SizedBox(height: Dimensions.height(18)),
                 Padding(

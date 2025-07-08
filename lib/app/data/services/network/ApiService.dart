@@ -9,6 +9,7 @@ import 'package:project_counselling/app/data/services/network/dio_client.dart';
 import 'package:project_counselling/app/data/services/network/exeption_handler.dart';
 
 class ApiService implements ApiImpl {
+  // ignore: unused_field
   final DioClient _dioClient;
   final Dio _dio;
 

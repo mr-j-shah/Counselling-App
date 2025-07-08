@@ -17,14 +17,27 @@ import 'package:project_counselling/app/views/Utils/Loading.dart';
 class Authcontroller extends GetxController {
   RxBool isAgreed = false.obs;
   RxBool isPasswordVisible = false.obs;
+
+  // Login Field Validator
+  RxBool isLoginEmailValid = true.obs;
+
+  // Sign Up Field Validator
+  RxBool isSignUpEmailValid = true.obs;
+
   Authrepo _authrepo = new Authrepo();
   Userrepo _userrepo = new Userrepo();
+
   TextEditingController nameSignUpController = TextEditingController();
   TextEditingController emailSignUpController = TextEditingController();
   TextEditingController passwordSignUpController = TextEditingController();
 
   TextEditingController emailLoginController = TextEditingController();
   TextEditingController passwordLoginController = TextEditingController();
+
+  final emailRegExp = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+  final passwordRegExp = RegExp(
+    r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#\$&*~]).{8,}$',
+  );
 
   void toggleAgreement() {
     isAgreed.value = !isAgreed.value;
@@ -42,6 +55,22 @@ class Authcontroller extends GetxController {
     Get.back();
   }
 
+  void onChanegdLoginEmail(String value) {
+    if (emailRegExp.hasMatch(value)) {
+      isLoginEmailValid.value = true;
+    } else {
+      isLoginEmailValid.value = false;
+    }
+  }
+
+  void onChanegdSignUpEmail(String value) {
+    if (emailRegExp.hasMatch(value)) {
+      isSignUpEmailValid.value = true;
+    } else {
+      isSignUpEmailValid.value = false;
+    }
+  }
+
   void loginWithPassword() async {
     var email = emailLoginController.text;
     var password = passwordLoginController.text;
@@ -57,8 +86,7 @@ class Authcontroller extends GetxController {
     if (password.isEmpty || password.length < 8) {
       Customsnackbar.show(
         title: Appstring.login,
-        subtitle:
-            "Please enter valid Password!",
+        subtitle: "Please enter valid Password!",
       );
       return;
     }
@@ -104,7 +132,7 @@ class Authcontroller extends GetxController {
 
     if (name.isEmpty || name.length < 3) {
       Customsnackbar.show(
-        title: Appstring.login,
+        title: Appstring.signUp,
         subtitle: "Please enter valid name!",
       );
       return;
@@ -112,7 +140,7 @@ class Authcontroller extends GetxController {
 
     if (email.isEmpty || email.length < 3) {
       Customsnackbar.show(
-        title: Appstring.login,
+        title: Appstring.signUp,
         subtitle: "Please enter valid E-Mail!",
       );
       return;
@@ -120,9 +148,18 @@ class Authcontroller extends GetxController {
 
     if (password.isEmpty || password.length < 8) {
       Customsnackbar.show(
-        title: Appstring.login,
+        title: Appstring.signUp,
         subtitle:
             "Please enter valid Password! It must be gratter than or equal 8 Characters",
+      );
+      return;
+    }
+
+    if (!passwordRegExp.hasMatch(password)) {
+      Customsnackbar.show(
+        title: Appstring.signUp,
+        subtitle:
+            "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.",
       );
       return;
     }
@@ -137,6 +174,7 @@ class Authcontroller extends GetxController {
             _userrepo.addUser(localUser.User(name: name, email: email)).then((
               addValue,
             ) {
+              Loading.hide();
               Customsnackbar.show(
                 title: Appstring.login,
                 subtitle: value.message,
