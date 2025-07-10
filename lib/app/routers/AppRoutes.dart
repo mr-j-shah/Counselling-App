@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/SignupScreen/SignupScreen.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/binding/Authbinding.dart';
 import 'package:project_counselling/app/views/Presentation/CustomerProfile/ProfieScreen.dart';
+import 'package:project_counselling/app/views/Presentation/CustomerProfile/bindings/ProfileScreenBindings.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/bindings/HomeBinding.dart';
 import 'package:project_counselling/app/views/Presentation/IntroScreen/IntroScreen.dart';
 import 'package:project_counselling/app/views/Presentation/IntroScreen/bindings/IntroBindings.dart';
@@ -69,6 +70,7 @@ class AppRoutes {
     ),
     GetPage(
       name: Routes.PROFILE_SCREEN,
+      binding: Profilescreenbindings(),
       page: () => ProfileScreen(),
       transition: Transition.cupertino,
     ),

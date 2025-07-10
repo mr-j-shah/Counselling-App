@@ -1,26 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:project_counselling/app/data/models/User.dart';
+import 'package:project_counselling/app/data/models/apimodel/User.dart';
 
 class Userrepo {
   Future<void> addUser(User user) {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     return users
-        .doc(user.email)
+        .doc(user.userID)
         .set(user.toJson())
         .then((value) => print("User added successfully!"))
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  Future<User?> getUserByEmail(String email) async {
+  Future<User?> getUserByUserID(String userID) async {
     DocumentSnapshot doc = await FirebaseFirestore.instance
         .collection('users')
-        .doc(email)
+        .doc(userID)
         .get();
 
     if (doc.exists) {
       return User.fromJson(doc.data() as Map<String, dynamic>);
     } else {
-      print("No user found with email: $email");
+      print("No user found with userID: $userID");
       return null;
     }
   }

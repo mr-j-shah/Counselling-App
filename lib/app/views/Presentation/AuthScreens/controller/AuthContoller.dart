@@ -7,7 +7,10 @@ import 'package:project_counselling/app/constants/AppString.dart';
 import 'package:project_counselling/app/data/enums/AuthFailedState.dart';
 import 'package:project_counselling/app/data/models/apimodel/UserLoginWithPass.dart';
 import 'package:project_counselling/app/data/models/apimodel/UserSignupRequest.dart';
-import '../../../../data/models/User.dart' as localUser;
+import 'package:project_counselling/app/data/models/apimodel/User.dart'
+    as localUser;
+import 'package:project_counselling/app/data/services/local/AppPref.dart';
+
 import 'package:project_counselling/app/repos/AuthRepo.dart';
 import 'package:project_counselling/app/repos/UserRepo.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
@@ -15,6 +18,8 @@ import 'package:project_counselling/app/views/Utils/CustomSnackbar.dart';
 import 'package:project_counselling/app/views/Utils/Loading.dart';
 
 class Authcontroller extends GetxController {
+  final AppPref _appPref = Get.find<AppPref>();
+
   RxBool isAgreed = false.obs;
   RxBool isPasswordVisible = false.obs;
 
@@ -75,7 +80,7 @@ class Authcontroller extends GetxController {
     var email = emailLoginController.text;
     var password = passwordLoginController.text;
 
-    if (email.isEmpty || email.length < 3) {
+    if (email.isEmpty || email.length < 3 || !isLoginEmailValid.value) {
       Customsnackbar.show(
         title: Appstring.login,
         subtitle: Appstring.errorEmailValidation,
@@ -83,7 +88,7 @@ class Authcontroller extends GetxController {
       return;
     }
 
-    if (password.isEmpty || password.length < 8) {
+    if (password.isEmpty) {
       Customsnackbar.show(
         title: Appstring.login,
         subtitle: Appstring.errorPasswordValidation,
@@ -101,6 +106,7 @@ class Authcontroller extends GetxController {
         )
         .then((value) {
           if (value.failedState == Authfailedstate.NONE) {
+            _appPref.setUser(value.userCredential!.user!.uid);
             Customsnackbar.show(
               title: Appstring.login,
               subtitle: value.message,
@@ -138,7 +144,7 @@ class Authcontroller extends GetxController {
       return;
     }
 
-    if (email.isEmpty || email.length < 3) {
+    if (email.isEmpty || email.length < 3 || !isSignUpEmailValid.value) {
       Customsnackbar.show(
         title: Appstring.signUp,
         subtitle: Appstring.errorEmailValidation,
@@ -163,7 +169,7 @@ class Authcontroller extends GetxController {
         )
         .then((value) {
           if (value.failedState == Authfailedstate.NONE) {
-            _userrepo.addUser(localUser.User(name: name, email: email)).then((
+            _userrepo.addUser(localUser.User(userID: value.userCredential!.user!.uid,name: name, email: email)).then((
               addValue,
             ) {
               Loading.hide();
@@ -195,12 +201,14 @@ class Authcontroller extends GetxController {
         _userrepo
             .addUser(
               localUser.User(
-                name: firebaseUser!.displayName!,
+                userID: firebaseUser!.uid,
+                name: firebaseUser.displayName!,
                 email: firebaseUser.email!,
               ),
             )
             .then((addValue) {
               Loading.hide();
+              _appPref.setUser(value.userCredential!.user!.uid);
               Customsnackbar.show(
                 title: Appstring.login,
                 subtitle: value.message,

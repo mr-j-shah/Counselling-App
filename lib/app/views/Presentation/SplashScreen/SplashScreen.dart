@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_counselling/app/data/services/local/AppPref.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
 
@@ -13,6 +14,7 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _SplashscreenState extends State<Splashscreen> {
+  final _appPref = Get.find<AppPref>();
   @override
   void initState() {
     super.initState();
@@ -31,8 +33,8 @@ class _SplashscreenState extends State<Splashscreen> {
   }
 
   void navigateToNext() {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
+    String? userId = _appPref.getUser();
+    if (userId != null && userId.isNotEmpty) {
       Get.offAllNamed(Routes.HOME);
     } else {
       Get.offAllNamed(Routes.INTRO_SCREEN);

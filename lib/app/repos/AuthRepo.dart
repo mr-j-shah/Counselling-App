@@ -1,12 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project_counselling/app/constants/AppString.dart';
 import 'package:project_counselling/app/data/enums/AuthFailedState.dart';
 import 'package:project_counselling/app/data/models/apimodel/FirebaseAuthResponse.dart';
 import 'package:project_counselling/app/data/models/apimodel/UserLoginWithPass.dart';
 import 'package:project_counselling/app/data/models/apimodel/UserSignupRequest.dart';
+import 'package:project_counselling/app/data/services/local/AppPref.dart';
 
 class Authrepo {
+  final _appPref = Get.find<AppPref>();
   Future<Firebaseauthresponse> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -119,6 +122,7 @@ class Authrepo {
   }
 
   Future<void> signOut() async {
+    _appPref.setUser("");
     await GoogleSignIn().signOut();
     await FirebaseAuth.instance.signOut();
   }

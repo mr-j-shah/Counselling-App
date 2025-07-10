@@ -1,4 +1,5 @@
 class User {
+  String userID;
   String name;
   String email;
   String? dob;
@@ -6,6 +7,7 @@ class User {
   String? location;
 
   User({
+    required this.userID,
     required this.name,
     required this.email,
     this.contactNum,
@@ -15,6 +17,7 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
+      userID: json['userID'] ?? '',
       name: json['name'] ?? '',
       email: json['email'] ?? '',
       dob: json['dob'],
@@ -25,6 +28,7 @@ class User {
 
   Map<String, dynamic> toJson() {
     return {
+      'userID': userID,
       'name': name,
       'email': email,
       'dob': dob,
