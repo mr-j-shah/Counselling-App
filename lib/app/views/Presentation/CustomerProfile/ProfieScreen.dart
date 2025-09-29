@@ -11,8 +11,7 @@ import 'package:project_counselling/app/views/Utils/dimensions.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
-  final Profilescreencontroller _controller = Get.find<Profilescreencontroller>();
-  
+
   Widget build(BuildContext context) {
     Dimensions.init(context);
     return Scaffold(

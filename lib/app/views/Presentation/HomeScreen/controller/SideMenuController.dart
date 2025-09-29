@@ -22,6 +22,10 @@ class Sidemenucontroller extends GetxController {
     Get.toNamed(Routes.POLICY_SCREEN);
   }
 
+  void navigateToTermsAndService() { // Added this method
+    Get.toNamed(Routes.TERMS_SERVICE_SCREEN);
+  }
+
   void navigateToProfileScreen() {
     Get.toNamed(Routes.PROFILE_SCREEN);
   }
@@ -43,6 +47,9 @@ class Sidemenucontroller extends GetxController {
     switch (index) {
       case 3:
         navigateToPrivacyPolicy();
+        break;
+      case 4: // Updated for Terms and Service
+        navigateToTermsAndService();
         break;
       default:
     }
@@ -72,13 +79,18 @@ class Sidemenucontroller extends GetxController {
       title: Appstring.privacyAndPolicy,
       icon: Appassets.privacyPolicyIcon,
     ),
-    SidemenuModel(
+    SidemenuModel( // Added Terms and Service
       index: 4,
+      title: Appstring.termsOfService, // Assuming you added this to AppString.dart
+      icon: Appassets.privacyPolicyIcon, // You might need to add/change this asset
+    ),
+    SidemenuModel(
+      index: 5, // Updated index
       title: Appstring.helpCenter,
       icon: Appassets.helpIcon,
     ),
     SidemenuModel(
-      index: 5,
+      index: 6, // Updated index
       title: Appstring.settings,
       icon: Appassets.settingsIcon,
     ),

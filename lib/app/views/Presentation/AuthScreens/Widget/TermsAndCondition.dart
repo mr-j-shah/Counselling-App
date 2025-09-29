@@ -59,8 +59,7 @@ class Termsandcondition extends StatelessWidget {
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      // Handle terms tap
-                      Get.snackbar('Link', 'Terms of Service tapped');
+                      Get.toNamed(Routes.TERMS_SERVICE_SCREEN);
                     },
                 ),
                 const TextSpan(

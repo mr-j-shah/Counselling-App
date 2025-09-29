@@ -6,16 +6,24 @@ import 'package:project_counselling/app/routers/AppRoutes.dart';
 class Homecontroller extends GetxController {
   var isMenuOpen = false.obs;
   User? _user = FirebaseAuth.instance.currentUser;
+
+  // To manage the selected tab index for bottom navigation
+  var selectedTabIndex = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
-    print("CounterController initialized!");
+    print("HomeController initialized!");
   }
 
   @override
   void onClose() {
-    print("CounterController disposed!");
+    print("HomeController disposed!");
     super.onClose();
+  }
+
+  void changeTabIndex(int index) {
+    selectedTabIndex.value = index;
   }
 
   void navigateToCounsellingHindi() {

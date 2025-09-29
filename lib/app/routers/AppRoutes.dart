@@ -7,12 +7,14 @@ import 'package:project_counselling/app/views/Presentation/HomeScreen/bindings/H
 import 'package:project_counselling/app/views/Presentation/IntroScreen/IntroScreen.dart';
 import 'package:project_counselling/app/views/Presentation/IntroScreen/bindings/IntroBindings.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/LoginScreen/LoginScreen.dart';
-import 'package:project_counselling/app/views/Presentation/PrivacyPolicyScreen/PrivacyPolicyScreen.dart';
 import 'package:project_counselling/app/views/Presentation/SplashScreen/SplashScreen.dart';
 import 'package:project_counselling/app/views/Presentation/SpeechScreen/binding/SpeechBindings.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/HomeScreen.dart';
 import 'package:project_counselling/app/views/Presentation/SpeechScreen/SpeechScreen.dart';
 import 'package:project_counselling/app/views/Presentation/ChatScreen/UserChatScreen.dart';
+
+import '../views/Presentation/Legal/PrivacyPolicyScreen.dart';
+import '../views/Presentation/Legal/TermsAndService.dart';
 
 abstract class Routes {
   static const String HOME = '/home';
@@ -23,6 +25,7 @@ abstract class Routes {
   static const String LOGIN_SCREEN = '/login-screen';
   static const String SIGNUP_SCREEN = '/signup-screen';
   static const String POLICY_SCREEN = '/policy-screen';
+  static const String TERMS_SERVICE_SCREEN = '/terms-service-screen';
   static const String PROFILE_SCREEN = '/profile-screen';
 }
 
@@ -66,6 +69,11 @@ class AppRoutes {
     GetPage(
       name: Routes.POLICY_SCREEN,
       page: () => PrivacyPolicyScreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: Routes.TERMS_SERVICE_SCREEN,
+      page: () => TermsAndServiceScreen(),
       transition: Transition.cupertino,
     ),
     GetPage(
