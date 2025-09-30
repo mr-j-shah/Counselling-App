@@ -48,18 +48,22 @@ class CustomAppbar extends StatelessWidget  {
                   height: Dimensions.height(12),
                   width: Dimensions.width(18),
                   placeholderBuilder: (ctx) =>
-                      Center(child: CircularProgressIndicator()),
+                      const Center(child: CircularProgressIndicator()),
                 ),
               ),
             ),
             SizedBox(width: Dimensions.width(16)),
-            AppText(
-              text: title,
-              fontSize: Dimensions.font(18),
-              fontWeight: FontWeight.w600,
-              color: titleColor,
+            Expanded( // Added Expanded here
+              child: AppText(
+                text: title,
+                fontSize: Dimensions.font(18),
+                fontWeight: FontWeight.w600,
+                color: titleColor,
+                maxLines: 1, // Added maxLines
+                overflow: TextOverflow.ellipsis, // Added overflow
+              ),
             ),
-            const Spacer(),
+            SizedBox(width: Dimensions.width(16)),
             if (suffixAction != null) suffixAction!,
           ],
         ),

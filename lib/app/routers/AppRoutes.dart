@@ -3,6 +3,9 @@ import 'package:project_counselling/app/views/Presentation/AuthScreens/SignupScr
 import 'package:project_counselling/app/views/Presentation/AuthScreens/binding/Authbinding.dart';
 import 'package:project_counselling/app/views/Presentation/CustomerProfile/ProfieScreen.dart';
 import 'package:project_counselling/app/views/Presentation/CustomerProfile/bindings/ProfileScreenBindings.dart';
+import 'package:project_counselling/app/views/Presentation/HelpCenter/HelpCenterScreen.dart';
+import 'package:project_counselling/app/views/Presentation/HelpCenter/HelpTopicDetailScreen.dart'; // Added import for Detail Screen
+import 'package:project_counselling/app/views/Presentation/HelpCenter/model/HelpTopic.dart'; // Added import for HelpTopic model
 import 'package:project_counselling/app/views/Presentation/HomeScreen/bindings/HomeBinding.dart';
 import 'package:project_counselling/app/views/Presentation/IntroScreen/IntroScreen.dart';
 import 'package:project_counselling/app/views/Presentation/IntroScreen/bindings/IntroBindings.dart';
@@ -27,6 +30,8 @@ abstract class Routes {
   static const String POLICY_SCREEN = '/policy-screen';
   static const String TERMS_SERVICE_SCREEN = '/terms-service-screen';
   static const String PROFILE_SCREEN = '/profile-screen';
+  static const String HELP_CENTER_SCREEN = '/help-center-screen';
+  static const String HELP_TOPIC_DETAIL_SCREEN = '/help-topic-detail-screen'; // Added Help Topic Detail Route
 }
 
 class AppRoutes {
@@ -82,15 +87,18 @@ class AppRoutes {
       page: () => ProfileScreen(),
       transition: Transition.cupertino,
     ),
-    // GetPage(
-    //   name: Routes.DETAILS,
-    //   page: () => DetailsScreen(),
-    //   binding: DetailsBinding(),
-    //   // Apply middleware to protect this route
-    //   middlewares: [
-    //     AuthMiddleware(), // This will check authentication before entering DetailsScreen
-    //   ],
-    //   transition: Transition.rightToLeft, // Another example transition
-    // ),
+    GetPage(
+      name: Routes.HELP_CENTER_SCREEN,
+      page: () => HelpCenterScreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage( // Added GetPage for Help Topic Detail
+      name: Routes.HELP_TOPIC_DETAIL_SCREEN,
+      page: () {
+        final HelpTopic topic = Get.arguments as HelpTopic;
+        return HelpTopicDetailScreen(topic: topic);
+      },
+      transition: Transition.cupertino,
+    ),
   ];
 }

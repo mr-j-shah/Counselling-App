@@ -18,12 +18,22 @@ class Sidemenucontroller extends GetxController {
     super.onInit();
   }
 
+  void navigateToMedicalRecords() {
+    // TODO: Implement navigation to Medical Records Screen
+    Get.snackbar("Coming Soon", "Medical Records screen is under development.");
+    // Example: Get.toNamed(Routes.MEDICAL_RECORDS_SCREEN);
+  }
+
   void navigateToPrivacyPolicy() {
     Get.toNamed(Routes.POLICY_SCREEN);
   }
 
-  void navigateToTermsAndService() { // Added this method
+  void navigateToTermsAndService() {
     Get.toNamed(Routes.TERMS_SERVICE_SCREEN);
+  }
+
+  void navigateToHelpCenter() { // Added this method
+    Get.toNamed(Routes.HELP_CENTER_SCREEN);
   }
 
   void navigateToProfileScreen() {
@@ -45,13 +55,20 @@ class Sidemenucontroller extends GetxController {
 
   void sideMenuClick(int index) {
     switch (index) {
-      case 3:
+      case 2: // Medical Records
+        navigateToMedicalRecords();
+        break;
+      case 4: // Privacy & Policy
         navigateToPrivacyPolicy();
         break;
-      case 4: // Updated for Terms and Service
+      case 5: // Terms and Service
         navigateToTermsAndService();
         break;
+      case 6: // Help Center
+        navigateToHelpCenter();
+        break;
       default:
+        Get.snackbar("Info", "Menu item $index clicked, no action defined.");
     }
   }
 
@@ -69,28 +86,33 @@ class Sidemenucontroller extends GetxController {
       title: Appstring.mySessions,
       icon: Appassets.mySessionsIcon,
     ),
-    SidemenuModel(
+    SidemenuModel( // Added Medical Records
       index: 2,
+      title: Appstring.medicalRecords,
+      icon: Appassets.medicalRecordIcon, // Ensure this asset exists
+    ),
+    SidemenuModel(
+      index: 3, // Shifted from 2
       title: Appstring.payments,
       icon: Appassets.paymentsIcon,
     ),
     SidemenuModel(
-      index: 3,
+      index: 4, // Shifted from 3
       title: Appstring.privacyAndPolicy,
       icon: Appassets.privacyPolicyIcon,
     ),
-    SidemenuModel( // Added Terms and Service
-      index: 4,
-      title: Appstring.termsOfService, // Assuming you added this to AppString.dart
-      icon: Appassets.privacyPolicyIcon, // You might need to add/change this asset
+    SidemenuModel(
+      index: 5, // Shifted from 4
+      title: Appstring.termsOfService,
+      icon: Appassets.termsServiceIcon, // Ensure this asset exists (check AppAssets.dart)
     ),
     SidemenuModel(
-      index: 5, // Updated index
+      index: 6, // Shifted from 5
       title: Appstring.helpCenter,
       icon: Appassets.helpIcon,
     ),
     SidemenuModel(
-      index: 6, // Updated index
+      index: 7, // Shifted from 6
       title: Appstring.settings,
       icon: Appassets.settingsIcon,
     ),

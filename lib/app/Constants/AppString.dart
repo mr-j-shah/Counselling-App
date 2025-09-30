@@ -53,10 +53,11 @@ class Appstring {
 
   // Privacy Policy
   static const privacyPolicy = "Privacy policy";
-  static const termsOfService = "Terms of Service"; // Added this line
+  static const termsOfService = "Terms of Service"; 
 
   // Side Menu
   static const mySessions = "My Sessions";
+  static const medicalRecords = "Medical Records"; // Added this line
   static const payments = "Payments";
   static const privacyAndPolicy = "Privacy & Policy";
   static const helpCenter = "Help Center";
