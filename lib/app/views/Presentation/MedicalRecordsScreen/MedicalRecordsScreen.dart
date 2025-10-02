@@ -111,6 +111,7 @@ class MedicalRecordsScreen extends StatelessWidget {
       elevation: 3,
       shadowColor: Colors.grey.withOpacity(0.3),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.radius(12))),
+      color: Colors.white,
       child: Padding(
         padding: EdgeInsets.all(Dimensions.padding(12)),
         child: Row(

@@ -19,5 +19,10 @@ class Appassets {
   static const settingsIcon = 'assets/icons/settings_icon.svg';
   static const helpIcon = 'assets/icons/help_icon.svg';
   static const privacyPolicyIcon = 'assets/icons/privacy_policy_icon.svg';
-  
+
+  // Upload Media
+
+  static String cameraIcon = 'assets/icons/upload_camera_image.svg';
+  static String  galleryIcon = 'assets/icons/upload_from_gallery.svg';
+  static String fileIcon = 'assets/icons/upload_document.svg';
 }
