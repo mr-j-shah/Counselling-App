@@ -26,7 +26,7 @@ class SpeechController extends GetxController {
   var isThinking = false.obs;
   RxList<ChatMessage> messageList = <ChatMessage>[].obs;
   late final languageEnum.Language language;
-  final String _apiKey = "AIzaSyBxBD_YakcWIokmkJvJwqv8YkqEAaLFpUQ";
+  final String _apiKey = "AIzaSyBfpbdrCXWa6OkQIPCizDJq3y0xNKd5Xt8";
   final ApiService _apiService = Get.find<ApiService>();
   late GenerativeModel _model;
 
@@ -143,7 +143,7 @@ class SpeechController extends GetxController {
       );
       await tts.speak(response);
     } else {
-      response = await sendUserMessage(text);
+      response = await sendMessageToLLM(text);
       isThinking.value = false;
       isSpeaking.value = true;
       addMessage(

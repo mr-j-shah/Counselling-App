@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_counselling/app/views/Presentation/SpeechScreen/controller/SpeechController.dart';
+import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart'; // Added
+import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart'; // Added
+import 'package:project_counselling/app/views/Utils/Dimensions.dart'; // Added
+// import 'package:project_counselling/app/constants/AppString.dart'; // If title comes from AppString
 
 class SpeechScreen extends StatelessWidget {
   final controller = Get.put(SpeechController());
@@ -10,62 +14,76 @@ class SpeechScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Dimensions.init(context); // Initialize Dimensions
+    final SpeechController speechController = Get.find<SpeechController>(); // More explicit way to find controller if needed
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Live Talking"),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.chat_bubble),
-            tooltip: 'Conversation',
-            onPressed: controller.navigateToChat,
-          ),
-        ],
-      ),
-      body: Center(
-        child: Obx(() {
-          if (controller.speechTimedOut.value) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.hearing_disabled, size: 80, color: Colors.red),
-                SizedBox(height: 10),
-                Text(
-                  "Listening stopped due to silence.",
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(height: 20),
-                ElevatedButton.icon(
-                  onPressed: controller.retryListeningManually,
-                  icon: Icon(Icons.refresh),
-                  label: Text("Restart Listening"),
-                ),
-              ],
-            );
-          } else if (controller.isSpeaking.value) {
-            return Lottie.asset('assets/lottie/speaking_man.json');
-          } else if (controller.isThinking.value) {
-            return Lottie.asset('assets/lottie/thinking_man.json');
-          }
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+      body: Defaultbackground(
+        child: SafeArea(
+          child: Column(
             children: [
-              Icon(
-                controller.isListening.value
-                    ? Icons.hearing
-                    : Icons.pause_circle,
-                size: 80,
-                color: controller.isListening.value
-                    ? Colors.green
-                    : Colors.grey,
+              CustomAppbar(
+                title: "Live Talking", // Or AppString.liveTalking if you add it
+                suffixAction: IconButton(
+                  icon: const Icon(Icons.chat_bubble),
+                  tooltip: 'Conversation',
+                  color: Colors.black54, // Match default icon color or make it a constant
+                  onPressed: speechController.navigateToChat,
+                ),
+                // onLeadingClick: () => Get.back(), // Default behavior of CustomAppBar back button
               ),
-              SizedBox(height: 20),
-              Text(
-                controller.isListening.value ? _buildLiveText() : "Idle",
-                style: TextStyle(fontSize: 22),
+              Expanded(
+                child: Center(
+                  child: Obx(() {
+                    if (speechController.speechTimedOut.value) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.hearing_disabled, size: 80, color: Colors.red),
+                          SizedBox(height: Dimensions.height(10)),
+                          Text(
+                            "Listening stopped due to silence.",
+                            style: TextStyle(fontSize: Dimensions.font(18)),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: Dimensions.height(20)),
+                          ElevatedButton.icon(
+                            onPressed: speechController.retryListeningManually,
+                            icon: Icon(Icons.refresh),
+                            label: Text("Restart Listening"),
+                          ),
+                        ],
+                      );
+                    } else if (speechController.isSpeaking.value) {
+                      return Lottie.asset('assets/lottie/speaking_man.json');
+                    } else if (speechController.isThinking.value) {
+                      return Lottie.asset('assets/lottie/thinking_man.json');
+                    }
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          speechController.isListening.value
+                              ? Icons.hearing
+                              : Icons.pause_circle,
+                          size: 80,
+                          color: speechController.isListening.value
+                              ? Colors.green
+                              : Colors.grey,
+                        ),
+                        SizedBox(height: Dimensions.height(20)),
+                        Text(
+                          speechController.isListening.value ? _buildLiveText() : "Idle",
+                          style: TextStyle(fontSize: Dimensions.font(22)),
+                        ),
+                      ],
+                    );
+                  }),
+                ),
               ),
             ],
-          );
-        }),
+          ),
+        ),
       ),
     );
   }

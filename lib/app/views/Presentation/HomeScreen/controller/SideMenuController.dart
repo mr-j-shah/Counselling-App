@@ -19,9 +19,7 @@ class Sidemenucontroller extends GetxController {
   }
 
   void navigateToMedicalRecords() {
-    // TODO: Implement navigation to Medical Records Screen
-    Get.snackbar("Coming Soon", "Medical Records screen is under development.");
-    // Example: Get.toNamed(Routes.MEDICAL_RECORDS_SCREEN);
+    Get.toNamed(Routes.MEDICAL_RECORDS_SCREEN); // Updated navigation
   }
 
   void navigateToPrivacyPolicy() {
@@ -32,8 +30,12 @@ class Sidemenucontroller extends GetxController {
     Get.toNamed(Routes.TERMS_SERVICE_SCREEN);
   }
 
-  void navigateToHelpCenter() { // Added this method
+  void navigateToHelpCenter() {
     Get.toNamed(Routes.HELP_CENTER_SCREEN);
+  }
+
+  void navigateToSettingsScreen() {
+    Get.toNamed(Routes.SETTINGS_SCREEN);
   }
 
   void navigateToProfileScreen() {
@@ -55,8 +57,14 @@ class Sidemenucontroller extends GetxController {
 
   void sideMenuClick(int index) {
     switch (index) {
+      case 1: // My Sessions - Placeholder if no specific navigation yet
+        Get.snackbar("Info", "My Sessions clicked, no action defined yet.");
+        break;
       case 2: // Medical Records
         navigateToMedicalRecords();
+        break;
+      case 3: // Payments - Placeholder if no specific navigation yet
+        Get.snackbar("Info", "Payments clicked, no action defined yet.");
         break;
       case 4: // Privacy & Policy
         navigateToPrivacyPolicy();
@@ -66,6 +74,9 @@ class Sidemenucontroller extends GetxController {
         break;
       case 6: // Help Center
         navigateToHelpCenter();
+        break;
+      case 7: // Settings
+        navigateToSettingsScreen();
         break;
       default:
         Get.snackbar("Info", "Menu item $index clicked, no action defined.");
@@ -77,7 +88,8 @@ class Sidemenucontroller extends GetxController {
   }
 
   String getEmail() {
-    return "+91 9978530638";
+    // This should ideally fetch real email if available or a placeholder
+    return _user?.email ?? "your_email@example.com"; 
   }
 
   List<SidemenuModel> sideMenuItems = [
@@ -86,33 +98,33 @@ class Sidemenucontroller extends GetxController {
       title: Appstring.mySessions,
       icon: Appassets.mySessionsIcon,
     ),
-    SidemenuModel( // Added Medical Records
+    SidemenuModel(
       index: 2,
       title: Appstring.medicalRecords,
-      icon: Appassets.medicalRecordIcon, // Ensure this asset exists
+      icon: Appassets.medicalRecordIcon, 
     ),
     SidemenuModel(
-      index: 3, // Shifted from 2
+      index: 3,
       title: Appstring.payments,
       icon: Appassets.paymentsIcon,
     ),
     SidemenuModel(
-      index: 4, // Shifted from 3
+      index: 4,
       title: Appstring.privacyAndPolicy,
       icon: Appassets.privacyPolicyIcon,
     ),
     SidemenuModel(
-      index: 5, // Shifted from 4
+      index: 5,
       title: Appstring.termsOfService,
-      icon: Appassets.termsServiceIcon, // Ensure this asset exists (check AppAssets.dart)
+      icon: Appassets.privacyPolicyIcon,
     ),
     SidemenuModel(
-      index: 6, // Shifted from 5
+      index: 6,
       title: Appstring.helpCenter,
       icon: Appassets.helpIcon,
     ),
     SidemenuModel(
-      index: 7, // Shifted from 6
+      index: 7,
       title: Appstring.settings,
       icon: Appassets.settingsIcon,
     ),

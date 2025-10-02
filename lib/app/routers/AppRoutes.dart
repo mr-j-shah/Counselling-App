@@ -4,12 +4,16 @@ import 'package:project_counselling/app/views/Presentation/AuthScreens/binding/A
 import 'package:project_counselling/app/views/Presentation/CustomerProfile/ProfieScreen.dart';
 import 'package:project_counselling/app/views/Presentation/CustomerProfile/bindings/ProfileScreenBindings.dart';
 import 'package:project_counselling/app/views/Presentation/HelpCenter/HelpCenterScreen.dart';
-import 'package:project_counselling/app/views/Presentation/HelpCenter/HelpTopicDetailScreen.dart'; // Added import for Detail Screen
-import 'package:project_counselling/app/views/Presentation/HelpCenter/model/HelpTopic.dart'; // Added import for HelpTopic model
+import 'package:project_counselling/app/views/Presentation/HelpCenter/HelpTopicDetailScreen.dart';
+import 'package:project_counselling/app/views/Presentation/HelpCenter/model/HelpTopic.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/bindings/HomeBinding.dart';
 import 'package:project_counselling/app/views/Presentation/IntroScreen/IntroScreen.dart';
 import 'package:project_counselling/app/views/Presentation/IntroScreen/bindings/IntroBindings.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/LoginScreen/LoginScreen.dart';
+import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/MedicalRecordsScreen.dart'; // Added import for MedicalRecordsScreen
+import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/bindings/MedicalRecordsBinding.dart'; // Added import for MedicalRecordsBinding
+import 'package:project_counselling/app/views/Presentation/SettingsScreen/SettingsScreen.dart';
+import 'package:project_counselling/app/views/Presentation/SettingsScreen/bindings/SettingsBinding.dart';
 import 'package:project_counselling/app/views/Presentation/SplashScreen/SplashScreen.dart';
 import 'package:project_counselling/app/views/Presentation/SpeechScreen/binding/SpeechBindings.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/HomeScreen.dart';
@@ -31,7 +35,10 @@ abstract class Routes {
   static const String TERMS_SERVICE_SCREEN = '/terms-service-screen';
   static const String PROFILE_SCREEN = '/profile-screen';
   static const String HELP_CENTER_SCREEN = '/help-center-screen';
-  static const String HELP_TOPIC_DETAIL_SCREEN = '/help-topic-detail-screen'; // Added Help Topic Detail Route
+  static const String HELP_TOPIC_DETAIL_SCREEN = '/help-topic-detail-screen';
+  static const String SETTINGS_SCREEN = '/settings-screen';
+  static const String MEDICAL_RECORDS_SCREEN = '/medical-records-screen'; // Added Medical Records Screen Route
+
 }
 
 class AppRoutes {
@@ -92,12 +99,24 @@ class AppRoutes {
       page: () => HelpCenterScreen(),
       transition: Transition.cupertino,
     ),
-    GetPage( // Added GetPage for Help Topic Detail
+    GetPage(
       name: Routes.HELP_TOPIC_DETAIL_SCREEN,
       page: () {
         final HelpTopic topic = Get.arguments as HelpTopic;
         return HelpTopicDetailScreen(topic: topic);
       },
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: Routes.SETTINGS_SCREEN,
+      page: () => const SettingsScreen(),
+      binding: SettingsBinding(),
+      transition: Transition.cupertino,
+    ),
+    GetPage( // Added GetPage for Medical Records Screen
+      name: Routes.MEDICAL_RECORDS_SCREEN,
+      page: () => const MedicalRecordsScreen(),
+      binding: MedicalRecordsBinding(),
       transition: Transition.cupertino,
     ),
   ];
