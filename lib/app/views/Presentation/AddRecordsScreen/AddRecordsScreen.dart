@@ -7,7 +7,9 @@ import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart'; //
 import 'package:project_counselling/app/views/Presentation/AddRecordsScreen/controller/AddRecordsController.dart';
 import 'package:project_counselling/app/views/Presentation/AddRecordsScreen/model/RecordType.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
-import 'package:project_counselling/app/views/Utils/Colors.dart'; 
+import 'package:project_counselling/app/views/Utils/Colors.dart';
+
+import '../HomeScreen/widgets/HomeBottomnavigation.dart';
 
 class AddRecordsScreen extends StatelessWidget {
   const AddRecordsScreen({super.key});
@@ -108,7 +110,7 @@ class AddRecordsScreen extends StatelessWidget {
                                       children: [
                                         Icon(Icons.add_circle_outline, color: primaryColor, size: Dimensions.font(30)),
                                         SizedBox(height: Dimensions.height(4)),
-                                        Text("Add more images", textAlign: TextAlign.center, style: TextStyle(fontSize: Dimensions.font(12), color: primaryColor)),
+                                        Text("Add more", textAlign: TextAlign.center, style: TextStyle(fontSize: Dimensions.font(12), color: primaryColor)),
                                       ],
                                     ),
                                   ),
@@ -135,23 +137,14 @@ class AddRecordsScreen extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    // Card with details (takes remaining space and its content is scrollable)
-                    Card(
-                      shadowColor: Colors.grey.withOpacity(0.3),
-                      margin: EdgeInsets.fromLTRB(Dimensions.padding(8), 0, Dimensions.padding(8), Dimensions.padding(8)),
-                      color: Colors.white70,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(Dimensions.radius(30)),
-                          topRight: Radius.circular(Dimensions.radius(30)),
-                        ),
-                      ),
+                    Container(
+                      margin: EdgeInsets.zero,
                       child: Padding(
                         padding: EdgeInsets.all(Dimensions.padding(16)),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(Appstring.recordFor, style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.grey.shade700)),
+                            Text(Appstring.recordFor, style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
                             SizedBox(height: Dimensions.height(8)),
                             Obx(() => ListTile(
                                   contentPadding: EdgeInsets.zero,
@@ -159,7 +152,7 @@ class AddRecordsScreen extends StatelessWidget {
                                   trailing: IconButton(icon: Icon(Icons.edit_outlined, color: Colors.grey.shade600), onPressed: controller.editRecordFor),
                                 )),
                             Divider(height: Dimensions.height(24)),
-                            Text("Type of record", style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.grey.shade700)),
+                            Text("Type of record", style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
                             SizedBox(height: Dimensions.height(16)),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -170,7 +163,7 @@ class AddRecordsScreen extends StatelessWidget {
                               ],
                             ),
                             Divider(height: Dimensions.height(24)),
-                            Text("Record created on", style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.grey.shade700)),
+                            Text("Record created on", style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
                             SizedBox(height: Dimensions.height(8)),
                             Obx(() => ListTile(
                                   contentPadding: EdgeInsets.zero,

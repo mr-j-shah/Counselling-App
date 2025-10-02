@@ -3,6 +3,7 @@ class Appassets {
   static const backIcon = 'assets/icons/back_icon.svg';
 
   static const IntroScreenMainImage = 'assets/images/intro_screen.png';
+  static const editIcon = 'assets/icons/edit_icon.svg';
   // Intro Screen
 
   // Login Screen

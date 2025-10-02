@@ -5,21 +5,22 @@ import 'package:project_counselling/app/views/Presentation/AddRecordsScreen/mode
 import 'package:project_counselling/app/views/Utils/Colors.dart'; // Added import for primaryColor
 
 class AddRecordsController extends GetxController {
-  var selectedImages = <String>[].obs; 
-  var recordFor = "Abdullah Mamun".obs; 
+  var selectedImages = <String>[].obs;
+  var recordFor = "Abdullah Mamun".obs;
   var selectedRecordType = RecordType.Prescription.obs;
   var recordDate = DateTime.now().obs;
 
-  String get formattedRecordDate => DateFormat('dd MMM, yyyy').format(recordDate.value);
+  String get formattedRecordDate =>
+      DateFormat('dd MMM, yyyy').format(recordDate.value);
 
   @override
   void onInit() {
     super.onInit();
-    // selectedImages.add("mock_image_placeholder.png"); 
+    // selectedImages.add("mock_image_placeholder.png");
   }
 
   void addMoreImages() {
-    selectedImages.add("new_mock_image.png"); 
+    selectedImages.add("new_mock_image.png");
     Get.snackbar("Image Added", "Placeholder for adding more images.");
   }
 
@@ -33,7 +34,8 @@ class AddRecordsController extends GetxController {
       initialDate: recordDate.value,
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
-      builder: (BuildContext context, Widget? child) { // Added builder to theme the picker
+      builder: (BuildContext context, Widget? child) {
+        // Added builder to theme the picker
         return Theme(
           data: ThemeData.light().copyWith(
             colorScheme: ColorScheme.light(
@@ -44,8 +46,8 @@ class AddRecordsController extends GetxController {
             ),
             dialogBackgroundColor: Colors.white,
             buttonTheme: const ButtonThemeData(
-              textTheme: ButtonTextTheme.primary
-            )
+              textTheme: ButtonTextTheme.primary,
+            ),
           ),
           child: child!,
         );
@@ -57,16 +59,64 @@ class AddRecordsController extends GetxController {
   }
 
   void editRecordFor() {
-    Get.snackbar("Edit Record For", "Placeholder for editing patient name.");
+    final TextEditingController textEditingController = TextEditingController(
+      text: recordFor.value,
+    );
+
+    Get.dialog(
+      AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0), // Rounded corners
+        ),
+        title: const Text("Edit Patient Name"),
+        content: SingleChildScrollView( // Wrap with SingleChildScrollView to prevent overflow
+          child: TextField(
+            controller: textEditingController,
+            autofocus: true,
+            decoration: InputDecoration(
+              labelText: "Full Name",
+              hintText: "Enter the patient's full name",
+              // Style to match app UI
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: primaryColor),
+              ),
+              labelStyle: TextStyle(color: primaryColor),
+            ),
+            cursorColor: primaryColor,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(), // Close the dialog
+            child: Text("Cancel", style: TextStyle(color: Colors.grey.shade600)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: primaryColor, // Use app's primary color
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+            ),
+            onPressed: () {
+              if (textEditingController.text.isNotEmpty) {
+                recordFor.value = textEditingController.text;
+              }
+              Get.back(); // Close the dialog
+            },
+            child: const Text("Update", style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
   }
 
-   void editRecordDate(BuildContext context) {
+  void editRecordDate(BuildContext context) {
     selectDate(context);
   }
 
   void uploadRecord() {
     Get.snackbar(
-      "Upload Record", 
+      "Upload Record",
       "Record for ${recordFor.value} (${selectedRecordType.value.toString().split('.').last}) on $formattedRecordDate submitted! (Mock)",
       snackPosition: SnackPosition.BOTTOM,
     );
