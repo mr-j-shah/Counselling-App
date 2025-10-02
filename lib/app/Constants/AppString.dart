@@ -75,5 +75,10 @@ class Appstring {
   static const dateOfBirth ="Date of birth";
   static const location ="Location";
 
+  // Medical Records Screen
+  static const medicalRecordsTitle = "Medical Records";
+  static const addMedicalRecord = "Add a record";
+  static const addMedicalRecordSubTitle = 'A detailed health history helps a doctor diagnose you better.';
+  static const recordFor = "Record for ";
 
 }

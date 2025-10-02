@@ -25,4 +25,6 @@ class Appassets {
   static String cameraIcon = 'assets/icons/upload_camera_image.svg';
   static String  galleryIcon = 'assets/icons/upload_from_gallery.svg';
   static String fileIcon = 'assets/icons/upload_document.svg';
+  static const empty_medical_records = 'assets/icons/empty_medical_records.svg';
+
 }
