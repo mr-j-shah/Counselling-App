@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart'; // Added for date formatting
+import 'package:intl/intl.dart';
+import 'package:flutter_svg/flutter_svg.dart'; 
+import 'package:project_counselling/app/Constants/AppAssets.dart';
+import 'package:project_counselling/app/Constants/AppString.dart';
 import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
+import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart'; // Added import for PrimaryButton
 import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/controller/MedicalRecordsController.dart';
 import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/model/MedicalRecordModel.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
@@ -21,14 +25,10 @@ class MedicalRecordsScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              CustomAppbar(title: 'Medical Records'),
+              CustomAppbar(title: Appstring.medicalRecordsTitle),
               Expanded(
                 child: Obx(() {
-                  if (controller.isLoading.value) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
                   if (controller.medicalRecords.isEmpty) {
-                    // Modified to pass only necessary params, button is now global
                     return _buildEmptyStateUI(context, textTheme);
                   }
                   return ListView.builder(
@@ -41,33 +41,13 @@ class MedicalRecordsScreen extends StatelessWidget {
                   );
                 }),
               ),
-              // "Add a record" button, visible when not loading
-              Obx(() {
-                if (controller.isLoading.value) {
-                  return const SizedBox.shrink();
-                }
-                return Padding(
-                  padding: EdgeInsets.all(Dimensions.padding(16)),
-                  child: ElevatedButton(
-                    onPressed: controller.navigateToAddMedicalRecord,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1ABC9C), // Teal color from screenshot
-                      padding: EdgeInsets.symmetric(
-                        horizontal: Dimensions.width(32),
-                        vertical: Dimensions.height(14),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(Dimensions.radius(12)),
-                      ),
-                      minimumSize: Size(double.infinity, Dimensions.height(50)), // Full width
-                    ),
-                    child: Text(
-                      'Add a record',
-                      style: textTheme.titleMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                );
-              }),
+              Padding(
+                padding: EdgeInsets.all(Dimensions.padding(16)),
+                child: PrimaryButton(
+                  text: Appstring.addMedicalRecord, // Using AppString constant
+                  onPressed: controller.navigateToAddMedicalRecord,
+                ),
+              ),
             ],
           ),
         ),
@@ -75,7 +55,6 @@ class MedicalRecordsScreen extends StatelessWidget {
     );
   }
 
-  // Updated Empty State UI (button removed from here)
   Widget _buildEmptyStateUI(BuildContext context, TextTheme textTheme) {
     return Padding(
       padding: EdgeInsets.all(Dimensions.padding(24)),
@@ -83,20 +62,29 @@ class MedicalRecordsScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Image.asset(
-            'assets/images/medical_clipboard.png', // Placeholder - replace with your actual asset path
-            height: Dimensions.height(120),
-            // Consider adding a color if it's an icon that needs tinting
+          Container(
+            padding: EdgeInsets.all(Dimensions.padding(50)), 
+            decoration: BoxDecoration(
+              color: Colors.teal.shade50, 
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: SvgPicture.asset(
+                Appassets.empty_medical_records,
+                height: Dimensions.height(107),
+                width: Dimensions.width(110),
+              ),
+            ),
           ),
           SizedBox(height: Dimensions.height(24)),
           Text(
-            'Add a medical record.',
+            Appstring.addMedicalRecord, // Re-using for title text
             textAlign: TextAlign.center,
             style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
           ),
           SizedBox(height: Dimensions.height(8)),
           Text(
-            'A detailed health history helps a doctor diagnose you better.',
+            Appstring.addMedicalRecordSubTitle, // Assuming this exists for the subtitle
             textAlign: TextAlign.center,
             style: textTheme.bodyLarge?.copyWith(color: Colors.grey.shade600),
           ),
@@ -111,7 +99,6 @@ class MedicalRecordsScreen extends StatelessWidget {
       elevation: 3,
       shadowColor: Colors.grey.withOpacity(0.3),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.radius(12))),
-      color: Colors.white,
       child: Padding(
         padding: EdgeInsets.all(Dimensions.padding(12)),
         child: Row(
@@ -124,7 +111,7 @@ class MedicalRecordsScreen extends StatelessWidget {
                   width: Dimensions.width(60),
                   padding: EdgeInsets.symmetric(vertical: Dimensions.height(8)),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF1ABC9C).withOpacity(0.8), // Teal color from screenshot
+                    color: const Color(0xFF1ABC9C).withOpacity(0.8),
                     borderRadius: BorderRadius.circular(Dimensions.radius(8)),
                   ),
                   child: Column(
@@ -155,7 +142,7 @@ class MedicalRecordsScreen extends StatelessWidget {
                   Text(record.title, style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.black87)),
                   SizedBox(height: Dimensions.height(4)),
                   Text(
-                    'Record for ${record.recordedFor}',
+                    '${Appstring.recordFor}${record.recordedFor}', // Using AppString constant
                     style: textTheme.bodyMedium?.copyWith(color: const Color(0xFF1ABC9C), fontWeight: FontWeight.w600),
                   ),
                   SizedBox(height: Dimensions.height(8)),

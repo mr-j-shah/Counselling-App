@@ -2,27 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:project_counselling/app/views/Presentation/AddRecordsScreen/model/RecordType.dart';
+import 'package:project_counselling/app/views/Utils/Colors.dart'; // Added import for primaryColor
 
 class AddRecordsController extends GetxController {
-  // Observables for UI state
-  var selectedImages = <String>[].obs; // Placeholder for image paths or identifiers
-  var recordFor = "Abdullah Mamun".obs; // Default or fetched user
+  var selectedImages = <String>[].obs; 
+  var recordFor = "Abdullah Mamun".obs; 
   var selectedRecordType = RecordType.Prescription.obs;
   var recordDate = DateTime.now().obs;
 
-  // For displaying the formatted date
   String get formattedRecordDate => DateFormat('dd MMM, yyyy').format(recordDate.value);
 
   @override
   void onInit() {
     super.onInit();
-    // Add a mock image for initial display if needed
-    // selectedImages.add("mock_image_placeholder.png"); // Replace with actual placeholder or logic
+    // selectedImages.add("mock_image_placeholder.png"); 
   }
 
   void addMoreImages() {
-    // TODO: Implement image picking logic (gallery/camera)
-    selectedImages.add("new_mock_image.png"); // Placeholder action
+    selectedImages.add("new_mock_image.png"); 
     Get.snackbar("Image Added", "Placeholder for adding more images.");
   }
 
@@ -36,6 +33,23 @@ class AddRecordsController extends GetxController {
       initialDate: recordDate.value,
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
+      builder: (BuildContext context, Widget? child) { // Added builder to theme the picker
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: primaryColor, // Your app's primary color
+              onPrimary: Colors.white, // Text color on primary color
+              surface: Colors.white, // Background of the picker
+              onSurface: Colors.black, // Text color on the surface
+            ),
+            dialogBackgroundColor: Colors.white,
+            buttonTheme: const ButtonThemeData(
+              textTheme: ButtonTextTheme.primary
+            )
+          ),
+          child: child!,
+        );
+      },
     );
     if (picked != null && picked != recordDate.value) {
       recordDate.value = picked;
@@ -43,7 +57,6 @@ class AddRecordsController extends GetxController {
   }
 
   void editRecordFor() {
-    // TODO: Implement logic to change the person for whom the record is
     Get.snackbar("Edit Record For", "Placeholder for editing patient name.");
   }
 
@@ -52,13 +65,10 @@ class AddRecordsController extends GetxController {
   }
 
   void uploadRecord() {
-    // TODO: Implement actual record upload logic (API call)
     Get.snackbar(
       "Upload Record", 
       "Record for ${recordFor.value} (${selectedRecordType.value.toString().split('.').last}) on $formattedRecordDate submitted! (Mock)",
       snackPosition: SnackPosition.BOTTOM,
     );
-    // Potentially navigate back or clear form
-    // Get.back();
   }
 }

@@ -30,30 +30,30 @@ class MedicalRecordsController extends GetxController {
       await Future.delayed(const Duration(seconds: 1)); // Reduced delay for faster testing
       
       final List<MedicalRecordModel> fetchedRecords = [
-        MedicalRecordModel(
-          id: '1',
-          title: 'Records added by you',
-          recordedFor: 'Abdullah mamun',
-          date: DateTime(DateTime.now().year, 2, 27),
-          summary: '1 Prescription',
-          isNew: true,
-        ),
-        MedicalRecordModel(
-          id: '2',
-          title: 'Records added by you',
-          recordedFor: 'Abdullah shuvo',
-          date: DateTime(DateTime.now().year, 2, 28),
-          summary: '1 Prescription',
-          isNew: true,
-        ),
-        MedicalRecordModel(
-          id: '3',
-          title: 'Records added by you',
-          recordedFor: 'Shruti Kedia',
-          date: DateTime(DateTime.now().year, 3, 1),
-          summary: '1 Prescription',
-          isNew: true,
-        ),
+        // MedicalRecordModel(
+        //   id: '1',
+        //   title: 'Records added by you',
+        //   recordedFor: 'Abdullah mamun',
+        //   date: DateTime(DateTime.now().year, 2, 27),
+        //   summary: '1 Prescription',
+        //   isNew: true,
+        // ),
+        // MedicalRecordModel(
+        //   id: '2',
+        //   title: 'Records added by you',
+        //   recordedFor: 'Abdullah shuvo',
+        //   date: DateTime(DateTime.now().year, 2, 28),
+        //   summary: '1 Prescription',
+        //   isNew: true,
+        // ),
+        // MedicalRecordModel(
+        //   id: '3',
+        //   title: 'Records added by you',
+        //   recordedFor: 'Shruti Kedia',
+        //   date: DateTime(DateTime.now().year, 3, 1),
+        //   summary: '1 Prescription',
+        //   isNew: true,
+        // ),
       ];
       
       medicalRecords.assignAll(fetchedRecords);
