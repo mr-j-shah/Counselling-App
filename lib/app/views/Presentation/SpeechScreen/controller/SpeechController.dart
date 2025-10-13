@@ -193,7 +193,7 @@ class SpeechController extends GetxController {
     }
     // NEW: Initialize the GenerativeModel client
     _model = GenerativeModel(model: 'gemini-2.0-flash', apiKey: _apiKey);
-    sendMessageToLLM(_systemPrompt);
+    // sendMessageToLLM(_systemPrompt);
   }
 
   /// Sends a message to the Gemini API and updates reactive state.
