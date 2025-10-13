@@ -1,42 +1,59 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
+name: Android Build (Development)
 
-name: Dart
-
+# Controls when the workflow will run
 on:
+  # Triggers the workflow on push or pull request events but only for the "ui-integrations" branch
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches: [ "dev" ]
+  #  pull_request:
+  #    branches: [ "main" ]
 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+
+  # Job-1 ("build") : It builds android apk and uploads it to artifacts
   build:
+    name: Build Android Apk
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      # Note: This workflow uses the latest stable version of the Dart SDK.
-      # You can specify other versions if desired, see documentation here:
-      # https://github.com/dart-lang/setup-dart/blob/main/README.md
-      # - uses: dart-lang/setup-dart@v1
-      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+      - name: Install flutter sdk
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
 
       - name: Install dependencies
-        run: dart pub get
+        run: flutter pub get
 
-      # Uncomment this step to verify the use of 'dart format' on each commit.
-      # - name: Verify formatting
-      #   run: dart format --output=none --set-exit-if-changed .
+      - name: Generate localization files
+        run: |
+          flutter pub global activate intl_utils
+          flutter pub global run intl_utils:generate
 
-      # Consider passing '--fatal-infos' for slightly stricter analysis.
-      - name: Analyze project source
-        run: dart analyze
+      - name: Generate boilerplate code using build_runner
+        run: dart run build_runner build -d
 
-      # Your project will need to have tests in test/ and a dependency on
-      # package:test for this step to succeed. Note that Flutter projects will
-      # want to change this to 'flutter test'.
-      - name: Run tests
-        run: dart test
+      - name: Build apk
+        run: flutter build apk
+
+      - name: Collect apk file and upload as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk-dev
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 7

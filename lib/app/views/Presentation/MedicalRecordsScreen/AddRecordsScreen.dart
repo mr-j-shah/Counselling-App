@@ -4,8 +4,8 @@ import 'package:project_counselling/app/Constants/AppString.dart';
 import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
 import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart'; // Added for PrimaryButton
-import 'package:project_counselling/app/views/Presentation/AddRecordsScreen/controller/AddRecordsController.dart';
-import 'package:project_counselling/app/views/Presentation/AddRecordsScreen/model/RecordType.dart';
+import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/controller/AddRecordsController.dart';
+import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/model/RecordType.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:project_counselling/app/views/Presentation/AddRecordsScreen/model/RecordType.dart';
+import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/model/RecordType.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart'; // Added import for primaryColor
 
 class AddRecordsController extends GetxController {

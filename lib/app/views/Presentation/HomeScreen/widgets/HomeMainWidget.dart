@@ -93,7 +93,6 @@ class HomeMainwidget extends StatelessWidget {
       body: Defaultbackground(
         child: Column(
           children: [
-
             Expanded(
               child: Obx(() {
                 switch (_homecontroller.selectedTabIndex.value) {
@@ -110,10 +109,11 @@ class HomeMainwidget extends StatelessWidget {
                 }
               }),
             ),
-            Homebottomnavigation()
+
           ],
         ),
       ),
+      bottomNavigationBar: Homebottomnavigation(),
     );
   }
 }

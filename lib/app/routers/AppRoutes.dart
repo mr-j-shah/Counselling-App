@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:project_counselling/app/views/Presentation/AddRecordsScreen/AddRecordsScreen.dart'; // Added import
-import 'package:project_counselling/app/views/Presentation/AddRecordsScreen/bindings/AddRecordsBinding.dart'; // Added import
+import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/AddRecordsScreen.dart'; // Added import
+import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/bindings/AddRecordsBinding.dart'; // Added import
 import 'package:project_counselling/app/views/Presentation/AuthScreens/SignupScreen/SignupScreen.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/binding/Authbinding.dart';
 import 'package:project_counselling/app/views/Presentation/CustomerProfile/ProfieScreen.dart';
