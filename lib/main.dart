@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 import 'package:project_counselling/app/bindings/AppBinding.dart';
+import 'package:project_counselling/app/config/flavor_config.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
 void main() async {
-  // await AppPref.init();
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
   await Firebase.initializeApp();
+  const flavor = String.fromEnvironment('flavor', defaultValue: 'dev');
+  await FlavorConfig.initialize(Flavor.values.byName(flavor));
   runApp(const MyApp());
 }
 
