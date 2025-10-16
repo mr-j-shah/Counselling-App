@@ -1,27 +1,29 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppPref {
   static const String _USER_CREDENTIAL = "user_credential";
   static const String _USER_PIN = "user_pin";
 
-  static SharedPreferences? _prefs;
+  static final AppPref _instance = AppPref._internal();
+  SharedPreferences? _prefs;
 
-  AppPref() {
-    init();
+  factory AppPref() {
+    return _instance;
   }
 
+  AppPref._internal();
+
   /// Initialize the SharedPreferences instance (should be called in main)
-  static Future<void> init() async {
+  Future<void> init() async {
     _prefs ??= await SharedPreferences.getInstance();
   }
 
-  /// Set PIN separately
-  Future<void> setUser(String pin) async {
-    await _prefs?.setString(_USER_CREDENTIAL, pin);
+  /// Set user credential.
+  Future<void> setUser(String credential) async {
+    await _prefs?.setString(_USER_CREDENTIAL, credential);
   }
 
-  /// Get PIN
+  /// Get user credential.
   String? getUser() {
     return _prefs?.getString(_USER_CREDENTIAL);
   }

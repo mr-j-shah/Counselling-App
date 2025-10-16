@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:project_counselling/app/data/models/apimodel/ChatRequest.dart';
@@ -26,7 +27,7 @@ class SpeechController extends GetxController {
   var isThinking = false.obs;
   RxList<ChatMessage> messageList = <ChatMessage>[].obs;
   late final languageEnum.Language language;
-  final String _apiKey = "AIzaSyBfpbdrCXWa6OkQIPCizDJq3y0xNKd5Xt8";
+  late final String _apiKey;
   final ApiService _apiService = Get.find<ApiService>();
   late GenerativeModel _model;
 
@@ -63,9 +64,15 @@ class SpeechController extends GetxController {
     // Safe default assignment
     language = Get.arguments ?? languageEnum.Language.ENGLISH;
     debugPrint("Start Covo in ${language.toLanguageSign()}");
-    init();
-    debugPrint("LLMController initialized.");
-    _initializeGenerativeModel(); // NEW: Initialize the model
+    _initializeController();
+  }
+
+  Future<void> _initializeController() async {
+    await dotenv.load(fileName: ".env");
+    _apiKey = dotenv.env['GEMINI_API_KEY'] ?? "";
+    _initializeGenerativeModel();
+    await init();
+    debugPrint("SpeechController fully initialized.");
   }
 
   Future<void> init() async {
@@ -193,7 +200,7 @@ class SpeechController extends GetxController {
     }
     // NEW: Initialize the GenerativeModel client
     _model = GenerativeModel(model: 'gemini-2.0-flash', apiKey: _apiKey);
-    // sendMessageToLLM(_systemPrompt);
+    sendMessageToLLM(_systemPrompt);
   }
 
   /// Sends a message to the Gemini API and updates reactive state.
