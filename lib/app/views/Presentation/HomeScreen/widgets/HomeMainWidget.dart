@@ -1,71 +1,106 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_counselling/app/data/models/Avatar.dart';
+import 'package:project_counselling/app/data/models/Doctor.dart';
+import 'package:project_counselling/app/routers/AppRoutes.dart';
+import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/controller/HomeController.dart';
+import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/AvatarCard.dart';
+import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/DoctorCard.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/HomeAppbar.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/HomeBottomnavigation.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
+import '../../../Utils/Colors.dart';
+
 class HomeMainwidget extends StatelessWidget {
   final Homecontroller _homecontroller = Get.find<Homecontroller>();
+
   HomeMainwidget({super.key});
 
   Widget _buildHomeTabContent(BuildContext context) {
-    return Column(
-      children: [
-        Homeappbar(),
-        SizedBox(
-          height: Dimensions.height(20),
-        ),
-        Card(
-          elevation: 6,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          margin: const EdgeInsets.all(16),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Agent image
-                // Lottie.asset('assets/lottie/agent.json'),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton.icon(
-                      onPressed: _homecontroller.navigateToCounsellingHindi,
-                      icon: const Icon(Icons.language),
-                      label: const Text("हिन्दी"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orangeAccent,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Homeappbar(),
+          SizedBox(height: Dimensions.height(20)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: SizedBox(
+              width: double.maxFinite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AppText(
+                    text: "Top Doctors",
+                    align: TextAlign.start,
+                    fontSize: Dimensions.font(18),
+                    fontWeight: FontWeight.bold,
+                  ),
+                  GestureDetector(
+                    onTap: () => Get.toNamed(Routes.TOP_DOCTORS_SCREEN),
+                    child: AppText(
+                      text: "See all >",
+                      color: bottomSheetSubtitle,
+                      align: TextAlign.start,
+                      fontSize: Dimensions.font(14),
+                      fontWeight: FontWeight.normal,
                     ),
-                    const SizedBox(width: 12),
-                    ElevatedButton.icon(
-                      onPressed: _homecontroller.navigateToCounsellingEnglish,
-                      icon: const Icon(Icons.language),
-                      label: const Text("English"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+          SizedBox(
+            height: Dimensions.height(220),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: doctors.length,
+              itemBuilder: (context, index) {
+                return DoctorCard(doctor: doctors[index]);
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: SizedBox(
+              width: double.maxFinite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AppText(
+                    text: "Popular Profiles",
+                    align: TextAlign.start,
+                    fontSize: Dimensions.font(18),
+                    fontWeight: FontWeight.bold,
+                  ),
+                  GestureDetector(
+                    onTap: () => Get.toNamed(Routes.POPULAR_PROFILES_SCREEN),
+                    child: AppText(
+                      text: "See all >",
+                      color: bottomSheetSubtitle,
+                      align: TextAlign.start,
+                      fontSize: Dimensions.font(14),
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: Dimensions.height(260),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return AvatarCard(avatar: avatars[index]);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -105,11 +140,12 @@ class HomeMainwidget extends StatelessWidget {
                   case 3:
                     return _buildChatTabContent(context);
                   default:
-                    return _buildHomeTabContent(context); // Default to home content
+                    return _buildHomeTabContent(
+                      context,
+                    ); // Default to home content
                 }
               }),
             ),
-
           ],
         ),
       ),

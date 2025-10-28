@@ -4,6 +4,8 @@ class Appstring {
   static const password = "Password";
   static const continueTxt = "Continue";
   static const cancel = "Cancel";
+  static const error = "Error";
+  static const success = "Success";
 
   //login screen text
   static const google = "Google";
@@ -40,11 +42,20 @@ class Appstring {
   static const errorWeakPassword = 'Password is too weak';
   static const errorFailedSignUp = "Signup failed due to some unknown reason";
 
-
+  // General Errors
+  static const errorPasswordsDoNotMatch = "New Password and Confirm Password do not match.";
+  static const errorPleaseFillAllFields = "Please fill all fields.";
 
   static const somethingWrong = "Something went wrong!";
-  
 
+  // Change Password Screen
+  static const changePasswordTitle = "Change Password";
+  static const changePasswordUpdateTitle = "Update Your Password";
+  static const changePasswordUpdateSubTitle = "Please enter your current password and a new password to update your account.";
+  static const changePasswordCurrent = "Current Password";
+  static const changePasswordNew = "New Password";
+  static const changePasswordConfirm = "Confirm New Password";
+  static const changePasswordSaveButton = "Save Password";
 
   // Forgpot Password Screen
   static const forgotPasTitle = "Forgot password";
@@ -97,4 +108,5 @@ class Appstring {
   static const settingsAboutUs = "About us";
   static const settingsMoreOptions = "More options";
   static const settingsConversationLanguages = "Conversation Languages";
+
 }

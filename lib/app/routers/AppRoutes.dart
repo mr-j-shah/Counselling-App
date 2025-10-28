@@ -17,6 +17,8 @@ import 'package:project_counselling/app/views/Presentation/IntroScreen/bindings/
 import 'package:project_counselling/app/views/Presentation/AuthScreens/LoginScreen/LoginScreen.dart';
 import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/MedicalRecordsScreen.dart';
 import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/bindings/MedicalRecordsBinding.dart';
+import 'package:project_counselling/app/views/Presentation/PopularProfiles/PopularProfilesScreen.dart';
+import 'package:project_counselling/app/views/Presentation/PopularProfiles/binding/PopularProfilesBinding.dart';
 import 'package:project_counselling/app/views/Presentation/SettingsScreen/SettingsScreen.dart';
 import 'package:project_counselling/app/views/Presentation/SettingsScreen/bindings/SettingsBinding.dart';
 import 'package:project_counselling/app/views/Presentation/SplashScreen/SplashScreen.dart';
@@ -24,6 +26,8 @@ import 'package:project_counselling/app/views/Presentation/SpeechScreen/binding/
 import 'package:project_counselling/app/views/Presentation/HomeScreen/HomeScreen.dart';
 import 'package:project_counselling/app/views/Presentation/SpeechScreen/SpeechScreen.dart';
 import 'package:project_counselling/app/views/Presentation/ChatScreen/UserChatScreen.dart';
+import 'package:project_counselling/app/views/Presentation/TopDoctors/TopDoctorsScreen.dart';
+import 'package:project_counselling/app/views/Presentation/TopDoctors/binding/TopDoctorsBinding.dart';
 
 import '../views/Presentation/Legal/PrivacyPolicyScreen.dart';
 import '../views/Presentation/Legal/TermsAndService.dart';
@@ -46,6 +50,8 @@ abstract class Routes {
   static const String ADD_RECORDS_SCREEN = '/add-records-screen';
   static const String ABOUT_US_SCREEN = '/about-us-screen';
   static const String CHANGE_PASSWORD_SCREEN = '/change-password-screen';
+  static const String POPULAR_PROFILES_SCREEN = '/popular-profiles-screen';
+  static const String TOP_DOCTORS_SCREEN = '/top-doctors-screen';
 }
 
 class AppRoutes {
@@ -141,6 +147,18 @@ class AppRoutes {
       name: Routes.CHANGE_PASSWORD_SCREEN,
       page: () => const ChangePasswordScreen(),
       binding: ChangePasswordBinding(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: Routes.POPULAR_PROFILES_SCREEN,
+      page: () => const PopularProfilesScreen(),
+      binding: PopularProfilesBinding(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: Routes.TOP_DOCTORS_SCREEN,
+      page: () => const TopDoctorsScreen(),
+      binding: TopDoctorsBinding(),
       transition: Transition.cupertino,
     ),
   ];
