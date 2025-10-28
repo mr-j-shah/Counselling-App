@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project_counselling/app/constants/AppString.dart';
 import 'package:project_counselling/app/data/enums/AuthFailedState.dart';
-import 'package:project_counselling/app/data/models/apimodel/FirebaseAuthResponse.dart';
+import '../data/models/apimodel/FirebaseAuthResponse.dart';
 import 'package:project_counselling/app/data/models/apimodel/UserLoginWithPass.dart';
 import 'package:project_counselling/app/data/models/apimodel/UserSignupRequest.dart';
 import 'package:project_counselling/app/data/services/local/AppPref.dart';
@@ -118,6 +118,33 @@ class Authrepo {
           failedState: Authfailedstate.UNKNOWN_ERROR,
         );
       }
+    }
+  }
+
+  Future<Firebaseauthresponse> sendPasswordResetEmail(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email.trim());
+      return Firebaseauthresponse(
+        message: "Password reset link has been sent to your email.",
+        failedState: Authfailedstate.NONE,
+      );
+    } on FirebaseAuthException catch (e) {
+      String message;
+      Authfailedstate failedState;
+      if (e.code == 'user-not-found') {
+        message = Appstring.errorUserNotFound;
+        failedState = Authfailedstate.USER_NOTFOUND;
+      } else if (e.code == 'invalid-email') {
+        message = Appstring.errorEmailInvalid;
+        failedState = Authfailedstate.INVALID_REQUEST;
+      } else {
+        message = Appstring.somethingWrong;
+        failedState = Authfailedstate.UNKNOWN_ERROR;
+      }
+      return Firebaseauthresponse(
+        message: message,
+        failedState: failedState,
+      );
     }
   }
 

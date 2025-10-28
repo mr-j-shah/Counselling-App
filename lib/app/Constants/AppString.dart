@@ -68,7 +68,7 @@ class Appstring {
   // Profile Screen
   static const profileTitle = "Profie";
   static const setUpYourProfile = "Set up your profile";
-  static const updateProfileTitle = "Update your profile to connect your doctor with better impression.";
+  static const updateProfileTitle = "Update your profile to connect your counsellor with better impression.";
   static const personalInfo = "Personal information";
   static const name = "Name";
   static const contactNumber = "Contact Number";
@@ -78,7 +78,7 @@ class Appstring {
   // Medical Records Screen
   static const medicalRecordsTitle = "Medical Records";
   static const addMedicalRecord = "Add a record";
-  static const addMedicalRecordSubTitle = 'A detailed health history helps a doctor diagnose you better.';
+  static const addMedicalRecordSubTitle = 'A detailed health history helps a counsellor diagnose you better.';
   static const recordFor = "Record for ";
 
   // About Us Screen

@@ -7,11 +7,14 @@ class Personalinfrotiles extends StatelessWidget {
   final String label;
   final String value;
   final bool showEdit;
+  final VoidCallback? onEditPressed;
+
   const Personalinfrotiles({
     super.key,
     required this.label,
     required this.value,
     this.showEdit = true,
+    this.onEditPressed,
   });
 
   @override
@@ -53,7 +56,11 @@ class Personalinfrotiles extends StatelessWidget {
                   ],
                 ),
               ),
-              if (showEdit) Icon(Icons.edit, color: bottomSheetSubtitle),
+              if (showEdit)
+                InkWell(
+                  onTap: onEditPressed,
+                  child: Icon(Icons.edit, color: bottomSheetSubtitle),
+                ),
             ],
           ),
         ),

@@ -126,24 +126,34 @@ class ProfileScreen extends StatelessWidget {
                               showEdit: false,
                             ),
                             Personalinfrotiles(
+                              label: Appstring.email,
+                              value: controller.user!.email,
+                              showEdit: false,
+                            ),
+                            Personalinfrotiles(
                               label: Appstring.contactNumber,
                               value: controller.user!.contactNum ?? "Add Details",
+                              showEdit: true,
+                              onEditPressed: (){},
                             ),
                             Personalinfrotiles(
                               label: Appstring.dateOfBirth,
                               value: controller.user!.dob ?? "DD MM YYYY",
+                              showEdit: true,
+                              onEditPressed: (){},
                             ),
                             Personalinfrotiles(
                               label: Appstring.location,
                               value: controller.user!.location ?? "Add Details",
                               showEdit: true,
+                              onEditPressed: (){},
                             ),
-                            // Center(
-                            //   child: PrimaryButton(
-                            //     text: Appstring.continueTxt,
-                            //     onPressed: () {},
-                            //   ),
-                            // ),
+                            Center(
+                              child: PrimaryButton(
+                                text: Appstring.continueTxt,
+                                onPressed: () {},
+                              ),
+                            ),
                           ],
                         );
                       }),
