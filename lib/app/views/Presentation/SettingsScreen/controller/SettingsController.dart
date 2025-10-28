@@ -1,9 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-
-import '../../../../routers/AppRoutes.dart';
+import 'package:project_counselling/app/data/enums/language.dart';
+import 'package:project_counselling/app/data/services/local/AppPref.dart';
+import 'package:project_counselling/app/routers/AppRoutes.dart';
+import 'package:project_counselling/app/views/Presentation/SettingsScreen/widgets/LanguageBottomSheet.dart';
 
 class SettingsController extends GetxController {
+  final AppPref _appPref = Get.find<AppPref>();
+
   // Observables for switch states
   var textMessagesEnabled = true.obs;
   var phoneCallsEnabled = true.obs;
@@ -16,18 +20,23 @@ class SettingsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // TODO: Load initial settings if needed from storage (e.g., GetStorage) or API
+    _loadSelectedLanguage();
+  }
+
+  void _loadSelectedLanguage() {
+    final savedLanguage = _appPref.getLanguage();
+    if (savedLanguage != null && savedLanguage.isNotEmpty) {
+      selectedLanguage.value = savedLanguage;
+    }
   }
 
   void toggleTextMessages(bool value) {
     textMessagesEnabled.value = value;
-    // TODO: Save this preference (e.g., using GetStorage)
     Get.snackbar("Settings Updated", "Text messages ${value ? 'enabled' : 'disabled'}");
   }
 
   void togglePhoneCalls(bool value) {
     phoneCallsEnabled.value = value;
-    // TODO: Save this preference (e.g., using GetStorage)
     Get.snackbar("Settings Updated", "Phone calls ${value ? 'enabled' : 'disabled'}");
   }
 
@@ -49,13 +58,19 @@ class SettingsController extends GetxController {
   }
 
   void goToAboutUs() {
-    // Get.toNamed(AppRoutes.ABOUT_US_SCREEN);
-    // Get.snackbar("Navigation", "To About Us Screen (${AppRoutes.ABOUT_US_SCREEN})");
+    Get.toNamed(Routes.ABOUT_US_SCREEN);
   }
 
-  void changeLanguage() {
-    // Get.toNamed(AppRoutes.LANGUAGE_SELECTION_SCREEN);
-    // Get.snackbar("Navigation", "To Language Selection Screen (${AppRoutes.LANGUAGE_SELECTION_SCREEN})");
+  void changeLanguage(BuildContext context) {
+    showLanguageBottomSheet(context, (Language language) {
+      _updateLanguage(language);
+    });
+  }
+
+  void _updateLanguage(Language language) {
+    selectedLanguage.value = language.toDisplayName();
+    _appPref.setLanguage(language.toDisplayName());
+    Get.snackbar("Language Updated", "Conversation language set to ${language.toDisplayName()}");
   }
 
   void changeCurrency() {

@@ -78,7 +78,6 @@ class SpeechController extends GetxController {
   Future<void> init() async {
     await tts.setLanguage(language.toLanguageSign());
     await tts.setPitch(0.9);
-    await tts.setSpeechRate(0.7);
 
     tts.setCompletionHandler(() {
       isSpeaking.value = false;

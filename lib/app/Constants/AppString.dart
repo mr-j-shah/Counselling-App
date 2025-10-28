@@ -81,4 +81,20 @@ class Appstring {
   static const addMedicalRecordSubTitle = 'A detailed health history helps a doctor diagnose you better.';
   static const recordFor = "Record for ";
 
+  // About Us Screen
+  static const aboutUsTitle = "About Us";
+  static const aboutUsOurMission = "Our Mission";
+  static const aboutUsOurMissionDescription = "Our mission is to provide accessible, compassionate, and confidential counselling services to empower individuals on their journey toward mental and emotional well-being. We believe that everyone deserves a safe space to explore their thoughts and feelings without judgment.\n\nOur team of dedicated and licensed professionals is committed to offering personalized support tailored to your unique needs.";
+  static const aboutUsOurTeam = "Our Team";
+  static const aboutUsOurTeamDescription = "We are a diverse team of experienced therapists, counsellors, and AI specialists working together to innovate in the mental health space. Our goal is to combine the empathy of human connection with the accessibility of technology to make mental health support available to all.";
+
+  // Settings Screen
+  static const settingsTitle = "Settings";
+  static const settingsAccountSettings = "Account settings";
+  static const settingsChangePassword = "Change Password";
+  static const settingsNotifications = "Notifications";
+  static const settingsStatistics = "Statistics";
+  static const settingsAboutUs = "About us";
+  static const settingsMoreOptions = "More options";
+  static const settingsConversationLanguages = "Conversation Languages";
 }

@@ -14,7 +14,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   await Firebase.initializeApp();
-  const flavor = String.fromEnvironment('flavor', defaultValue: 'dev');
+  const flavor = String.fromEnvironment('flavor', defaultValue: 'prod');
   await FlavorConfig.initialize(Flavor.values.byName(flavor));
   runApp(const MyApp());
 }

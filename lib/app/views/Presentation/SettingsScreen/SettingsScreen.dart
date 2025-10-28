@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_counselling/app/constants/AppString.dart';
 import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
 import 'package:project_counselling/app/views/Presentation/SettingsScreen/controller/SettingsController.dart';
@@ -19,69 +20,69 @@ class SettingsScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              CustomAppbar(title: 'Settings'),
+              CustomAppbar(title: Appstring.settingsTitle),
               Expanded(
                 child: ListView(
                   padding: EdgeInsets.symmetric(horizontal: Dimensions.width(16), vertical: Dimensions.height(20)),
                   children: [
-                    _buildSectionTitle('Account settings', textTheme),
+                    _buildSectionTitle(Appstring.settingsAccountSettings, textTheme),
                     SizedBox(height: Dimensions.height(10)),
                     _buildSettingsItem(
                       icon: Icons.lock_outline,
                       iconColor: Colors.white,
                       iconBackgroundColor: Colors.redAccent,
-                      title: 'Change Password',
+                      title: Appstring.settingsChangePassword,
                       onTap: controller.changePassword,
                     ),
                     _buildSettingsItem(
                       icon: Icons.notifications_none_outlined,
                       iconColor: Colors.white,
                       iconBackgroundColor: Colors.green,
-                      title: 'Notifications',
+                      title: Appstring.settingsNotifications,
                       onTap: controller.goToNotificationsSettings,
                     ),
                     _buildSettingsItem(
                       icon: Icons.bar_chart_outlined,
                       iconColor: Colors.white,
                       iconBackgroundColor: Colors.blueAccent,
-                      title: 'Statistics',
+                      title: Appstring.settingsStatistics,
                       onTap: controller.goToStatistics,
                     ),
                     _buildSettingsItem(
                       icon: Icons.person_outline,
                       iconColor: Colors.white,
                       iconBackgroundColor: Colors.orangeAccent,
-                      title: 'About us',
+                      title: Appstring.settingsAboutUs,
                       onTap: controller.goToAboutUs,
                     ),
                     SizedBox(height: Dimensions.height(24)),
-                    _buildSectionTitle('More options', textTheme),
+                    _buildSectionTitle(Appstring.settingsMoreOptions, textTheme),
                     SizedBox(height: Dimensions.height(10)),
-                    _buildToggleItem(
-                        title: 'Text messages',
-                        value: controller.textMessagesEnabled,
-                        onChanged: controller.toggleTextMessages,
-                        textTheme: textTheme),
-                    _buildToggleItem(
-                        title: 'Phone calls',
-                        value: controller.phoneCallsEnabled,
-                        onChanged: controller.togglePhoneCalls,
-                        textTheme: textTheme),
+                    // _buildToggleItem(
+                    //     title: 'Text messages',
+                    //     value: controller.textMessagesEnabled,
+                    //     onChanged: controller.toggleTextMessages,
+                    //     textTheme: textTheme),
+                    // _buildToggleItem(
+                    //     title: 'Phone calls',
+                    //     value: controller.phoneCallsEnabled,
+                    //     onChanged: controller.togglePhoneCalls,
+                    //     textTheme: textTheme),
                     Obx(() => _buildSettingsItem(
-                          title: 'Languages',
+                          title: Appstring.settingsConversationLanguages,
                           trailingText: controller.selectedLanguage.value,
-                          onTap: controller.changeLanguage,
+                          onTap: () => controller.changeLanguage(context),
                         )),
-                    Obx(() => _buildSettingsItem(
-                          title: 'Currency',
-                          trailingText: controller.selectedCurrency.value,
-                          onTap: controller.changeCurrency,
-                        )),
-                    Obx(() => _buildSettingsItem(
-                          title: 'Linked accounts',
-                          trailingText: controller.linkedAccounts.value,
-                          onTap: controller.manageLinkedAccounts,
-                        )),
+                    // Obx(() => _buildSettingsItem(
+                    //       title: 'Currency',
+                    //       trailingText: controller.selectedCurrency.value,
+                    //       onTap: controller.changeCurrency,
+                    //     )),
+                    // Obx(() => _buildSettingsItem(
+                    //       title: 'Linked accounts',
+                    //       trailingText: controller.linkedAccounts.value,
+                    //       onTap: controller.manageLinkedAccounts,
+                    //     )),
                   ],
                 ),
               ),

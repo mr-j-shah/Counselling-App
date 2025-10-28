@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
-import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/AddRecordsScreen.dart'; // Added import
-import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/bindings/AddRecordsBinding.dart'; // Added import
+import 'package:project_counselling/app/views/Presentation/AboutUsScreen/AboutUsScreen.dart';
+import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/AddRecordsScreen.dart';
+import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/bindings/AddRecordsBinding.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/SignupScreen/SignupScreen.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/binding/Authbinding.dart';
 import 'package:project_counselling/app/views/Presentation/CustomerProfile/ProfieScreen.dart';
@@ -40,7 +41,8 @@ abstract class Routes {
   static const String HELP_TOPIC_DETAIL_SCREEN = '/help-topic-detail-screen';
   static const String SETTINGS_SCREEN = '/settings-screen';
   static const String MEDICAL_RECORDS_SCREEN = '/medical-records-screen';
-  static const String ADD_RECORDS_SCREEN = '/add-records-screen'; // Added Add Records Screen Route
+  static const String ADD_RECORDS_SCREEN = '/add-records-screen';
+  static const String ABOUT_US_SCREEN = '/about-us-screen';
 }
 
 class AppRoutes {
@@ -121,10 +123,15 @@ class AppRoutes {
       binding: MedicalRecordsBinding(),
       transition: Transition.cupertino,
     ),
-    GetPage( // Added GetPage for Add Records Screen
+    GetPage(
       name: Routes.ADD_RECORDS_SCREEN,
       page: () => const AddRecordsScreen(),
       binding: AddRecordsBinding(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: Routes.ABOUT_US_SCREEN,
+      page: () => const AboutUsScreen(),
       transition: Transition.cupertino,
     ),
   ];

@@ -15,9 +15,18 @@ class Splashscreen extends StatefulWidget {
 
 class _SplashscreenState extends State<Splashscreen> {
   final _appPref = Get.find<AppPref>();
+
   @override
   void initState() {
     super.initState();
+    _initializeAndNavigate();
+  }
+
+  Future<void> _initializeAndNavigate() async {
+    // Initialize services
+    await _appPref.init();
+    
+    // Wait for splash screen duration
     Timer(const Duration(seconds: 5), () {
       navigateToNext();
     });
@@ -33,10 +42,16 @@ class _SplashscreenState extends State<Splashscreen> {
   }
 
   void navigateToNext() {
-    String? userId = _appPref.getUser();
-    if (userId != null && userId.isNotEmpty) {
+    // Check the current Firebase user
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      // User is logged in, save UID and go to Home
+      _appPref.setUser(user.uid);
       Get.offAllNamed(Routes.HOME);
     } else {
+      // User is not logged in, clear any old UID and go to Intro
+      _appPref.setUser('');
       Get.offAllNamed(Routes.INTRO_SCREEN);
     }
   }
