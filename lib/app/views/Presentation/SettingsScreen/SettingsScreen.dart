@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/constants/AppString.dart';
 import 'package:project_counselling/app/data/enums/language.dart';
+import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
 import 'package:project_counselling/app/views/Presentation/SettingsScreen/controller/SettingsController.dart';
@@ -33,7 +34,7 @@ class SettingsScreen extends StatelessWidget {
                       iconColor: Colors.white,
                       iconBackgroundColor: Colors.redAccent,
                       title: Appstring.settingsChangePassword,
-                      onTap: controller.changePassword,
+                      onTap: () => Get.toNamed(Routes.CHANGE_PASSWORD_SCREEN),
                     ),
                     _buildSettingsItem(
                       icon: Icons.notifications_none_outlined,

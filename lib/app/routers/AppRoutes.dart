@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:project_counselling/app/views/Presentation/AboutUsScreen/AboutUsScreen.dart';
+import 'package:project_counselling/app/views/Presentation/ChangePassword/ChangePasswordScreen.dart';
+import 'package:project_counselling/app/views/Presentation/ChangePassword/binding/ChangePasswordBinding.dart';
 import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/AddRecordsScreen.dart';
 import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/bindings/AddRecordsBinding.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/SignupScreen/SignupScreen.dart';
@@ -43,6 +45,7 @@ abstract class Routes {
   static const String MEDICAL_RECORDS_SCREEN = '/medical-records-screen';
   static const String ADD_RECORDS_SCREEN = '/add-records-screen';
   static const String ABOUT_US_SCREEN = '/about-us-screen';
+  static const String CHANGE_PASSWORD_SCREEN = '/change-password-screen';
 }
 
 class AppRoutes {
@@ -132,6 +135,12 @@ class AppRoutes {
     GetPage(
       name: Routes.ABOUT_US_SCREEN,
       page: () => const AboutUsScreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: Routes.CHANGE_PASSWORD_SCREEN,
+      page: () => const ChangePasswordScreen(),
+      binding: ChangePasswordBinding(),
       transition: Transition.cupertino,
     ),
   ];

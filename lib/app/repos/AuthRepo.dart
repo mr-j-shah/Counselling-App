@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project_counselling/app/constants/AppString.dart';
 import 'package:project_counselling/app/data/enums/AuthFailedState.dart';
-import '../data/models/apimodel/FirebaseAuthResponse.dart';
+import 'package:project_counselling/app/data/models/apimodel/FirebaseAuthResponse.dart';
 import 'package:project_counselling/app/data/models/apimodel/UserLoginWithPass.dart';
 import 'package:project_counselling/app/data/models/apimodel/UserSignupRequest.dart';
 import 'package:project_counselling/app/data/services/local/AppPref.dart';
@@ -144,6 +144,56 @@ class Authrepo {
       return Firebaseauthresponse(
         message: message,
         failedState: failedState,
+      );
+    }
+  }
+
+  Future<Firebaseauthresponse> changePassword(
+      String currentPassword, String newPassword) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        return Firebaseauthresponse(
+          message: "No user is currently signed in.",
+          failedState: Authfailedstate.USER_NOTFOUND,
+        );
+      }
+
+      // Re-authenticate user
+      final cred = EmailAuthProvider.credential(
+        email: user.email!,
+        password: currentPassword,
+      );
+      await user.reauthenticateWithCredential(cred);
+
+      // Change password
+      await user.updatePassword(newPassword);
+
+      return Firebaseauthresponse(
+        message: "Password updated successfully.",
+        failedState: Authfailedstate.NONE,
+      );
+    } on FirebaseAuthException catch (e) {
+      String message;
+      Authfailedstate failedState;
+      if (e.code == 'wrong-password') {
+        message = "The current password you entered is incorrect.";
+        failedState = Authfailedstate.WRONG_PASSWORD;
+      } else if (e.code == 'weak-password') {
+        message = "The new password is too weak. Please use a stronger password.";
+        failedState = Authfailedstate.INVALID_REQUEST;
+      } else {
+        message = "An error occurred while changing your password.";
+        failedState = Authfailedstate.UNKNOWN_ERROR;
+      }
+      return Firebaseauthresponse(
+        message: message,
+        failedState: failedState,
+      );
+    } catch (e) {
+      return Firebaseauthresponse(
+        message: "An unexpected error occurred. Please try again.",
+        failedState: Authfailedstate.UNKNOWN_ERROR,
       );
     }
   }
