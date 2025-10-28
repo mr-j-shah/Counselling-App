@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/constants/AppString.dart';
+import 'package:project_counselling/app/data/enums/language.dart';
 import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
 import 'package:project_counselling/app/views/Presentation/SettingsScreen/controller/SettingsController.dart';
@@ -70,7 +71,7 @@ class SettingsScreen extends StatelessWidget {
                     //     textTheme: textTheme),
                     Obx(() => _buildSettingsItem(
                           title: Appstring.settingsConversationLanguages,
-                          trailingText: controller.selectedLanguage.value,
+                          trailingText: controller.selectedLanguage.value.toDisplayName(),
                           onTap: () => controller.changeLanguage(context),
                         )),
                     // Obx(() => _buildSettingsItem(

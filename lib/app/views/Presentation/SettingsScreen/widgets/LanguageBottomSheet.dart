@@ -6,10 +6,46 @@ import 'package:project_counselling/app/views/AppWidgets/BottomSheetHandle.dart'
 import 'package:project_counselling/app/views/Utils/Colors.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
-void showLanguageBottomSheet(BuildContext context, Function(Language) onLanguageSelected) {
+void showLanguageBottomSheet(
+  BuildContext context,
+  Language currentLanguage,
+  Function(Language) onLanguageSelected,
+) {
   Dimensions.init(context);
   Get.bottomSheet(
-    SafeArea(
+    _LanguageBottomSheetContent(
+      currentLanguage: currentLanguage,
+      onLanguageSelected: onLanguageSelected,
+    ),
+    isScrollControlled: true,
+  );
+}
+
+class _LanguageBottomSheetContent extends StatefulWidget {
+  final Language currentLanguage;
+  final Function(Language) onLanguageSelected;
+
+  const _LanguageBottomSheetContent({
+    required this.currentLanguage,
+    required this.onLanguageSelected,
+  });
+
+  @override
+  State<_LanguageBottomSheetContent> createState() => _LanguageBottomSheetContentState();
+}
+
+class _LanguageBottomSheetContentState extends State<_LanguageBottomSheetContent> {
+  late Language _selectedLanguage;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedLanguage = widget.currentLanguage;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
       child: Container(
         padding: EdgeInsets.all(Dimensions.padding(20)),
         decoration: BoxDecoration(
@@ -31,16 +67,24 @@ void showLanguageBottomSheet(BuildContext context, Function(Language) onLanguage
             SizedBox(height: Dimensions.height(20)),
             ...Language.values.map((lang) => ListTile(
                   title: Text(lang.toDisplayName()),
+                  trailing: lang == _selectedLanguage
+                      ? Icon(Icons.check, color: primaryColor)
+                      : null,
                   onTap: () {
-                    onLanguageSelected(lang);
-                    Get.back(); // Close the bottom sheet
+                    setState(() {
+                      _selectedLanguage = lang;
+                    });
+                    widget.onLanguageSelected(lang);
+                    // Using a short delay to show selection before closing.
+                    Future.delayed(const Duration(milliseconds: 300), () {
+
+                    });
                   },
                 )),
             SizedBox(height: Dimensions.height(30)),
           ],
         ),
       ),
-    ),
-    isScrollControlled: true,
-  );
+    );
+  }
 }

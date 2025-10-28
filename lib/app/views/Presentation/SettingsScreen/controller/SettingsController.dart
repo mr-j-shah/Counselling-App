@@ -5,6 +5,8 @@ import 'package:project_counselling/app/data/services/local/AppPref.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/Presentation/SettingsScreen/widgets/LanguageBottomSheet.dart';
 
+import '../../../Utils/CustomSnackbar.dart';
+
 class SettingsController extends GetxController {
   final AppPref _appPref = Get.find<AppPref>();
 
@@ -13,7 +15,7 @@ class SettingsController extends GetxController {
   var phoneCallsEnabled = true.obs;
 
   // Observables for values
-  var selectedLanguage = "English".obs;
+  var selectedLanguage = Language.ENGLISH.obs;
   var selectedCurrency = "\$-USD".obs;
   var linkedAccounts = "Facebook, Google".obs;
 
@@ -26,7 +28,12 @@ class SettingsController extends GetxController {
   void _loadSelectedLanguage() {
     final savedLanguage = _appPref.getLanguage();
     if (savedLanguage != null && savedLanguage.isNotEmpty) {
-      selectedLanguage.value = savedLanguage;
+      try {
+        selectedLanguage.value = Language.values.firstWhere((e) => e.toDisplayName() == savedLanguage);
+      } catch (e) {
+        // Handle cases where the saved language is no longer valid
+        selectedLanguage.value = Language.ENGLISH;
+      }
     }
   }
 
@@ -62,15 +69,20 @@ class SettingsController extends GetxController {
   }
 
   void changeLanguage(BuildContext context) {
-    showLanguageBottomSheet(context, (Language language) {
+    showLanguageBottomSheet(context, selectedLanguage.value, (Language language) {
       _updateLanguage(language);
     });
   }
 
   void _updateLanguage(Language language) {
-    selectedLanguage.value = language.toDisplayName();
+    selectedLanguage.value = language;
     _appPref.setLanguage(language.toDisplayName());
-    Get.snackbar("Language Updated", "Conversation language set to ${language.toDisplayName()}");
+    Get.back();
+    Customsnackbar.show(
+      title: "Language Updated",
+      subtitle: "Conversation language set to ${language.toDisplayName()}",
+      leadingIcon: Icon(Icons.language)
+    );
   }
 
   void changeCurrency() {
