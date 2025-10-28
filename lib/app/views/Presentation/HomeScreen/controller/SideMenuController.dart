@@ -1,7 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/constants/AppAssets.dart';
 import 'package:project_counselling/app/constants/AppString.dart';
+import 'package:project_counselling/app/data/models/apimodel/User.dart';
+import 'package:project_counselling/app/data/services/local/AppPref.dart';
 import 'package:project_counselling/app/repos/AuthRepo.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/Utils/CustomDialog.dart';
@@ -11,11 +12,15 @@ class Sidemenucontroller extends GetxController {
   Rx<int> selectedTile = (-1).obs;
   int tilesAnimationTime = 200;
   int tilesOnClickPauseTime = 400;
-  final User? _user = FirebaseAuth.instance.currentUser;
+
+  final AppPref _appPref = Get.find<AppPref>();
   final Authrepo _authrepo = Authrepo();
+  User? _user;
+
   @override
   void onInit() {
     super.onInit();
+    _user = _appPref.getUser();
   }
 
   void navigateToMedicalRecords() {
@@ -50,7 +55,8 @@ class Sidemenucontroller extends GetxController {
       cancelText: Appstring.cancel,
       onConfirm: () async {
         await _authrepo.signOut();
-        Get.offAllNamed(Routes.LOGIN_SCREEN);
+        await _appPref.clearUser(); // Clear user from prefs
+        Get.offAllNamed(Routes.INTRO_SCREEN); // Navigate to Intro
       },
     );
   }
@@ -84,12 +90,11 @@ class Sidemenucontroller extends GetxController {
   }
 
   String getUserName() {
-    return _user?.displayName ?? "User";
+    return _user?.name ?? "User";
   }
 
   String getEmail() {
-    // This should ideally fetch real email if available or a placeholder
-    return _user?.email ?? "your_email@example.com"; 
+    return _user?.email ?? "your_email@example.com";
   }
 
   List<SidemenuModel> sideMenuItems = [
@@ -101,7 +106,7 @@ class Sidemenucontroller extends GetxController {
     SidemenuModel(
       index: 2,
       title: Appstring.medicalRecords,
-      icon: Appassets.medicalRecordIcon, 
+      icon: Appassets.medicalRecordIcon,
     ),
     SidemenuModel(
       index: 3,

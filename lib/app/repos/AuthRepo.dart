@@ -122,7 +122,7 @@ class Authrepo {
   }
 
   Future<void> signOut() async {
-    _appPref.setUser("");
+    await _appPref.clearUser();
     await GoogleSignIn().signOut();
     await FirebaseAuth.instance.signOut();
   }

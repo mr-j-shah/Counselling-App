@@ -1,9 +1,11 @@
+import 'dart:convert';
+
+import 'package:project_counselling/app/data/models/apimodel/User.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppPref {
-  static const String _USER_CREDENTIAL = "user_credential";
-  static const String _USER_PIN = "user_pin";
-  static const String _USER_LANGUAGE = "user_language"; // Added language key
+  static const String _USER_DATA = "user_data"; // Changed key for clarity
+  static const String _USER_LANGUAGE = "user_language";
 
   static final AppPref _instance = AppPref._internal();
   SharedPreferences? _prefs;
@@ -19,14 +21,24 @@ class AppPref {
     _prefs ??= await SharedPreferences.getInstance();
   }
 
-  /// Set user credential.
-  Future<void> setUser(String credential) async {
-    await _prefs?.setString(_USER_CREDENTIAL, credential);
+  /// Set user data.
+  Future<void> setUser(User user) async {
+    final userJson = jsonEncode(user.toJson());
+    await _prefs?.setString(_USER_DATA, userJson);
   }
 
-  /// Get user credential.
-  String? getUser() {
-    return _prefs?.getString(_USER_CREDENTIAL);
+  /// Get user data.
+  User? getUser() {
+    final userJson = _prefs?.getString(_USER_DATA);
+    if (userJson != null) {
+      return User.fromJson(jsonDecode(userJson));
+    }
+    return null;
+  }
+
+  /// Clear user data from shared preferences.
+  Future<void> clearUser() async {
+    await _prefs?.remove(_USER_DATA);
   }
 
   /// Set user-selected language.

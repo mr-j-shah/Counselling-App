@@ -21,15 +21,16 @@ class Profilescreencontroller extends GetxController {
   }
 
   void getCustomerDetails() {
-    String? _userID = _appPref.getUser();
-    if (_userID != null && _userID.isNotEmpty) {
-      _userrepo.getUserByUserID(_userID).then((value) {
-        user = value;
-        debugPrint("User Fetch successfully");
-        isUserFetched.value = true;
-      });
+    user = _appPref.getUser();
+    if (user != null) {
+      debugPrint("User fetched successfully from AppPref");
+      isUserFetched.value = true;
     } else {
-      Customsnackbar.show(title: "Error", subtitle: "Something went wrong");
+      Customsnackbar.show(
+        title: "Error",
+        subtitle: "Something went wrong. User not found.",
+        type: SnackbarType.error,
+      );
       isUserFetched.value = true;
       isUserFetchedError.value = true;
     }

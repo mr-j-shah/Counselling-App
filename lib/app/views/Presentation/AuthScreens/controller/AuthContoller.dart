@@ -104,42 +104,49 @@ class Authcontroller extends GetxController {
             password: passwordLoginController.text,
           ),
         )
-        .then((value) {
-          if (value.failedState == Authfailedstate.NONE) {
-            _appPref.setUser(value.userCredential!.user!.uid);
-            Customsnackbar.show(
-              title: Appstring.login,
-              subtitle: value.message,
-              leadingIcon: Icon(Icons.check),
-            );
-            Get.offAllNamed(Routes.HOME);
-            Loading.hide();
-          } else {
-            Loading.hide();
-            Customsnackbar.show(
-              title: Appstring.login,
-              subtitle: value.message,
-            );
-          }
-        });
+        .then((value) async {
+      if (value.failedState == Authfailedstate.NONE &&
+          value.userCredential?.user != null) {
+        final user =
+            await _userrepo.getUserByUserID(value.userCredential!.user!.uid);
+        if (user != null) {
+          await _appPref.setUser(user);
+          Customsnackbar.show(
+            title: Appstring.login,
+            subtitle: value.message,
+            leadingIcon: Icon(Icons.check),
+          );
+          Get.offAllNamed(Routes.HOME);
+          Loading.hide();
+        } else {
+          Loading.hide();
+          Customsnackbar.show(
+            title: Appstring.login,
+            subtitle: "Failed to retrieve user profile.",
+            type: SnackbarType.error,
+          );
+        }
+      } else {
+        Loading.hide();
+        Customsnackbar.show(
+          title: Appstring.login,
+          subtitle: value.message,
+        );
+      }
+    });
   }
 
   void signUpUser() async {
     var name = nameSignUpController.text;
     var email = emailSignUpController.text;
     var password = passwordSignUpController.text;
-    if (!isAgreed.value) {
-      Customsnackbar.show(
-        title: Appstring.login,
-        subtitle: Appstring.errorTnCSignUp,
-      );
-      return;
-    }
+
 
     if (name.isEmpty || name.length < 3) {
       Customsnackbar.show(
         title: Appstring.signUp,
         subtitle: Appstring.errorNameSignUp,
+        type: SnackbarType.error,
       );
       return;
     }
@@ -148,6 +155,7 @@ class Authcontroller extends GetxController {
       Customsnackbar.show(
         title: Appstring.signUp,
         subtitle: Appstring.errorEmailValidation,
+        type: SnackbarType.error,
       );
       return;
     }
@@ -158,6 +166,16 @@ class Authcontroller extends GetxController {
       Customsnackbar.show(
         title: Appstring.signUp,
         subtitle: Appstring.errorPasswordSignUp,
+        type: SnackbarType.error,
+      );
+      return;
+    }
+
+    if (!isAgreed.value) {
+      Customsnackbar.show(
+        title: Appstring.signUp,
+        subtitle: Appstring.errorTnCSignUp,
+        type: SnackbarType.error,
       );
       return;
     }
@@ -173,23 +191,25 @@ class Authcontroller extends GetxController {
               addValue,
             ) {
               Loading.hide();
+              navigateBackToLogin();
               Customsnackbar.show(
-                title: Appstring.login,
+                title: Appstring.signUp,
                 subtitle: value.message,
-                leadingIcon: Icon(Icons.check),
+                type: SnackbarType.success,
               );
             });
           } else {
             Loading.hide();
             Customsnackbar.show(
-              title: Appstring.login,
+              title: Appstring.signUp,
               subtitle: value.message,
+              type: SnackbarType.error,
             );
           }
         })
         .catchError((e) {
           Loading.hide();
-          Customsnackbar.show(title: Appstring.login, subtitle: e.toString());
+          Customsnackbar.show(title: Appstring.signUp, subtitle: e.toString());
         });
   }
 
@@ -206,16 +226,19 @@ class Authcontroller extends GetxController {
                 email: firebaseUser.email!,
               ),
             )
-            .then((addValue) {
-              Loading.hide();
-              _appPref.setUser(value.userCredential!.user!.uid);
-              Customsnackbar.show(
-                title: Appstring.login,
-                subtitle: value.message,
-                leadingIcon: Icon(Icons.check),
-              );
-              Get.offAllNamed(Routes.HOME);
-            });
+            .then((addValue) async {
+          final user = await _userrepo.getUserByUserID(value.userCredential!.user!.uid);
+          if (user != null) {
+            await _appPref.setUser(user);
+          }
+          Loading.hide();
+          Customsnackbar.show(
+            title: Appstring.login,
+            subtitle: value.message,
+            leadingIcon: Icon(Icons.check),
+          );
+          Get.offAllNamed(Routes.HOME);
+        });
       } else {
         Loading.hide();
         Customsnackbar.show(title: Appstring.login, subtitle: value.message);
@@ -230,6 +253,7 @@ class Authcontroller extends GetxController {
       Customsnackbar.show(
         title: Appstring.login,
         subtitle: Appstring.faceBookSuspend,
+        type: SnackbarType.error,
       );
     });
   }

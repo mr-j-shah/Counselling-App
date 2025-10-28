@@ -1,11 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/data/enums/language.dart';
+import 'package:project_counselling/app/data/models/apimodel/User.dart';
+import 'package:project_counselling/app/data/services/local/AppPref.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
 
 class Homecontroller extends GetxController {
   var isMenuOpen = false.obs;
-  User? _user = FirebaseAuth.instance.currentUser;
+  final AppPref _appPref = Get.find<AppPref>();
+  User? _user;
 
   // To manage the selected tab index for bottom navigation
   var selectedTabIndex = 0.obs;
@@ -13,6 +15,7 @@ class Homecontroller extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    _user = _appPref.getUser();
     print("HomeController initialized!");
   }
 
@@ -35,10 +38,8 @@ class Homecontroller extends GetxController {
   }
 
   String getUserName() {
-    return _user?.displayName?.trim().isNotEmpty == true
-        ? _user!.displayName!
-        : "User";
+    return _user?.name.trim().isNotEmpty == true ? _user!.name : "User";
   }
-  
+
   void toggleMenu() => isMenuOpen.value = !isMenuOpen.value;
 }

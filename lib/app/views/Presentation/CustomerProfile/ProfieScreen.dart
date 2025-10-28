@@ -11,13 +11,15 @@ import 'package:project_counselling/app/views/Utils/dimensions.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
+  final controller = Get.find<Profilescreencontroller>();
 
   Widget build(BuildContext context) {
     Dimensions.init(context);
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: Padding(
-        padding: EdgeInsetsGeometry.only(bottom: MediaQuery.of(context).padding.bottom),
+        padding:
+            EdgeInsetsGeometry.only(bottom: MediaQuery.of(context).padding.bottom),
         child: Column(
           children: [
             Container(
@@ -63,8 +65,7 @@ class ProfileScreen extends StatelessWidget {
                               horizontal: Dimensions.padding(20),
                             ),
                             child: AppText(
-                              text:
-                                  Appstring.updateProfileTitle,
+                              text: Appstring.updateProfileTitle,
                               style: TextStyle(
                                 fontSize: Dimensions.font(14),
                                 color: Colors.white,
@@ -96,47 +97,56 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-        
+
                     // Personal Info Section
                     Padding(
                       padding: EdgeInsets.all(Dimensions.padding(20)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppText(
-                            text: Appstring.personalInfo,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: Dimensions.font(18),
+                      child: Obx(() {
+                        if (!controller.isUserFetched.value) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        if (controller.isUserFetchedError.value ||
+                            controller.user == null) {
+                          return Center(child: Text("Failed to load user data."));
+                        }
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppText(
+                              text: Appstring.personalInfo,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: Dimensions.font(18),
+                              ),
                             ),
-                          ),
-                          SizedBox(height: Dimensions.height(16)),
-                          Personalinfrotiles(
-                            label: Appstring.name,
-                            value: "Jinay Shah",
-                            showEdit: false,
-                          ),
-                          Personalinfrotiles(
-                            label: Appstring.contactNumber,
-                            value: "+91 9978530638",
-                          ),
-                          Personalinfrotiles(
-                            label: Appstring.dateOfBirth,
-                            value: "DD MM YYYY",
-                          ),
-                          Personalinfrotiles(
-                            label: Appstring.location,
-                            value: "Add Details",
-                            showEdit: false,
-                          ),
-                          Center(
-                            child: PrimaryButton(
-                              text: Appstring.continueTxt,
-                              onPressed: () {},
+                            SizedBox(height: Dimensions.height(16)),
+                            Personalinfrotiles(
+                              label: Appstring.name,
+                              value: controller.user!.name,
+                              showEdit: false,
                             ),
-                          ),
-                        ],
-                      ),
+                            Personalinfrotiles(
+                              label: Appstring.contactNumber,
+                              value: controller.user!.contactNum ?? "Add Details",
+                            ),
+                            Personalinfrotiles(
+                              label: Appstring.dateOfBirth,
+                              value: controller.user!.dob ?? "DD MM YYYY",
+                            ),
+                            Personalinfrotiles(
+                              label: Appstring.location,
+                              value: controller.user!.location ?? "Add Details",
+                              showEdit: true,
+                            ),
+                            // Center(
+                            //   child: PrimaryButton(
+                            //     text: Appstring.continueTxt,
+                            //     onPressed: () {},
+                            //   ),
+                            // ),
+                          ],
+                        );
+                      }),
                     ),
                   ],
                 ),
