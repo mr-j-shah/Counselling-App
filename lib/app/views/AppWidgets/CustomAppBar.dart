@@ -5,7 +5,7 @@ import 'package:project_counselling/app/constants/AppAssets.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/Utils/dimensions.dart';
 
-class CustomAppbar extends StatelessWidget  {
+class CustomAppbar extends StatelessWidget {
   final Widget? suffixAction;
   final String title;
   final VoidCallback? onLeadingClick;
@@ -27,10 +27,11 @@ class CustomAppbar extends StatelessWidget  {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: Dimensions.width(20),
-        vertical: Dimensions.height(10),
+        vertical: Dimensions.height(20),
       ),
       child: SizedBox(
         width: Dimensions.baseWidth,
+        height: Dimensions.height(30), // Set a fixed height for consistency
         child: Row(
           children: [
             InkWell(
@@ -53,14 +54,14 @@ class CustomAppbar extends StatelessWidget  {
               ),
             ),
             SizedBox(width: Dimensions.width(16)),
-            Expanded( // Added Expanded here
+            Expanded(
               child: AppText(
                 text: title,
                 fontSize: Dimensions.font(18),
                 fontWeight: FontWeight.w600,
                 color: titleColor,
-                maxLines: 1, // Added maxLines
-                overflow: TextOverflow.ellipsis, // Added overflow
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             SizedBox(width: Dimensions.width(16)),
