@@ -5,6 +5,7 @@ import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
 import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart';
 import 'package:project_counselling/app/views/Presentation/CustomerProfile/controller/ProfileScreenController.dart';
+import 'package:project_counselling/app/views/Presentation/CustomerProfile/widgets/PersonalInfoEditType.dart';
 import 'package:project_counselling/app/views/Presentation/CustomerProfile/widgets/PersonalinfroTiles.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';
 import 'package:project_counselling/app/views/Utils/dimensions.dart';
@@ -19,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: Colors.grey.shade100,
       body: Padding(
         padding:
-            EdgeInsetsGeometry.only(bottom: MediaQuery.of(context).padding.bottom),
+            EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
         child: Column(
           children: [
             Container(
@@ -47,33 +48,6 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          SizedBox(height: Dimensions.height(10)),
-                          Padding(
-                            padding: EdgeInsetsGeometry.symmetric(
-                              horizontal: Dimensions.padding(20),
-                            ),
-                            child: AppText(
-                              text: Appstring.setUpYourProfile,
-                              fontSize: Dimensions.font(18),
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(height: Dimensions.height(5)),
-                          Padding(
-                            padding: EdgeInsetsGeometry.symmetric(
-                              horizontal: Dimensions.padding(20),
-                            ),
-                            child: AppText(
-                              text: Appstring.updateProfileTitle,
-                              style: TextStyle(
-                                fontSize: Dimensions.font(14),
-                                color: Colors.white,
-                              ),
-                              align: TextAlign.center,
-                            ),
-                          ),
-                          SizedBox(height: Dimensions.height(15)),
                           Stack(
                             alignment: Alignment.bottomRight,
                             children: [
@@ -94,6 +68,33 @@ class ProfileScreen extends StatelessWidget {
                               ),
                             ],
                           ),
+                          SizedBox(height: Dimensions.height(15)),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: Dimensions.padding(20),
+                            ),
+                            child: AppText(
+                              text: controller.user.value!.name,
+                              fontSize: Dimensions.font(22),
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: Dimensions.padding(20),
+                            ),
+                            child: AppText(
+                              text: controller.user.value!.email,
+                              style: TextStyle(
+                                fontSize: Dimensions.font(18),
+                                color: Colors.white,
+                              ),
+                              align: TextAlign.center,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(height: Dimensions.height(15)),
                         ],
                       ),
                     ),
@@ -106,7 +107,7 @@ class ProfileScreen extends StatelessWidget {
                           return Center(child: CircularProgressIndicator());
                         }
                         if (controller.isUserFetchedError.value ||
-                            controller.user == null) {
+                            controller.user.value == null) {
                           return Center(child: Text("Failed to load user data."));
                         }
                         return Column(
@@ -121,39 +122,37 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             SizedBox(height: Dimensions.height(16)),
                             Personalinfrotiles(
-                              label: Appstring.name,
-                              value: controller.user!.name,
-                              showEdit: false,
-                            ),
-                            Personalinfrotiles(
-                              label: Appstring.email,
-                              value: controller.user!.email,
-                              showEdit: false,
-                            ),
-                            Personalinfrotiles(
                               label: Appstring.contactNumber,
-                              value: controller.user!.contactNum ?? "Add Details",
-                              showEdit: true,
-                              onEditPressed: (){},
+                              value: controller.user.value!.contactNum ?? "Add Details",
+                              editType: PersonalInfoEditType.phone,
+                              onValueChanged: (newValue) {
+                                controller.updateContactNumber(newValue);
+                              },
                             ),
                             Personalinfrotiles(
                               label: Appstring.dateOfBirth,
-                              value: controller.user!.dob ?? "DD MM YYYY",
-                              showEdit: true,
-                              onEditPressed: (){},
+                              value: controller.user.value!.dob ?? "DD MM YYYY",
+                              editType: PersonalInfoEditType.date,
+                              onValueChanged: (newValue) {
+                                controller.updateDateOfBirth(newValue);
+                              },
                             ),
                             Personalinfrotiles(
                               label: Appstring.location,
-                              value: controller.user!.location ?? "Add Details",
-                              showEdit: true,
-                              onEditPressed: (){},
+                              value: controller.user.value!.location ?? "Add Details",
+                              editType: PersonalInfoEditType.text,
+                              onValueChanged: (newValue) {
+                                controller.updateLocation(newValue);
+                              },
                             ),
-                            Center(
-                              child: PrimaryButton(
-                                text: Appstring.continueTxt,
-                                onPressed: () {},
+                            SizedBox(height: Dimensions.height(20)),
+                            if (controller.isProfileDirty.value)
+                              Center(
+                                child: PrimaryButton(
+                                  text: "Save",
+                                  onPressed: controller.saveUserProfile,
+                                ),
                               ),
-                            ),
                           ],
                         );
                       }),

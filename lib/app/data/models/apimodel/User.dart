@@ -36,4 +36,22 @@ class User {
       'location': location,
     };
   }
+
+  User copyWith({
+    String? userID,
+    String? name,
+    String? email,
+    String? dob,
+    String? contactNum,
+    String? location,
+  }) {
+    return User(
+      userID: userID ?? this.userID,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      dob: dob ?? this.dob,
+      contactNum: contactNum ?? this.contactNum,
+      location: location ?? this.location,
+    );
+  }
 }

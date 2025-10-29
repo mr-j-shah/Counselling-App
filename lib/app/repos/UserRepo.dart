@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:project_counselling/app/data/models/apimodel/User.dart';
 
 class Userrepo {
@@ -29,6 +30,7 @@ class Userrepo {
   }
 
   Future<void> updateUser(User user) {
+    debugPrint("User Data :: ${user.toJson().toString()}");
     return _usersCollection
         .doc(user.userID)
         .update(user.toJson())
