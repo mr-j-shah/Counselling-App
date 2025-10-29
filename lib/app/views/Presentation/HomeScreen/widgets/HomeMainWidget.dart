@@ -13,6 +13,8 @@ import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/Ho
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
 import '../../../Utils/Colors.dart';
+import 'HomeScreenSectionTitle.dart';
+import 'StartFreeSessionCard.dart';
 
 class HomeMainwidget extends StatelessWidget {
   final Homecontroller _homecontroller = Get.find<Homecontroller>();
@@ -20,93 +22,63 @@ class HomeMainwidget extends StatelessWidget {
   HomeMainwidget({super.key});
 
   Widget _buildHomeTabContent(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Homeappbar(),
-          SizedBox(height: Dimensions.height(20)),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: SizedBox(
-              width: double.maxFinite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AppText(
-                    text: "Top Doctors",
-                    align: TextAlign.start,
-                    fontSize: Dimensions.font(18),
-                    fontWeight: FontWeight.bold,
+    return Column(
+      children: [
+        Homeappbar(),
+        SizedBox(height: Dimensions.height(20)),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: Dimensions.height(10)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                  child: Startfreesessioncard(
+                    onPressed: _homecontroller.navigateToFreeCounselling,
                   ),
-                  GestureDetector(
-                    onTap: () => Get.toNamed(Routes.TOP_DOCTORS_SCREEN),
-                    child: AppText(
-                      text: "See all >",
-                      color: bottomSheetSubtitle,
-                      align: TextAlign.start,
-                      fontSize: Dimensions.font(14),
-                      fontWeight: FontWeight.normal,
-                    ),
+                ),
+                SizedBox(height: Dimensions.height(10)),
+                Padding(
+                  padding: const  EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                  child: HomeScreenSectionTitle(
+                    title: "Popular Profiles",
+                    onPressed: () {
+                      Get.toNamed(Routes.POPULAR_PROFILES_SCREEN);
+                    },
                   ),
-                ],
-              ),
+                ),
+                SizedBox(height: Dimensions.height(10)),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15,0,0,0),
+                  child: AvatarList(),
+                ),
+                SizedBox(height: Dimensions.height(10)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                  child: HomeScreenSectionTitle(
+                    title: "Top Doctors",
+                    onPressed: () {
+                      Get.toNamed(Routes.TOP_DOCTORS_SCREEN);
+                    },
+                  ),
+                ),
+                SizedBox(height: Dimensions.height(10)),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15,0,0,0),
+                  child: DoctorList(),
+                ),
+                SizedBox(height: Dimensions.height(10)),
+              ],
             ),
           ),
-          SizedBox(
-            height: Dimensions.height(220),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: doctors.length,
-              itemBuilder: (context, index) {
-                return DoctorCard(doctor: doctors[index]);
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: SizedBox(
-              width: double.maxFinite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AppText(
-                    text: "Popular Profiles",
-                    align: TextAlign.start,
-                    fontSize: Dimensions.font(18),
-                    fontWeight: FontWeight.bold,
-                  ),
-                  GestureDetector(
-                    onTap: () => Get.toNamed(Routes.POPULAR_PROFILES_SCREEN),
-                    child: AppText(
-                      text: "See all >",
-                      color: bottomSheetSubtitle,
-                      align: TextAlign.start,
-                      fontSize: Dimensions.font(14),
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: Dimensions.height(260),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return AvatarCard(avatar: avatars[index]);
-              },
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _buildFavoritesTabContent(BuildContext context) {
     return const Center(
-      child: Text("Favorites Content", style: TextStyle(fontSize: 18)),
+      child: Text("Meditation Steps Content", style: TextStyle(fontSize: 18)),
     );
   }
 
@@ -146,10 +118,46 @@ class HomeMainwidget extends StatelessWidget {
                 }
               }),
             ),
+            Homebottomnavigation()
           ],
         ),
       ),
-      bottomNavigationBar: Homebottomnavigation(),
+    );
+  }
+}
+
+class DoctorList extends StatelessWidget {
+  const DoctorList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: Dimensions.height(220),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return DoctorCard(doctor: doctors[index]);
+        },
+      ),
+    );
+  }
+}
+
+class AvatarList extends StatelessWidget {
+  const AvatarList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: Dimensions.height(260),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return AvatarCard(avatar: avatars[index]);
+        },
+      ),
     );
   }
 }

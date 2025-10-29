@@ -29,12 +29,9 @@ class Homecontroller extends GetxController {
     selectedTabIndex.value = index;
   }
 
-  void navigateToCounsellingHindi() {
-    Get.toNamed(Routes.SPEECH_TEXT, arguments: Language.HINDI);
-  }
 
-  void navigateToCounsellingEnglish() {
-    Get.toNamed(Routes.SPEECH_TEXT, arguments: Language.ENGLISH);
+  void navigateToFreeCounselling() {
+    Get.toNamed(Routes.SPEECH_TEXT);
   }
 
   String getUserName() {
