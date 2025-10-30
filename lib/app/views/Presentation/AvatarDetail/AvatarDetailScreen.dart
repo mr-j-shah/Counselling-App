@@ -29,11 +29,11 @@ class AvatarDetailScreen extends GetView<AvatarDetailController> {
 
   Widget _buildAvatarBackground() {
     return Container(
-      height: Dimensions.height(350),
+      height: Dimensions.height(400),
       width: double.infinity,
       child: Image.network(
         controller.avatar.imageUrl,
-        fit: BoxFit.cover,
+        fit: BoxFit.fitHeight,
         errorBuilder: (context, error, stackTrace) => const Icon(Icons.person, size: 350),
       ),
     );

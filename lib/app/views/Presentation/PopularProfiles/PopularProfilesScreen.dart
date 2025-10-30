@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_counselling/app/data/models/Avatar.dart';
 import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/AvatarCard.dart';
@@ -12,6 +13,7 @@ class PopularProfilesScreen extends GetView<PopularProfilesController> {
   @override
   Widget build(BuildContext context) {
     Dimensions.init(context);
+    final List<Avatar> avatarList = Get.arguments as List<Avatar>;
     return Scaffold(
       body: Defaultbackground(
         child: SafeArea(
@@ -27,9 +29,9 @@ class PopularProfilesScreen extends GetView<PopularProfilesController> {
                     mainAxisSpacing: Dimensions.height(16),
                     childAspectRatio: 0.7,
                   ),
-                  itemCount: controller.avatarList.length,
+                  itemCount: avatarList.length,
                   itemBuilder: (context, index) {
-                    return AvatarCard(avatar: controller.avatarList[index]);
+                    return AvatarCard(avatar: avatarList[index]);
                   },
                 ),
               ),

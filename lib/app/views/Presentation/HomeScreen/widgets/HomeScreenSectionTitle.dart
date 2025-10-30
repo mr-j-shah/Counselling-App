@@ -28,16 +28,14 @@ class HomeScreenSectionTitle extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
           if (onPressed != null)
-            GestureDetector(
-              onTap: onPressed,
-              child: AppText(
-                text: "See all >",
-                color: bottomSheetSubtitle,
-                align: TextAlign.start,
-                fontSize: Dimensions.font(14),
-                fontWeight: FontWeight.normal,
-              ),
-            ),
+            AppText(
+              onClick: onPressed,
+              text: "See all >",
+              color: bottomSheetSubtitle,
+              align: TextAlign.start,
+              fontSize: Dimensions.font(14),
+              fontWeight: FontWeight.normal,
+            )
         ],
       ),
     );

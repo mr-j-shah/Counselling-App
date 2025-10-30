@@ -34,7 +34,7 @@ class CustomAppbar extends StatelessWidget {
         height: Dimensions.height(30), // Set a fixed height for consistency
         child: Row(
           children: [
-            InkWell(
+            GestureDetector(
               onTap: ()=> onLeadingClick != null ? onLeadingClick!() : Get.back(),
               child: Container(
                 padding: EdgeInsets.all(Dimensions.padding(9)),

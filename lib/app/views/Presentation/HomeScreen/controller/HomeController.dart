@@ -4,6 +4,9 @@ import 'package:project_counselling/app/data/models/apimodel/User.dart';
 import 'package:project_counselling/app/data/services/local/AppPref.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
 
+import '../../../../data/models/Avatar.dart';
+import '../../../../repos/AvatarRepo.dart';
+
 class Homecontroller extends GetxController {
   var isMenuOpen = false.obs;
   final AppPref _appPref = Get.find<AppPref>();
@@ -12,11 +15,25 @@ class Homecontroller extends GetxController {
   // To manage the selected tab index for bottom navigation
   var selectedTabIndex = 0.obs;
 
+  final AvatarRepo _avatarRepo = AvatarRepo();
+  var avatarList = <Avatar>[].obs;
+  var isLoading = true.obs;
+
   @override
   void onInit() {
     super.onInit();
+    fetchAvatars();
     _user = _appPref.getUser();
     print("HomeController initialized!");
+  }
+
+  void fetchAvatars() async {
+    try {
+      isLoading(true);
+      avatarList.value = await _avatarRepo.getAvatars();
+    } finally {
+      isLoading(false);
+    }
   }
 
   @override
@@ -25,10 +42,11 @@ class Homecontroller extends GetxController {
     super.onClose();
   }
 
+  List<Avatar> get  homeScreenAvatars => avatarList.take(5).toList();
+
   void changeTabIndex(int index) {
     selectedTabIndex.value = index;
   }
-
 
   void navigateToFreeCounselling() {
     Get.toNamed(Routes.SPEECH_TEXT);

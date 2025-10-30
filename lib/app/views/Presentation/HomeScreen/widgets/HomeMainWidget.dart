@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:project_counselling/app/data/models/Avatar.dart';
 import 'package:project_counselling/app/data/models/Doctor.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
@@ -48,7 +47,7 @@ class HomeMainwidget extends StatelessWidget {
                 child: HomeScreenSectionTitle(
                   title: "Popular Profiles",
                   onPressed: () {
-                    Get.toNamed(Routes.POPULAR_PROFILES_SCREEN);
+                    Get.toNamed(Routes.POPULAR_PROFILES_SCREEN, arguments: _homecontroller.avatarList);
                   },
                 ),
               ),
@@ -183,19 +182,18 @@ class DoctorList extends StatelessWidget {
 }
 
 class AvatarList extends StatelessWidget {
-  const AvatarList({super.key});
-
+  final Homecontroller _homecontroller = Get.find<Homecontroller>();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: Dimensions.height(260),
-      child: ListView.builder(
+      child: Obx(()=>ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 5,
+        itemCount: _homecontroller.homeScreenAvatars.length,
         itemBuilder: (context, index) {
-          return AvatarCard(avatar: avatars[index]);
+          return AvatarCard(avatar: _homecontroller.homeScreenAvatars[index]);
         },
-      ),
+      ),)
     );
   }
 }
