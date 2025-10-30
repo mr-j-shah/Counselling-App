@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/widgets/ExerciseCompleteDialog.dart';
 
-enum BreathingState { idle, inhaling, holding, exhaling }
+enum BreathingState { idle, gettingReady, inhaling, holding, exhaling }
 
 class BreathingController extends GetxController {
   final RxInt selectedDuration = 2.obs; // in minutes
@@ -11,9 +11,11 @@ class BreathingController extends GetxController {
   final RxInt remainingTime = 0.obs; // in seconds
   final Rx<BreathingState> breathingState = BreathingState.idle.obs;
   final RxDouble circleSize = 150.0.obs;
+  final RxInt getReadyCountdown = 5.obs;
 
   Timer? _exerciseTimer;
   Timer? _phaseTimer;
+  Timer? _getReadyTimer;
 
   void setDuration(int minutes) {
     selectedDuration.value = minutes;
@@ -21,6 +23,20 @@ class BreathingController extends GetxController {
 
   void startExercise() {
     isExercising.value = true;
+    breathingState.value = BreathingState.gettingReady;
+    getReadyCountdown.value = 5;
+
+    _getReadyTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (getReadyCountdown.value > 1) {
+        getReadyCountdown.value--;
+      } else {
+        timer.cancel();
+        _beginExercise();
+      }
+    });
+  }
+
+  void _beginExercise() {
     remainingTime.value = selectedDuration.value * 60;
     _startBreathingCycle();
 
@@ -35,6 +51,7 @@ class BreathingController extends GetxController {
 
   void stopExercise({bool completed = false}) {
     isExercising.value = false;
+    _getReadyTimer?.cancel();
     _exerciseTimer?.cancel();
     _phaseTimer?.cancel();
     breathingState.value = BreathingState.idle;
@@ -74,6 +91,8 @@ class BreathingController extends GetxController {
 
   String get breathingStateText {
     switch (breathingState.value) {
+      case BreathingState.gettingReady:
+        return 'Get Ready';
       case BreathingState.inhaling:
         return 'Inhale';
       case BreathingState.holding:
@@ -87,6 +106,7 @@ class BreathingController extends GetxController {
 
   @override
   void onClose() {
+    _getReadyTimer?.cancel();
     _exerciseTimer?.cancel();
     _phaseTimer?.cancel();
     super.onClose();

@@ -47,7 +47,7 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
                   ),
                   Expanded(
                     child: controller.isExercising.value
-                        ? _buildExerciseView()
+                        ? _buildExerciseView(context)
                         : _buildSelectionView(),
                   ),
                 ],
@@ -155,7 +155,48 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
     );
   }
 
-  Widget _buildExerciseView() {
+  Widget _buildExerciseView(BuildContext context) {
+    return Obx(() {
+      if (controller.breathingState.value == BreathingState.gettingReady) {
+        return _buildGetReadyView();
+      } else {
+        return _buildActiveExerciseView(context);
+      }
+    });
+  }
+
+  Widget _buildGetReadyView() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        AppText(
+          text: "Get Ready...",
+          fontSize: Dimensions.font(28),
+          fontWeight: FontWeight.bold,
+        ),
+        SizedBox(height: Dimensions.height(20)),
+        Obx(() => AppText(
+              text: controller.getReadyCountdown.value.toString(),
+              fontSize: Dimensions.font(60),
+              fontWeight: FontWeight.bold,
+              color: primaryColor,
+            )),
+        SizedBox(height: Dimensions.height(20)),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Dimensions.padding(40)),
+          child: AppText(
+            text:
+                "Find a comfortable position and prepare to begin the exercise.",
+            align: TextAlign.center,
+            fontSize: Dimensions.font(16),
+            color: Colors.grey.shade600,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActiveExerciseView(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -169,8 +210,8 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
                 color: primaryColor.withOpacity(0.8),
               ),
               child: Center(
-                child: Text(
-                  controller.breathingStateText,
+                child: AppText(
+                  text: controller.breathingStateText,
                   style: TextStyle(
                     fontSize: Dimensions.font(28),
                     fontWeight: FontWeight.bold,
@@ -185,12 +226,19 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
             children: [
               Obx(() => Text(
                     "${(controller.remainingTime.value ~/ 60).toString().padLeft(2, '0')}:${(controller.remainingTime.value % 60).toString().padLeft(2, '0')}",
-                    style: TextStyle(fontSize: Dimensions.font(48), fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: Dimensions.font(48),
+                        fontWeight: FontWeight.bold),
                   )),
               SizedBox(height: Dimensions.height(20)),
               PrimaryButton(
                 text: "Stop",
-                onPressed: controller.stopExercise,
+                onPressed: () {
+                  showCancelExerciseDialog(context, onConfirm: () {
+                    controller.stopExercise();
+                    Get.back(); // Close the dialog
+                  });
+                },
                 backgroundColor: Colors.redAccent,
               ),
             ],
