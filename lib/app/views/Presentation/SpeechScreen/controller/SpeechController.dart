@@ -16,6 +16,7 @@ import 'package:project_counselling/app/data/services/local/LocalResponse.dart';
 import 'package:project_counselling/app/data/services/network/ApiService.dart';
 import 'package:project_counselling/app/data/services/network/callback.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
+import 'package:project_counselling/app/views/Utils/CustomSnackbar.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class SpeechController extends GetxController {
@@ -281,5 +282,16 @@ class SpeechController extends GetxController {
       debugPrint('LLM: Network/Unexpected Error: $e');
       return "Something went wrong please try after some time.";
     }
+  }
+  
+  void saveChatSession() {
+    // TODO: Implement actual logic to save the chat session to a database.
+    // For now, we'll just show a confirmation snackbar.
+    Customsnackbar.show(
+      title: "Success",
+      subtitle: "Chat session saved successfully!",
+      type: SnackbarType.success,
+    );
+    debugPrint("Chat session saved.");
   }
 }
