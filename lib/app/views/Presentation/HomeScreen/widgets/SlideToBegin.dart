@@ -4,12 +4,14 @@ import 'package:project_counselling/app/views/Utils/Colors.dart';
 class SlideToBegin extends StatefulWidget {
   final VoidCallback onSlideCompleted;
   final double height;
+  final double? width;
   final String text;
 
   const SlideToBegin({
     Key? key,
     required this.onSlideCompleted,
     this.height = 60,
+    this.width,
     this.text = "Slide to Begin",
   }) : super(key: key);
 
@@ -48,7 +50,7 @@ class _SlideToBeginState extends State<SlideToBegin> {
     final double widgetWidth = MediaQuery.of(context).size.width*0.6; // Approximate width considering parent padding
 
     return Container(
-      width: widgetWidth,
+      width: widget.width ?? widgetWidth,
       height: widget.height,
       decoration: BoxDecoration(
         color: primaryColor.withOpacity(0.15),
@@ -72,8 +74,8 @@ class _SlideToBeginState extends State<SlideToBegin> {
             duration: const Duration(milliseconds: 10),
             left: _position,
             child: GestureDetector(
-              onHorizontalDragUpdate: (details) => _onHorizontalDragUpdate(details, widgetWidth),
-              onHorizontalDragEnd: (details) => _onHorizontalDragEnd(details, widgetWidth),
+              onHorizontalDragUpdate: (details) => _onHorizontalDragUpdate(details, widget.width ?? widgetWidth),
+              onHorizontalDragEnd: (details) => _onHorizontalDragEnd(details, widget.width ?? widgetWidth),
               child: Container(
                 width: widget.height,
                 height: widget.height,

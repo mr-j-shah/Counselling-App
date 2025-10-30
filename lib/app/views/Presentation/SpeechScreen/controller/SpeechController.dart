@@ -7,7 +7,9 @@ import 'package:get/get.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:project_counselling/app/data/enums/chat_users.dart';
 import 'package:project_counselling/app/data/enums/failstate.dart';
-import 'package:project_counselling/app/data/enums/language.dart' as languageEnum;
+import 'package:project_counselling/app/data/enums/language.dart'
+    as languageEnum;
+import 'package:project_counselling/app/data/models/Avatar.dart';
 import 'package:project_counselling/app/data/models/apimodel/ChatMessage.dart';
 import 'package:project_counselling/app/data/services/local/AppPref.dart';
 import 'package:project_counselling/app/data/services/local/LocalResponse.dart';
@@ -30,8 +32,39 @@ class SpeechController extends GetxController {
   late final String _apiKey;
   final ApiService _apiService = Get.find<ApiService>();
   late GenerativeModel _model;
+  late ChatSession _chat;
+  Avatar? avatar;
 
-  final String _systemPrompt = """
+  String get _systemPrompt {
+    if (avatar != null) {
+      return """You are ${avatar!.name}, a ${avatar!.occupation}. Your personality is: ${avatar!.description}. You must answer in the persona of ${avatar!.name}.
+      Your purpose is to offer a safe space for users to express themselves and explore their feelings.
+
+        **Key Principles to Adhere To:**
+        1.  **Empathy and Understanding:** Respond with genuine understanding and validate the user's emotions.
+        2.  **Active Listening:** Reflect back what the user says to show you're listening and to clarify understanding.
+        3.  **Non-Judgmental:** Maintain a neutral, accepting, and non-critical stance at all times.
+        4.  **Supportive Guidance:** Offer general perspectives, coping strategies, or thought-provoking questions to help users explore their own solutions, but never give direct advice or make decisions for them.
+        5.  **Focus on Feelings:** Encourage emotional expression and help users articulate their feelings.
+        6.  **Safety First:** If a user expresses intent to harm themselves or others, or if they describe child abuse or severe mental health crises that require immediate professional intervention, you *must* gently redirect them to seek immediate human professional help (e.g., a crisis hotline, emergency services, or a licensed therapist). **Crucially, you are not a human professional and cannot provide medical, psychological, or legal advice.**
+
+        **Tone & Style:**
+        * Calm, reassuring, and warm.
+        * Respectful and humble.
+        * Conversational and natural, avoiding overly academic or robotic language.
+        * Concise, generally aiming for 2-4 sentences per response unless more detail is specifically requested or necessary for empathy.
+
+        **Constraint:**
+        * **You are an AI.** Always remember and convey this limitation implicitly or explicitly when appropriate, especially when discussing sensitive topics or professional advice. Do not impersonate a human therapist.
+        * Avoid using jargon.
+        * Do not diagnose conditions.
+        * Do not offer prescriptions or medical advice.
+        * Do not provide legal advice.
+
+        **Your initial response should gently invite the user to share what's on their mind.**
+      """;
+    } else {
+      return """
         You are a compassionate, empathetic, and non-judgemental AI assistant designed to provide supportive listening and general guidance in a counseling context. Your purpose is to offer a safe space for users to express themselves and explore their feelings.
 
         **Key Principles to Adhere To:**
@@ -57,10 +90,13 @@ class SpeechController extends GetxController {
 
         **Your initial response should gently invite the user to share what's on their mind.**
     """;
+    }
+  }
 
   @override
   void onInit() {
     super.onInit();
+    avatar = Get.arguments as Avatar?;
     _loadLanguage();
     debugPrint("Start Convo in ${language.toLanguageSign()}");
     _initializeController();
@@ -70,7 +106,9 @@ class SpeechController extends GetxController {
     final savedLanguage = _appPref.getLanguage();
     if (savedLanguage != null && savedLanguage.isNotEmpty) {
       try {
-        language = languageEnum.Language.values.firstWhere((e) => e.toDisplayName() == savedLanguage);
+        language = languageEnum.Language.values.firstWhere(
+          (e) => e.toDisplayName() == savedLanguage,
+        );
       } catch (e) {
         language = languageEnum.Language.ENGLISH;
       }
@@ -125,10 +163,7 @@ class SpeechController extends GetxController {
           isListening.value = false;
           await sttEngine.stop();
           addMessage(
-            ChatMessage(
-              user: ChatUser.user,
-              text: result.recognizedWords,
-            ),
+            ChatMessage(user: ChatUser.user, text: result.recognizedWords),
           );
           await speak(result.recognizedWords);
         }
@@ -153,23 +188,13 @@ class SpeechController extends GetxController {
     if (response != null) {
       isThinking.value = false;
       isSpeaking.value = true;
-      addMessage(
-        ChatMessage(
-          user: ChatUser.assistant,
-          text: response,
-        ),
-      );
+      addMessage(ChatMessage(user: ChatUser.assistant, text: response));
       await tts.speak(response);
     } else {
       response = await sendMessageToLLM(text);
       isThinking.value = false;
       isSpeaking.value = true;
-      addMessage(
-        ChatMessage(
-          user: ChatUser.assistant,
-          text: response,
-        ),
-      );
+      addMessage(ChatMessage(user: ChatUser.assistant, text: response));
       await tts.speak(response);
     }
   }
@@ -203,9 +228,20 @@ class SpeechController extends GetxController {
         "LLM: Warning: API Key is empty. Ensure it's set or injected.",
       );
       llmError.value = "Gemini API Key is not configured.";
+      return;
     }
-    _model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: _apiKey);
-    sendMessageToLLM(_systemPrompt);
+    _model = GenerativeModel(
+      model: 'gemini-pro',
+      apiKey: _apiKey,
+      safetySettings: [
+        SafetySetting(HarmCategory.hateSpeech, HarmBlockThreshold.high),
+        SafetySetting(HarmCategory.sexuallyExplicit, HarmBlockThreshold.high),
+        SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.high),
+        SafetySetting(HarmCategory.harassment, HarmBlockThreshold.low),
+      ],
+      systemInstruction: Content.text(_systemPrompt),
+    );
+    _chat = _model.startChat();
   }
 
   Future<String> sendMessageToLLM(String userMessage) async {
@@ -225,11 +261,7 @@ class SpeechController extends GetxController {
     debugPrint('LLM: Sending message to LLM: "$userMessage"');
 
     try {
-      final content = [
-        Content.text(userMessage),
-      ];
-
-      final response = await _model.generateContent(content);
+      final response = await _chat.sendMessage(Content.text(userMessage));
 
       if (response.text != null && response.text!.isNotEmpty) {
         llmResponse.value = response.text!;

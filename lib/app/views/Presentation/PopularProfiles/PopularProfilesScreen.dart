@@ -20,7 +20,7 @@ class PopularProfilesScreen extends GetView<PopularProfilesController> {
               CustomAppbar(title: "Popular Profiles"),
               Expanded(
                 child: GridView.builder(
-                  padding: EdgeInsets.all(Dimensions.padding(16)),
+                  padding: EdgeInsets.all(Dimensions.padding(15)),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: Dimensions.width(16),

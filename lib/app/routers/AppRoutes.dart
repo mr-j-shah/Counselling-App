@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:project_counselling/app/views/Presentation/AboutUsScreen/AboutUsScreen.dart';
+import 'package:project_counselling/app/views/Presentation/AvatarDetail/AvatarDetailScreen.dart';
+import 'package:project_counselling/app/views/Presentation/AvatarDetail/binding/AvatarDetailBinding.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/BreathingExerciseScreen.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/binding/BreathingBinding.dart';
 import 'package:project_counselling/app/views/Presentation/ChangePassword/ChangePasswordScreen.dart';
@@ -55,6 +57,7 @@ abstract class Routes {
   static const String POPULAR_PROFILES_SCREEN = '/popular-profiles-screen';
   static const String TOP_DOCTORS_SCREEN = '/top-doctors-screen';
   static const String BREATHING_EXERCISE_SCREEN = '/breathing-exercise-screen';
+  static const String AVATAR_DETAIL_SCREEN = '/avatar-detail-screen';
 }
 
 class AppRoutes {
@@ -168,6 +171,12 @@ class AppRoutes {
       name: Routes.BREATHING_EXERCISE_SCREEN,
       page: () => const BreathingExerciseScreen(),
       binding: BreathingBinding(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: Routes.AVATAR_DETAIL_SCREEN,
+      page: () => const AvatarDetailScreen(),
+      binding: AvatarDetailBinding(),
       transition: Transition.cupertino,
     ),
   ];
