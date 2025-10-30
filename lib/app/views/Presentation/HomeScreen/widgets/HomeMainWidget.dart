@@ -153,9 +153,9 @@ class HomeMainwidget extends StatelessWidget {
                   ); // Default to home content
               }
             }),
-            Positioned(bottom: -Dimensions.height(1),
-                left: 0,
-                right: 0, child: Homebottomnavigation()),
+            // Positioned(bottom: -Dimensions.height(1),
+            //     left: 0,
+            //     right: 0, child: Homebottomnavigation()),
           ],
         ),
       ),

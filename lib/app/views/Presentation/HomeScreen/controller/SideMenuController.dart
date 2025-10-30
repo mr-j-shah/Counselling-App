@@ -43,6 +43,10 @@ class Sidemenucontroller extends GetxController {
     Get.toNamed(Routes.SETTINGS_SCREEN);
   }
 
+  void navigateToBoxBreathingScreen() {
+    Get.toNamed(Routes.BREATHING_EXERCISE_SCREEN);
+  }
+
   void navigateToProfileScreen() {
     Get.toNamed(Routes.PROFILE_SCREEN);
   }
@@ -84,6 +88,9 @@ class Sidemenucontroller extends GetxController {
       case 7: // Settings
         navigateToSettingsScreen();
         break;
+      case 8: // Box Breathing
+        navigateToBoxBreathingScreen();
+        break;
       default:
         Get.snackbar("Info", "Menu item $index clicked, no action defined.");
     }
@@ -98,20 +105,25 @@ class Sidemenucontroller extends GetxController {
   }
 
   List<SidemenuModel> sideMenuItems = [
+    // SidemenuModel(
+    //   index: 1,
+    //   title: Appstring.mySessions,
+    //   icon: Appassets.mySessionsIcon,
+    // ),
+    // SidemenuModel(
+    //   index: 2,
+    //   title: Appstring.medicalRecords,
+    //   icon: Appassets.medicalRecordIcon,
+    // ),
+    // SidemenuModel(
+    //   index: 3,
+    //   title: Appstring.payments,
+    //   icon: Appassets.paymentsIcon,
+    // ),
     SidemenuModel(
-      index: 1,
-      title: Appstring.mySessions,
+      index: 8,
+      title: "Box Breathing",
       icon: Appassets.mySessionsIcon,
-    ),
-    SidemenuModel(
-      index: 2,
-      title: Appstring.medicalRecords,
-      icon: Appassets.medicalRecordIcon,
-    ),
-    SidemenuModel(
-      index: 3,
-      title: Appstring.payments,
-      icon: Appassets.paymentsIcon,
     ),
     SidemenuModel(
       index: 4,
