@@ -5,6 +5,7 @@ import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
 import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/controller/BreathingController.dart';
+import 'package:project_counselling/app/views/Presentation/BreathingExercise/widgets/CancelExerciseDialog.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
@@ -16,21 +17,43 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
   @override
   Widget build(BuildContext context) {
     Dimensions.init(context);
-    return Scaffold(
-      body: Defaultbackground(
-        child: SafeArea(
-          child: Obx(() {
-            return Column(
-              children: [
-                CustomAppbar(title: "Box Breathing"),
-                Expanded(
-                  child: controller.isExercising.value
-                      ? _buildExerciseView()
-                      : _buildSelectionView(),
-                ),
-              ],
-            );
-          }),
+
+    void handleBackNavigation() {
+      if (controller.isExercising.value) {
+        showCancelExerciseDialog(context, onConfirm: () {
+          controller.stopExercise();
+          Get.back(); // Close the dialog
+          Get.back(); // Go back from the screen
+        });
+      } else {
+        Get.back();
+      }
+    }
+
+    return WillPopScope(
+      onWillPop: () async {
+        handleBackNavigation();
+        return false;
+      },
+      child: Scaffold(
+        body: Defaultbackground(
+          child: SafeArea(
+            child: Obx(() {
+              return Column(
+                children: [
+                  CustomAppbar(
+                    title: "Box Breathing",
+                    onLeadingClick: handleBackNavigation,
+                  ),
+                  Expanded(
+                    child: controller.isExercising.value
+                        ? _buildExerciseView()
+                        : _buildSelectionView(),
+                  ),
+                ],
+              );
+            }),
+          ),
         ),
       ),
     );
@@ -40,7 +63,6 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // This is a placeholder to push the content down slightly, matching the exercise view's layout.
         const SizedBox(),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: Dimensions.padding(20)),
