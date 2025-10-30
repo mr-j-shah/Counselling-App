@@ -37,69 +37,99 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
   }
 
   Widget _buildSelectionView() {
-    return Padding(
-      padding: EdgeInsets.all(Dimensions.padding(20)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-              Appassets.BreathingExerciseImage, width: Dimensions.width(200)),
-          SizedBox(height: Dimensions.height(10)),
-          AppText(
-            style: TextStyle(
-                fontSize: Dimensions.font(18), fontWeight: FontWeight.normal),
-            text: "A simple yet powerful breathing technique that helps calm the mind and reduce stress. Inhale for 4 seconds, hold for 4 seconds, exhale for 4 seconds — then repeat.",
-          ),
-          SizedBox(height: Dimensions.height(30)), AppText(
-            style: TextStyle(
-                fontSize: Dimensions.font(22), fontWeight: FontWeight.bold),
-            text: "Select Duration",
-          ),
-          SizedBox(height: Dimensions.height(30)),
-          Obx(() =>
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [2, 5, 10].map((minutes) {
-                  final isSelected = controller.selectedDuration.value ==
-                      minutes;
-                  return GestureDetector(
-                    onTap: () => controller.setDuration(minutes),
-                    child: Container(
-                      width: Dimensions.width(100),
-                      padding: EdgeInsets.symmetric(vertical: Dimensions.height(
-                          14)),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? primaryColor.withOpacity(0.1)
-                            : Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(
-                            Dimensions.radius(30)),
-                        border: Border.all(
-                          color: isSelected ? primaryColor : Colors.transparent,
-                          width: 2,
-                        ),
-                      ),
-                      child: Center(
-                        child: AppText(
-                          text: "$minutes min",
-                          style: TextStyle(
-                            fontSize: Dimensions.font(16),
-                            fontWeight: FontWeight.w500,
-                            color: isSelected ? primaryColor : Colors.black87,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // This is a placeholder to push the content down slightly, matching the exercise view's layout.
+        const SizedBox(),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Dimensions.padding(20)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(Appassets.BreathingExerciseImage,
+                  width: Dimensions.width(200)),
+              SizedBox(height: Dimensions.height(10)),
+              AppText(
+                align: TextAlign.center,
+                style: TextStyle(
+                    fontSize: Dimensions.font(18),
+                    fontWeight: FontWeight.normal),
+                text:
+                    "A simple yet powerful breathing technique that helps calm the mind and reduce stress. Inhale for 4 seconds, hold for 4 seconds, exhale for 4 seconds — then repeat.",
+              ),
+              SizedBox(height: Dimensions.height(30)),
+              AppText(
+                style: TextStyle(
+                    fontSize: Dimensions.font(22), fontWeight: FontWeight.bold),
+                text: "Select Duration",
+              ),
+              SizedBox(height: Dimensions.height(30)),
+              Obx(() => Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [2, 5, 10].map((minutes) {
+                      final isSelected =
+                          controller.selectedDuration.value == minutes;
+                      return GestureDetector(
+                        onTap: () => controller.setDuration(minutes),
+                        child: Container(
+                          width: Dimensions.width(100),
+                          padding: EdgeInsets.symmetric(
+                              vertical: Dimensions.height(14)),
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? primaryColor.withOpacity(0.1)
+                                : Colors.grey.shade200,
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius(30)),
+                            border: Border.all(
+                              color: isSelected
+                                  ? primaryColor
+                                  : Colors.transparent,
+                              width: 2,
+                            ),
+                          ),
+                          child: Center(
+                            child: AppText(
+                              text: "$minutes min",
+                              style: TextStyle(
+                                fontSize: Dimensions.font(16),
+                                fontWeight: FontWeight.w500,
+                                color: isSelected
+                                    ? primaryColor
+                                    : Colors.black87,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  );
-                }).toList(),
-              )),
-          SizedBox(height: Dimensions.height(30)),
-          PrimaryButton(
-            text: "Start",
-            onPressed: controller.startExercise,
+                      );
+                    }).toList(),
+                  )),
+            ],
           ),
-        ],
-      ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: Dimensions.height(40)),
+          child: Column(
+            children: [
+              Opacity(
+                opacity: 0.0,
+                child: Text(
+                  "00:00",
+                  style: TextStyle(
+                      fontSize: Dimensions.font(48),
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(height: Dimensions.height(20)),
+              PrimaryButton(
+                text: "Start",
+                onPressed: controller.startExercise,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -110,8 +140,8 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
         const SizedBox.shrink(),
         Obx(() => AnimatedContainer(
               duration: const Duration(seconds: 4),
-              width: controller.circleSize.value,
-              height: controller.circleSize.value,
+              width: Dimensions.width(controller.circleSize.value),
+              height: Dimensions.width(controller.circleSize.value),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: primaryColor.withOpacity(0.8),

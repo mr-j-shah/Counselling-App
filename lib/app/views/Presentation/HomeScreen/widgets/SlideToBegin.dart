@@ -57,12 +57,15 @@ class _SlideToBeginState extends State<SlideToBegin> {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Text(
-            widget.text,
-            style: TextStyle(
-              color: primaryColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              widget.text,
+              style: TextStyle(
+                color: primaryColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
             ),
           ),
           AnimatedPositioned(

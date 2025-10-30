@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_counselling/app/views/Presentation/BreathingExercise/widgets/ExerciseCompleteDialog.dart';
 
 enum BreathingState { idle, inhaling, holding, exhaling }
 
@@ -21,27 +23,32 @@ class BreathingController extends GetxController {
     isExercising.value = true;
     remainingTime.value = selectedDuration.value * 60;
     _startBreathingCycle();
+
     _exerciseTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (remainingTime.value > 0) {
         remainingTime.value--;
       } else {
-        stopExercise();
+        stopExercise(completed: true);
       }
     });
   }
 
-  void stopExercise() {
+  void stopExercise({bool completed = false}) {
     isExercising.value = false;
     _exerciseTimer?.cancel();
     _phaseTimer?.cancel();
     breathingState.value = BreathingState.idle;
     circleSize.value = 150.0;
+
+    if (completed) {
+      showExerciseCompleteDialog(Get.context!);
+    }
   }
 
   void _startBreathingCycle() {
     _inhale();
     _phaseTimer = Timer.periodic(const Duration(seconds: 12), (timer) {
-      if(isExercising.value) {
+      if (isExercising.value) {
         _inhale();
       }
     });

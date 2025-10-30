@@ -82,7 +82,7 @@ class AvatarCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(5, (index) {
                         return Icon(
-                          index < 4 ? Icons.star : Icons.star_border,
+                          index < avatar.rating ? Icons.star : Icons.star_border,
                           color: Colors.amber,
                           size: Dimensions.font(18),
                         );

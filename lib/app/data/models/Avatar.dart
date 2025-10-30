@@ -3,12 +3,14 @@ class Avatar {
   final String occupation;
   final String description;
   final String imageUrl;
+  final int rating;
 
   Avatar({
     required this.name,
     required this.occupation,
     required this.description,
     required this.imageUrl,
+    required this.rating,
   });
 }
 
@@ -19,30 +21,35 @@ final List<Avatar> avatars = [
     occupation: "Psychologist",
     description: "Clinical yet empathetic tone, focuses on CBT, depression, anxiety.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 4,
   ),
   Avatar(
     name: "Dr. Rao",
     occupation: "Psychiatrist",
     description: "Medical professional tone; discusses emotional regulation, mental disorders.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 3,
   ),
   Avatar(
     name: "Maya",
     occupation: "Therapist",
     description: "Calm and conversational; focuses on emotional healing, stress management.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 5,
   ),
   Avatar(
     name: "Alex",
     occupation: "Life Coach",
     description: "Motivational and energetic; helps users set goals and overcome procrastination.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 2,
   ),
   Avatar(
     name: "Dr. Aisha",
     occupation: "Relationship Counselor",
     description: "Handles relationship issues, family communication, and emotional compatibility.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 4,
   ),
 
   // 2. Spiritual / Mindfulness Avatars
@@ -51,18 +58,21 @@ final List<Avatar> avatars = [
     occupation: "Monk",
     description: "Calm spiritual tone; offers mindfulness, acceptance, and compassion-based advice.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 3,
   ),
   Avatar(
     name: "Anjali",
     occupation: "Yoga Guru",
     description: "Blends physical–mental wellbeing, breathing practices, and energy balance.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 4,
   ),
   Avatar(
     name: "Kenji",
     occupation: "Zen Master",
     description: "Minimalistic, direct answers; teaches clarity, simplicity, and focus.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 4,
   ),
 
   // 3. Supportive / Emotional Companions
@@ -71,18 +81,21 @@ final List<Avatar> avatars = [
     occupation: "Empathetic Friend",
     description: "Friendly tone; listens patiently, gives emotional validation.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 4,
   ),
   Avatar(
     name: "Echo",
     occupation: "Listener Bot",
     description: "Non-judgmental, just listens and reflects feelings back.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 5,
   ),
   Avatar(
     name: "Grandpa Hari",
     occupation: "Elder Mentor",
     description: "Wise, gentle tone; offers life wisdom and perspective.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 5,
   ),
 
   // 4. Cultural / Value-Based Avatars
@@ -91,12 +104,14 @@ final List<Avatar> avatars = [
     occupation: "Indian Monk",
     description: "Combines Gita or Vedanta teachings with emotional wellbeing.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 4,
   ),
   Avatar(
     name: "Marcus",
     occupation: "Stoic Philosopher",
     description: "Logic-based, calm, uses Stoic principles for emotional resilience.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 3,
   ),
 
   // 5. Age / Persona-Based Avatars
@@ -105,11 +120,13 @@ final List<Avatar> avatars = [
     occupation: "Young Therapist",
     description: "Relatable to Gen Z or young adults, casual and friendly.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 4,
   ),
   Avatar(
     name: "Dr. Sharma",
     occupation: "Mature Expert",
     description: "Calm and wise; for users who prefer an authoritative figure.",
     imageUrl: "https://i.imgur.com/your_image_url.png",
+    rating: 4,
   ),
 ];
