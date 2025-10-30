@@ -41,6 +41,9 @@ class Appstring {
   static const errorEmailInvalid = 'Invalid email format';
   static const errorWeakPassword = 'Password is too weak';
   static const errorFailedSignUp = "Signup failed due to some unknown reason";
+  static const errorFailedRetrieve = "Failed to retrieve user profile.";
+  static const iAgree = 'I agree with the ';
+
 
   // General Errors
   static const errorPasswordsDoNotMatch = "New Password and Confirm Password do not match.";
@@ -77,14 +80,14 @@ class Appstring {
   static const sureToLogOut = "Are you sure you want to logout?";
 
   // Profile Screen
-  static const profileTitle = "Profie";
+  static const profileTitle = "Profile";
   static const setUpYourProfile = "Set up your profile";
   static const updateProfileTitle = "Update your profile to connect your counsellor with better impression.";
   static const personalInfo = "Personal information";
   static const name = "Name";
   static const contactNumber = "Contact Number";
   static const dateOfBirth ="Date of birth";
-  static const location ="Location";
+  static const location ="City/Village";
 
   // Medical Records Screen
   static const medicalRecordsTitle = "Medical Records";
@@ -108,5 +111,10 @@ class Appstring {
   static const settingsAboutUs = "About us";
   static const settingsMoreOptions = "More options";
   static const settingsConversationLanguages = "Conversation Languages";
+
+  // AboutUs Screen
+  static const developedBy = "Developed by";
+  static const jinayShah = "Jinay Shah";
+  static const emailId = "shahjinay02@gmail.com";
 
 }

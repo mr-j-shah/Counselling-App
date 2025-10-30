@@ -50,7 +50,7 @@ class Homeappbar extends StatelessWidget {
                           ),
                           SizedBox(height: 4),
                           AppText(
-                            text: "Find Your Counseller",
+                            text: "We are here to Help!",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: Dimensions.font(24),

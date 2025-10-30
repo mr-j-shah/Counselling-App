@@ -122,7 +122,7 @@ class Authcontroller extends GetxController {
           Loading.hide();
           Customsnackbar.show(
             title: Appstring.login,
-            subtitle: "Failed to retrieve user profile.",
+            subtitle: Appstring.errorFailedRetrieve,
             type: SnackbarType.error,
           );
         }

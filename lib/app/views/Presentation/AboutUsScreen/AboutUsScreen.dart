@@ -56,19 +56,19 @@ class AboutUsScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               AppText(
-                                text: 'Developed by',
+                                text: Appstring.developedBy,
                                 fontSize: Dimensions.font(14),
                                 color: Colors.grey.shade600,
                               ),
                               SizedBox(height: Dimensions.height(8)),
                               AppText(
-                                text: 'Jinay Shah',
+                                text: Appstring.jinayShah,
                                 fontSize: Dimensions.font(18),
                                 fontWeight: FontWeight.bold,
                               ),
                               SizedBox(height: Dimensions.height(4)),
                               AppText(
-                                text: 'shahjinay02@gmail.com',
+                                text: Appstring.emailId,
                                 fontSize: Dimensions.font(14),
                                 color: Colors.grey.shade600,
                               ),

@@ -56,7 +56,7 @@ void showForgotPasswordBottomSheet(BuildContext context) {
                   final email = emailController.text.trim();
                   if (email.isEmpty || !GetUtils.isEmail(email)) {
                     Customsnackbar.show(
-                      title: "Error",
+                      title: Appstring.error,
                       subtitle: "Please enter a valid email.",
                       type: SnackbarType.error,
                     );
@@ -70,13 +70,13 @@ void showForgotPasswordBottomSheet(BuildContext context) {
                   if (response.failedState == Authfailedstate.NONE) {
                     Get.back(); // Close the bottom sheet
                     Customsnackbar.show(
-                      title: "Success",
+                      title: Appstring.success,
                       subtitle: response.message,
                       type: SnackbarType.success,
                     );
                   } else {
                     Customsnackbar.show(
-                      title: "Error",
+                      title: Appstring.error,
                       subtitle: response.message,
                       type: SnackbarType.error,
                     );

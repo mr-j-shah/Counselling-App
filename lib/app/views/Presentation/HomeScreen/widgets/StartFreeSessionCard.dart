@@ -10,16 +10,9 @@ class Startfreesessioncard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Dimensions.init(context);
-    return Card(
-      elevation: 4,
-      shadowColor: Colors.grey.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Dimensions.radius(16)),
-      ),
-      margin: EdgeInsets.symmetric(
-        horizontal: Dimensions.width(8),
-        vertical: Dimensions.height(4),
-      ),
+    return Material(
+      elevation: 6,
+      borderRadius: BorderRadius.circular(Dimensions.radius(16)),
       child: SizedBox(
         width: double.maxFinite,
         child: Padding(
