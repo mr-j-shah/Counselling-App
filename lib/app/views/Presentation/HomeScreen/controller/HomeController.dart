@@ -10,7 +10,7 @@ import '../../../../repos/AvatarRepo.dart';
 class Homecontroller extends GetxController {
   var isMenuOpen = false.obs;
   final AppPref _appPref = Get.find<AppPref>();
-  User? _user;
+  User? user;
 
   // To manage the selected tab index for bottom navigation
   var selectedTabIndex = 0.obs;
@@ -23,7 +23,7 @@ class Homecontroller extends GetxController {
   void onInit() {
     super.onInit();
     fetchAvatars();
-    _user = _appPref.getUser();
+    user = _appPref.getUser();
     print("HomeController initialized!");
   }
 
@@ -53,7 +53,11 @@ class Homecontroller extends GetxController {
   }
 
   String getUserName() {
-    return _user?.name.trim().isNotEmpty == true ? _user!.name : "User";
+    return user?.name.trim().isNotEmpty == true ? user!.name : "User";
+  }
+
+  String getUserProfilePhoto() {
+    return user?.profileImage ?? "";
   }
 
   void toggleMenu() => isMenuOpen.value = !isMenuOpen.value;

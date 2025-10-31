@@ -8,7 +8,7 @@ import 'package:project_counselling/app/views/Presentation/SpeechScreen/controll
 import 'package:project_counselling/app/views/Utils/Colors.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
-class UserChatScreen extends GetView<SpeechController> {
+class UserChatScreen extends GetView<SpeechController>{
   UserChatScreen({super.key});
 
   final TextEditingController _textController = TextEditingController();

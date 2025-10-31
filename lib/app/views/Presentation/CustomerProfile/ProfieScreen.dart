@@ -51,12 +51,26 @@ class ProfileScreen extends StatelessWidget {
                           Stack(
                             alignment: Alignment.bottomRight,
                             children: [
-                              CircleAvatar(
-                                radius: Dimensions.radius(65),
-                                backgroundImage: NetworkImage(
-                                  "https://i.imgur.com/BoN9kdC.png",
-                                ),
-                              ),
+                              Obx(() {
+                                final profileImageUrl =
+                                    controller.user.value?.profileImage;
+                                return CircleAvatar(
+                                  radius: Dimensions.radius(65),
+                                  backgroundColor: Colors.grey.shade200,
+                                  backgroundImage: (profileImageUrl != null &&
+                                          profileImageUrl.isNotEmpty)
+                                      ? NetworkImage(profileImageUrl)
+                                      : null,
+                                  child: (profileImageUrl == null ||
+                                          profileImageUrl.isEmpty)
+                                      ? Icon(
+                                          Icons.person,
+                                          size: Dimensions.radius(80),
+                                          color: Colors.grey.shade400,
+                                        )
+                                      : null,
+                                );
+                              }),
                               CircleAvatar(
                                 radius: Dimensions.radius(15),
                                 backgroundColor: Colors.grey.shade300,

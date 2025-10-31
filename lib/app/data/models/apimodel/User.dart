@@ -5,6 +5,7 @@ class User {
   String? dob;
   String? contactNum;
   String? location;
+  String? profileImage;
 
   User({
     required this.userID,
@@ -13,6 +14,7 @@ class User {
     this.contactNum,
     this.dob,
     this.location,
+    this.profileImage,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class User {
       dob: json['dob'],
       contactNum: json['contactNum'],
       location: json['location'],
+      profileImage: json['profileImage'],
     );
   }
 
@@ -34,6 +37,7 @@ class User {
       'dob': dob,
       'contactNum': contactNum,
       'location': location,
+      'profileImage': profileImage,
     };
   }
 
@@ -44,6 +48,7 @@ class User {
     String? dob,
     String? contactNum,
     String? location,
+    String? profileImage,
   }) {
     return User(
       userID: userID ?? this.userID,
@@ -52,6 +57,7 @@ class User {
       dob: dob ?? this.dob,
       contactNum: contactNum ?? this.contactNum,
       location: location ?? this.location,
+      profileImage: profileImage ?? this.profileImage,
     );
   }
 }

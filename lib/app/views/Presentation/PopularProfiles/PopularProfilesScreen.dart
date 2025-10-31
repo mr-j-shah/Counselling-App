@@ -19,7 +19,7 @@ class PopularProfilesScreen extends GetView<PopularProfilesController> {
             children: [
               CustomAppbar(title: "Popular Profiles"),
               Expanded(
-                child: Obx(() => GridView.builder(
+                child: GridView.builder(
                   padding: EdgeInsets.all(Dimensions.padding(15)),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -31,7 +31,7 @@ class PopularProfilesScreen extends GetView<PopularProfilesController> {
                   itemBuilder: (context, index) {
                     return AvatarCard(avatar: controller.avatarList[index]);
                   },
-                )),
+                ),
               ),
             ],
           ),
