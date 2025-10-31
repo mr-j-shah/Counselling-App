@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/widgets/ExerciseCompleteDialog.dart';
@@ -12,13 +13,30 @@ class BreathingController extends GetxController {
   final Rx<BreathingState> breathingState = BreathingState.idle.obs;
   final RxDouble circleSize = 150.0.obs;
   final RxInt getReadyCountdown = 5.obs;
+  final RxBool isSoundOn = true.obs; // To control sound
 
   Timer? _exerciseTimer;
   Timer? _phaseTimer;
   Timer? _getReadyTimer;
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  @override
+  void onInit() {
+    super.onInit();
+    breathingState.listen((newState) {
+      if (newState != BreathingState.idle &&
+          newState != BreathingState.gettingReady) {
+        _playSound();
+      }
+    });
+  }
 
   void setDuration(int minutes) {
     selectedDuration.value = minutes;
+  }
+
+  void toggleSound(bool isOn) {
+    isSoundOn.value = isOn;
   }
 
   void startExercise() {
@@ -89,6 +107,16 @@ class BreathingController extends GetxController {
     circleSize.value = 150.0;
   }
 
+  Future<void> _playSound() async {
+    if (isSoundOn.value) {
+      try {
+        await _audioPlayer.play(AssetSource('sounds/beep.mp3'));
+      } catch (e) {
+        print("Error playing sound: $e");
+      }
+    }
+  }
+
   String get breathingStateText {
     switch (breathingState.value) {
       case BreathingState.gettingReady:
@@ -109,6 +137,7 @@ class BreathingController extends GetxController {
     _getReadyTimer?.cancel();
     _exerciseTimer?.cancel();
     _phaseTimer?.cancel();
+    _audioPlayer.dispose();
     super.onClose();
   }
 }

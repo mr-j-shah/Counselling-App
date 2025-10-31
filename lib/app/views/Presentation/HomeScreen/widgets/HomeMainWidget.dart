@@ -56,24 +56,24 @@ class HomeMainwidget extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
                 child: AvatarList(),
               ),
-              SizedBox(height: Dimensions.height(10)),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 15,
-                  vertical: 0,
-                ),
-                child: HomeScreenSectionTitle(
-                  title: "Top Doctors",
-                  onPressed: () {
-                    Get.toNamed(Routes.TOP_DOCTORS_SCREEN);
-                  },
-                ),
-              ),
-              SizedBox(height: Dimensions.height(10)),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                child: DoctorList(),
-              ),
+              // SizedBox(height: Dimensions.height(10)),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(
+              //     horizontal: 15,
+              //     vertical: 0,
+              //   ),
+              //   child: HomeScreenSectionTitle(
+              //     title: "Top Doctors",
+              //     onPressed: () {
+              //       Get.toNamed(Routes.TOP_DOCTORS_SCREEN);
+              //     },
+              //   ),
+              // ),
+              // SizedBox(height: Dimensions.height(10)),
+              // Padding(
+              //   padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+              //   child: DoctorList(),
+              // ),
               SizedBox(height: Dimensions.height(80)),
             ],
           ),

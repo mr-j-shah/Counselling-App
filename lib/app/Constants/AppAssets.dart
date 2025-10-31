@@ -29,4 +29,6 @@ class Appassets {
   static String fileIcon = 'assets/icons/upload_document.svg';
   static const empty_medical_records = 'assets/icons/empty_medical_records.svg';
 
+  // Sound Assets
+  static const beepSound = "sounds/beep.mp3";
 }

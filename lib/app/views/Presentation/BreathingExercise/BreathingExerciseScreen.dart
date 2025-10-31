@@ -6,6 +6,7 @@ import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart'
 import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/controller/BreathingController.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/widgets/CancelExerciseDialog.dart';
+import 'package:project_counselling/app/views/Presentation/BreathingExercise/widgets/SoundToggleSlider.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
@@ -200,7 +201,16 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const SizedBox.shrink(),
+        Align(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: EdgeInsets.only(right: Dimensions.padding(20)),
+            child: SoundToggleSlider(
+              initialValue: controller.isSoundOn.value,
+              onToggle: controller.toggleSound,
+            ),
+          ),
+        ),
         Obx(() => AnimatedContainer(
               duration: const Duration(seconds: 4),
               width: Dimensions.width(controller.circleSize.value),
