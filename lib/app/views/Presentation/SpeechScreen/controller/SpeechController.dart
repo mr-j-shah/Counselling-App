@@ -199,6 +199,14 @@ class SpeechController extends GetxController {
       await tts.speak(response);
     }
   }
+  Future<void> sendTextMessage(String text) async {
+    isThinking.value = true;
+    addMessage(ChatMessage(user: ChatUser.user, text: text));
+    final response = await sendMessageToLLM(text);
+    addMessage(ChatMessage(user: ChatUser.assistant, text: response));
+    isThinking.value = false;
+  }
+
 
   void retryListeningManually() {
     speechTimedOut.value = false;
@@ -232,7 +240,7 @@ class SpeechController extends GetxController {
       return;
     }
     _model = GenerativeModel(
-      model: 'gemini-pro',
+      model: 'gemini-2.5-flash',
       apiKey: _apiKey,
       safetySettings: [
         SafetySetting(HarmCategory.hateSpeech, HarmBlockThreshold.high),
