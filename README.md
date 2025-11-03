@@ -8,9 +8,15 @@ Project Counselling is a mobile application designed to provide a safe, non-judg
 
 | Home Screen | Breathing Exercise | Live Voice Chat |
 | :---: | :---: | :---: |
-|  |  |  |
-| **Saved Sessions** | **AI Persona Detail** | **Profile Management** |
-|  |  |  |
+| <img width="1080" height="2400" alt="Screenshot_20251103_161130" src="https://github.com/user-attachments/assets/10929eb8-0fef-4c0c-bbf3-6f4acb94e0fd" />
+ | <img width="1080" height="2400" alt="Screenshot_20251103_161145" src="https://github.com/user-attachments/assets/a1cc893d-5642-40f5-be09-8dca0cb78d0e" />
+ | <img width="1080" height="2400" alt="Screenshot_20251103_161237" src="https://github.com/user-attachments/assets/99cd0067-3c24-41cb-a59e-e97032db0b3f" />
+ |
+| **Saved Sessions** | **AI Persona Detail** | **Sign Up Auth** |
+| <img width="1080" height="2400" alt="Screenshot_20251103_161226" src="https://github.com/user-attachments/assets/c8ac0bd7-6aab-4dce-8f59-b689f0a5c586" />
+ | <img width="1080" height="2400" alt="Screenshot_20251103_161301" src="https://github.com/user-attachments/assets/1c5c72e1-1db6-4a0a-b7d8-5e60c2f22bb6" />
+ | <img width="1080" height="2400" alt="Screenshot_20251103_161421" src="https://github.com/user-attachments/assets/4607a4b2-eb90-4ef8-aaac-0cc8ce8ebb85" />
+ |
 
 ---
 
