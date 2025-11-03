@@ -8,6 +8,7 @@ import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
 import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart';
 import 'package:project_counselling/app/views/Presentation/ChatHistory/controller/ChatHistoryController.dart';
+import 'package:project_counselling/app/views/Presentation/ChatHistory/widgets/ChatHistoryShimmer.dart';
 import 'package:project_counselling/app/views/Presentation/ChatHistory/widgets/DeleteChatDialog.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
@@ -27,7 +28,7 @@ class ChatHistoryScreen extends GetView<ChatHistoryController> {
               Expanded(
                 child: Obx(() {
                   if (controller.isLoading.value) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const ChatHistoryShimmer();
                   }
                   if (controller.errorMessage.isNotEmpty) {
                     return Center(
@@ -163,7 +164,7 @@ class ChatHistoryScreen extends GetView<ChatHistoryController> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: EdgeInsets.all(Dimensions.padding(50)),
+              padding: EdgeInsets.all(Dimensions.padding(50)),
               decoration: BoxDecoration(
                 color: Colors.teal.shade50,
                 shape: BoxShape.circle,

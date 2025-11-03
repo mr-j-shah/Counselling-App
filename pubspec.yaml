@@ -28,7 +28,7 @@ dependencies:
   intl: ^0.18.1 # Added intl package
   flutter_dotenv: ^5.1.0
   audioplayers: ^6.5.1
-
+  shimmer_animation: ^2.2.2
   firebase_core: ^3.15.1
   firebase_auth: ^5.6.2
   google_sign_in: ^6.1.5

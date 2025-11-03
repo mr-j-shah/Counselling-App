@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:project_counselling/app/data/models/Avatar.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/Utils/dimensions.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 import '../../../../routers/AppRoutes.dart';
 
@@ -42,9 +43,16 @@ class AvatarCard extends StatelessWidget {
                     fit: BoxFit.cover,
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;
-                      return Container(
-                        color: Colors.grey.shade200,
-                        child: const Center(child: CircularProgressIndicator()),
+                      return Shimmer(
+                        duration: const Duration(seconds: 3),
+                        interval: const Duration(milliseconds: 500),
+                        color: Colors.white,
+                        colorOpacity: 0.3,
+                        enabled: true,
+                        direction: const ShimmerDirection.fromLeftToRight(),
+                        child: Container(
+                          color: Colors.grey.shade300,
+                        ),
                       );
                     },
                     errorBuilder: (context, error, stackTrace) {

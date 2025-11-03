@@ -242,7 +242,7 @@ class SpeechController extends GetxController {
       return;
     }
     _model = GenerativeModel(
-      model: 'gemini-pro',
+      model: 'gemini-2.5-flash',
       apiKey: _apiKey,
       safetySettings: [
         SafetySetting(HarmCategory.hateSpeech, HarmBlockThreshold.high),
