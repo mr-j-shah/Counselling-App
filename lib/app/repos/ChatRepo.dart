@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_counselling/app/data/models/Avatar.dart';
 import 'package:project_counselling/app/data/models/ChatHistory.dart';
 import 'package:project_counselling/app/data/models/apimodel/ChatMessage.dart';
 
@@ -15,6 +16,7 @@ class ChatRepo {
     required String userId,
     required List<ChatMessage> messages,
     required String title,
+    required Avatar? avatar, // Added avatar
   }) async {
     try {
       final collection = _getChatHistoryCollection(userId);
@@ -30,6 +32,7 @@ class ChatRepo {
         title: title,
         timestamp: Timestamp.now(),
         messages: messages,
+        avatar: avatar, // Added avatar
       );
 
       await collection.add(newChat.toFirestore());

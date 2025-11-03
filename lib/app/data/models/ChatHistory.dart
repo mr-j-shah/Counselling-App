@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_counselling/app/data/models/Avatar.dart';
 import 'package:project_counselling/app/data/models/apimodel/ChatMessage.dart';
 
 class ChatHistory {
@@ -6,12 +7,14 @@ class ChatHistory {
   final String title;
   final Timestamp timestamp;
   final List<ChatMessage> messages;
+  final Avatar? avatar; // Added avatar
 
   ChatHistory({
     required this.id,
     required this.title,
     required this.timestamp,
     required this.messages,
+    this.avatar, // Added avatar
   });
 
   factory ChatHistory.fromFirestore(DocumentSnapshot doc) {
@@ -25,6 +28,7 @@ class ChatHistory {
       title: data['title'] ?? 'Chat Session',
       timestamp: data['timestamp'] ?? Timestamp.now(),
       messages: messages,
+      avatar: data['avatar'] != null ? Avatar.fromJson(data['avatar']) : null,
     );
   }
 
@@ -33,6 +37,7 @@ class ChatHistory {
       'title': title,
       'timestamp': timestamp,
       'messages': messages.map((msg) => msg.toJson()).toList(),
+      'avatar': avatar?.toJson(), // Added avatar
     };
   }
 }
