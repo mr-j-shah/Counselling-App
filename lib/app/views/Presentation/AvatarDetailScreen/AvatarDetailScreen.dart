@@ -4,10 +4,11 @@ import 'package:project_counselling/app/data/models/Avatar.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
-import 'package:project_counselling/app/views/Presentation/AvatarDetail/controller/AvatarDetailController.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/SlideToBegin.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
+
+import 'controller/AvatarDetailController.dart';
 
 class AvatarDetailScreen extends GetView<AvatarDetailController> {
   const AvatarDetailScreen({super.key});

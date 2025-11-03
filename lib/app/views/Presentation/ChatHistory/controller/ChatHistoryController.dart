@@ -3,6 +3,7 @@ import 'package:project_counselling/app/data/models/ChatHistory.dart';
 import 'package:project_counselling/app/data/services/local/AppPref.dart';
 import 'package:project_counselling/app/repos/ChatRepo.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
+import 'package:project_counselling/app/views/Utils/CustomSnackbar.dart';
 
 class ChatHistoryController extends GetxController {
   final ChatRepo _chatRepo = ChatRepo();
@@ -41,5 +42,26 @@ class ChatHistoryController extends GetxController {
 
   void navigateToChatDetail(ChatHistory history) {
     Get.toNamed(Routes.CHAT_HISTORY_DETAIL_SCREEN, arguments: history);
+  }
+
+  Future<void> deleteChatHistory(String historyId) async {
+    final user = _appPref.getUser();
+    if (user == null) {
+      Customsnackbar.show(title: "Error", subtitle: "You must be logged in.", type: SnackbarType.error);
+      return;
+    }
+
+    try {
+      await _chatRepo.deleteChatHistory(userId: user.userID, historyId: historyId);
+      chatHistories.removeWhere((history) => history.id == historyId);
+      Get.back(); // Close confirmation dialog
+      Customsnackbar.show(title: "Success", subtitle: "Chat deleted successfully.", type: SnackbarType.success);
+    } catch (e) {
+      Customsnackbar.show(title: "Error", subtitle: "Failed to delete chat.", type: SnackbarType.error);
+    }
+  }
+
+  void startNewSession() {
+    Get.toNamed(Routes.SPEECH_TEXT);
   }
 }

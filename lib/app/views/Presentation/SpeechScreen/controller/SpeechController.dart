@@ -65,7 +65,7 @@ class SpeechController extends GetxController {
         * Do not provide legal advice.
 
         **Your initial response should gently invite the user to share what's on their mind.**
-      """;
+      """ ;
     } else {
       return """
         You are a compassionate, empathetic, and non-judgemental AI assistant designed to provide supportive listening and general guidance in a counseling context. Your purpose is to offer a safe space for users to express themselves and explore their feelings.
@@ -242,7 +242,7 @@ class SpeechController extends GetxController {
       return;
     }
     _model = GenerativeModel(
-      model: 'gemini-2.5-flash',
+      model: 'gemini-pro',
       apiKey: _apiKey,
       safetySettings: [
         SafetySetting(HarmCategory.hateSpeech, HarmBlockThreshold.high),
@@ -313,19 +313,19 @@ class SpeechController extends GetxController {
     }
 
     final success = await _chatRepo.saveChatHistory(
-      userId: user.userID,
-      messages: messageList.toList(),
-      title: title,
+        userId: user.userID,
+        messages: messageList.toList(),
+        title: title,
+        avatar: avatar, // Pass avatar
     );
 
     if (success) {
-      Get.back();
-      Get.back();
+      Get.back(); // Close bottom sheet
+      Get.back(); // Navigate back
       Customsnackbar.show(
           title: "Success",
           subtitle: "Chat session saved!",
           type: SnackbarType.success);
-       // Close bottom sheet
     } else {
       Customsnackbar.show(
           title: "Limit Reached",

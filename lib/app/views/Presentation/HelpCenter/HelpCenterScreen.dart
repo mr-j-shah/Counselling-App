@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/Constants/AppString.dart';
-import 'package:project_counselling/app/routers/AppRoutes.dart'; // Added import for AppRoutes
+import 'package:project_counselling/app/routers/AppRoutes.dart'; 
 import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
-import 'package:project_counselling/app/views/Presentation/HelpCenter/model/HelpCategory.dart';
-import 'package:project_counselling/app/views/Presentation/HelpCenter/model/HelpTopic.dart';
-// import 'package:project_counselling/app/views/Presentation/HelpCenter/HelpTopicDetailScreen.dart'; // No longer directly needed here for Get.toNamed
+import 'package:project_counselling/app/views/Presentation/HelpCenter/data/HelpData.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
-
-import 'data/HelpData.dart';
 
 class HelpCenterScreen extends StatelessWidget {
   const HelpCenterScreen({super.key});
@@ -39,7 +35,7 @@ class HelpCenterScreen extends StatelessWidget {
                       child: ExpansionTile(
                         shape: const Border(), // Removes border when expanded
                         collapsedShape: const Border(), // Removes border when collapsed
-                        title: Text(category.title, style: textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+                        title: Text(category.title, style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600, fontSize: 16)),
                         childrenPadding: EdgeInsets.only(left: Dimensions.width(16), right: Dimensions.width(16), bottom: Dimensions.height(10)),
                         children: category.topics.map((topic) {
                           return ListTile(

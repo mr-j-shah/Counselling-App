@@ -23,10 +23,6 @@ class Sidemenucontroller extends GetxController {
     _user = _appPref.getUser();
   }
 
-  void navigateToMedicalRecords() {
-    Get.toNamed(Routes.MEDICAL_RECORDS_SCREEN); // Updated navigation
-  }
-
   void navigateToPrivacyPolicy() {
     Get.toNamed(Routes.POLICY_SCREEN);
   }
@@ -74,8 +70,7 @@ class Sidemenucontroller extends GetxController {
       case 1: // My Sessions - Placeholder if no specific navigation yet
         navigateToChatHistory();
         break;
-      case 2: // Medical Records
-        navigateToMedicalRecords();
+      case 2:
         break;
       case 3: // Payments - Placeholder if no specific navigation yet
         Get.snackbar("Info", "Payments clicked, no action defined yet.");

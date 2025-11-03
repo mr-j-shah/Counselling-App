@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 import 'package:project_counselling/app/views/Presentation/AboutUsScreen/AboutUsScreen.dart';
-import 'package:project_counselling/app/views/Presentation/AvatarDetail/AvatarDetailScreen.dart';
-import 'package:project_counselling/app/views/Presentation/AvatarDetail/binding/AvatarDetailBinding.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/BreathingExerciseScreen.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/binding/BreathingBinding.dart';
 import 'package:project_counselling/app/views/Presentation/ChangePassword/ChangePasswordScreen.dart';
@@ -9,8 +7,6 @@ import 'package:project_counselling/app/views/Presentation/ChangePassword/bindin
 import 'package:project_counselling/app/views/Presentation/ChatHistory/ChatHistoryDetailScreen.dart';
 import 'package:project_counselling/app/views/Presentation/ChatHistory/ChatHistoryScreen.dart';
 import 'package:project_counselling/app/views/Presentation/ChatHistory/bindings/ChatHistoryBindings.dart';
-import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/AddRecordsScreen.dart';
-import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/bindings/AddRecordsBinding.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/SignupScreen/SignupScreen.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/binding/Authbinding.dart';
 import 'package:project_counselling/app/views/Presentation/CustomerProfile/ProfieScreen.dart';
@@ -22,8 +18,6 @@ import 'package:project_counselling/app/views/Presentation/HomeScreen/bindings/H
 import 'package:project_counselling/app/views/Presentation/IntroScreen/IntroScreen.dart';
 import 'package:project_counselling/app/views/Presentation/IntroScreen/bindings/IntroBindings.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/LoginScreen/LoginScreen.dart';
-import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/MedicalRecordsScreen.dart';
-import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/bindings/MedicalRecordsBinding.dart';
 import 'package:project_counselling/app/views/Presentation/PopularProfiles/PopularProfilesScreen.dart';
 import 'package:project_counselling/app/views/Presentation/PopularProfiles/binding/PopularProfilesBinding.dart';
 import 'package:project_counselling/app/views/Presentation/SettingsScreen/SettingsScreen.dart';
@@ -36,6 +30,8 @@ import 'package:project_counselling/app/views/Presentation/ChatScreen/UserChatSc
 import 'package:project_counselling/app/views/Presentation/TopDoctors/TopDoctorsScreen.dart';
 import 'package:project_counselling/app/views/Presentation/TopDoctors/binding/TopDoctorsBinding.dart';
 
+import '../views/Presentation/AvatarDetailScreen/AvatarDetailScreen.dart';
+import '../views/Presentation/AvatarDetailScreen/binding/AvatarDetailBinding.dart';
 import '../views/Presentation/Legal/PrivacyPolicyScreen.dart';
 import '../views/Presentation/Legal/TermsAndService.dart';
 
@@ -135,18 +131,6 @@ class AppRoutes {
       name: Routes.SETTINGS_SCREEN,
       page: () => const SettingsScreen(),
       binding: SettingsBinding(),
-      transition: Transition.cupertino,
-    ),
-    GetPage(
-      name: Routes.MEDICAL_RECORDS_SCREEN,
-      page: () => const MedicalRecordsScreen(),
-      binding: MedicalRecordsBinding(),
-      transition: Transition.cupertino,
-    ),
-    GetPage(
-      name: Routes.ADD_RECORDS_SCREEN,
-      page: () => const AddRecordsScreen(),
-      binding: AddRecordsBinding(),
       transition: Transition.cupertino,
     ),
     GetPage(
