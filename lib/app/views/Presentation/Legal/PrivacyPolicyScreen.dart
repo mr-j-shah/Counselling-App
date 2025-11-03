@@ -26,131 +26,63 @@ class PrivacyPolicyScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppText(text: 'Last updated: July 1, 2025'),
+                      AppText(text: 'Last updated: Nov 3, 2024'),
                       SizedBox(height: Dimensions.height(16)),
-                      AppText(
-                        text: '1. Introduction',
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      _buildSectionTitle('1. Introduction', textTheme),
+                      _buildSectionContent(
+                        'Welcome to our AI Counselling App. Your privacy is critically important to us. This Privacy Policy outlines how we collect, use, and protect your information when you use our application. By using our app, you agree to the collection and use of information in accordance with this policy.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(8)),
-                      AppText(
-                        text:
-                            'Your privacy is important to us. This Privacy Policy explains how our AI Counselling App (“we,” “our,” or “us”) collects, uses, discloses, and protects your personal information when you use our mobile application (“App”). By downloading, accessing, or using the App, you agree to the terms of this policy.',
-                        style: textTheme.bodyMedium,
+                      _buildSectionTitle('2. Information We Collect', textTheme),
+                      _buildSubSectionTitle('2.1. Information You Provide', textTheme),
+                      _buildSectionContent(
+                        '- Account Information: When you create an account, we collect your name, email address, and password.\n'
+                        '- Profile Details: You may voluntarily add information to your profile, such as a profile picture, contact number, date of birth, and location.\n'
+                        '- Conversation Data: We process the text or voice inputs you provide during your chat sessions with our AI personas to generate responses. If you save a session, we store the conversation history, including the title you provide and the AI persona (Avatar) you interacted with.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(24)),
-                      // 2. Information We Collect
-                      AppText(
-                        text: '2. Information We Collect',
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      _buildSubSectionTitle('2.2. Information From Third Parties', textTheme),
+                      _buildSectionContent(
+                        'If you sign in using a third-party service like Google, we receive information from that service, such as your name, email, and public profile picture, as permitted by your privacy settings on that service.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: '2.1. Personal Information You Provide',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                      _buildSectionTitle('3. How We Use Your Information', textTheme),
+                      _buildSectionContent(
+                        'Your information is used to:\n'
+                        '- Provide, operate, and maintain our services, including generating AI responses and personalizing your experience.\n'
+                        '- Allow you to save and review your chat sessions.\n'
+                        '- Authenticate your account and manage your profile.\n'
+                        '- Improve our app by analyzing usage patterns and performance data.\n'
+                        '- Communicate with you for purposes like password resets or important service notices.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            '- Registration Data: name, email address, date of birth (optional), and password.\n'
-                            '- Profile Data: optional demographic or background details you choose to share (e.g., vocation, interests).\n'
-                            '- Counselling Inputs: text or voice messages you send to the AI counsellor, including any mood indicators or journaling entries.',
-                        style: textTheme.bodyMedium,
+                      _buildSectionTitle('4. Data Storage and Security', textTheme),
+                      _buildSectionContent(
+                        'We use Google\'s Firebase services (Firestore, Firebase Authentication) to securely store your data. All data is encrypted in transit and at rest. While we take your data\'s security very seriously, no system is 100% secure, and we cannot guarantee absolute security.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: '2.2. Automatically Collected Data',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                       _buildSectionTitle('5. Your Data Rights and Choices', textTheme),
+                      _buildSectionContent(
+                        '- Access and Update: You can review and update your profile information at any time in the \'Profile\' section.\n'
+                        '- Deletion: You can delete any of your saved chat sessions from the \'My Sessions\' screen. This action is permanent.\n'
+                        '- Account Deletion: If you wish to delete your entire account, please contact us at the email address provided below. Please note that this will permanently erase all your data, including saved sessions and profile information.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            '- Usage Data: app usage logs (features accessed, timestamps, session duration).\n'
-                            '- Device Data: device type, operating system, app version, unique device identifiers, and language settings.\n'
-                            '- Crash Reports & Analytics: anonymous crash logs and performance metrics to improve stability.',
-                        style: textTheme.bodyMedium,
+                      _buildSectionTitle('6. Children\'s Privacy', textTheme),
+                      _buildSectionContent(
+                        'Our service is not intended for individuals under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware that we have collected such data, we will take steps to delete it.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: '2.3. Third-Party Data',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                      _buildSectionTitle('7. Changes to This Privacy Policy', textTheme),
+                      _buildSectionContent(
+                        'We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy in this section. We recommend reviewing this policy periodically for any updates.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            'If you choose to sign in with Google or another provider, we obtain the basic profile data (name, email) that you permit.',
-                        style: textTheme.bodyMedium,
+                      _buildSectionTitle('8. Contact Us', textTheme),
+                      _buildSectionContent(
+                        'If you have any questions or concerns about this Privacy Policy, please contact us at: shahjinay02@gmail.com',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(24)),
-                      AppText(
-                        text: '3. How We Use Your Information',
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height(8)),
-                      AppText(
-                        text:
-                            '- To Provide & Improve the App: personalize the counseling experience, refine AI responses, and fix bugs.\n'
-                            '- Analytics & Research: analyze patterns to enhance features and overall user experience.\n'
-                            '- Communications: send important updates, security alerts, and support responses.\n'
-                            '- Compliance & Safety: detect and prevent abuse, fraud, or illegal activity.',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(24)),
-                      AppText(
-                        text: '4. Data Sharing & Disclosure',
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height(8)),
-                      AppText(
-                        text:
-                            '- Service Providers: we engage trusted third-party vendors who only process data as instructed.\n'
-                            '- Legal Requirements: we will disclose information when required by law or to protect rights, safety, or property.\n'
-                            '- Aggregated/Anonymous Data: we may share de-identified data for research or reporting purposes.',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(24)),
-                      AppText(
-                        text: '5. Data Security',
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height(8)),
-                      AppText(
-                        text:
-                            'We implement industry-standard technical and organizational measures to safeguard your data, including encryption in transit (HTTPS/TLS) and secure storage. However, no system is completely failure-proof; please use strong, unique passwords and notify us of any account concerns.',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(24)),
-                      AppText(
-                        text: 'Contact Us',
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height(8)),
-                      AppText(
-                        text:
-                            'For questions, concerns, or data requests, please reach out to:\n'
-                            'Email: privacy@aicounsellingapp.com\n'
-                            'Address: 123 Wellness Way, Suite 100, City, State, ZIP, Country',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(32)),
                     ],
                   ),
                 ),
@@ -159,6 +91,33 @@ class PrivacyPolicyScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title, TextTheme textTheme) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+      child: AppText(
+        text: title,
+        style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  Widget _buildSubSectionTitle(String title, TextTheme textTheme) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
+      child: AppText(
+        text: title,
+        style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+      ),
+    );
+  }
+
+  Widget _buildSectionContent(String content, TextTheme textTheme) {
+    return AppText(
+      text: content,
+      style: textTheme.bodyMedium,
     );
   }
 }

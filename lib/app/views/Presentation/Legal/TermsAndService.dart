@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_counselling/app/Constants/AppString.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
@@ -26,222 +25,76 @@ class TermsAndServiceScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppText(text: 'Last updated: July 1, 2025'), // You can change this date
+                      AppText(text: 'Last updated: Nov 3, 2024'),
                       SizedBox(height: Dimensions.height(16)),
 
-                      // 1. Data Privacy and Consent (Voice Data)
-                      AppText(
-                        text: '1. Data Privacy and Consent (Voice Data) 🗣️',
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      // Introduction
+                      _buildSectionTitle('1. Acceptance of Terms', textTheme),
+                      _buildSectionContent(
+                        'By creating an account and using this application, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, you may not use our services.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: 'Explicit Consent for Recording:',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            'Users must explicitly agree to have their voice recorded and stored for processing.',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: 'Purpose of Collection:',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            'Clearly state why the voice data is being collected (e.g., to transcribe, analyze, and generate a therapeutic response).',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: 'Storage and Retention:',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            'Detail how long the voice recordings and their corresponding transcripts are stored and the security measures used to protect them.',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: 'Anonymization/Identification:',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            'Specify whether the voice data is linked directly to the user\'s identity or if it\'s anonymized for LLM training or analysis.',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(24)),
 
-                      // 2. Scope and Limitation of Service (Counselling)
-                      AppText(
-                        text: '2. Scope and Limitation of Service (Counselling) ⚠️',
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      // Scope of Service
+                      _buildSectionTitle('2. Scope and Limitation of Service', textTheme),
+                      _buildSectionContent(
+                        'This application provides AI-driven conversations for emotional exploration and wellness tools like breathing exercises. It is not a licensed medical, therapeutic, or crisis support service. The responses generated by the AI are for informational and supportive purposes only and are not a substitute for professional medical advice, diagnosis, or treatment from a qualified healthcare provider.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: 'Not a Medical or Therapeutic Service:',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                      _buildSubSectionTitle('Emergency Disclaimer', textTheme),
+                      _buildSectionContent(
+                        'If you are experiencing a mental health crisis, or if you are in immediate danger, please contact emergency services (e.g., 911) or a crisis hotline immediately. This app is not monitored and cannot provide emergency support.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            'State unequivocally that the application is not a licensed medical or professional therapy service and that the LLM\'s responses are not a substitute for diagnosis, treatment, or advice from a qualified mental health professional.',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: 'Emergency Disclaimer:',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            'Provide clear, bold instructions for users to contact emergency services (e.g., 911 or a crisis hotline) if they are in immediate danger or experiencing a mental health crisis.',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: 'Accuracy Disclaimer:',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            'Disclaim responsibility for the accuracy, completeness, or suitability of the LLM\'s automated advice.',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(24)),
 
-                      // 3. Intellectual Property and Content License
-                      AppText(
-                        text: '3. Intellectual Property and Content License',
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      // User Accounts
+                      _buildSectionTitle('3. User Accounts', textTheme),
+                      _buildSectionContent(
+                        'To use our services, you must create an account. You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account. You agree to provide accurate and complete information when signing up.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: 'User Voice/Content License:',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            'Users must grant you a license to the voice data and text transcripts they provide so that you can legally process them and generate the LLM\'s reply (i.e., you need permission to use their content to run your service).',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: 'LLM Output Ownership:',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            'Clarify that the text generated by the LLM (the reply) is part of your service content and protected by your copyright, though the user is generally permitted to use it for personal, non-commercial purposes.',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(24)),
 
-                      // 4. User Conduct and Appropriate Use
-                      AppText(
-                        text: '4. User Conduct and Appropriate Use',
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      // User Conduct
+                      _buildSectionTitle('4. User Conduct', textTheme),
+                      _buildSectionContent(
+                        'You agree not to use the service to transmit any content that is unlawful, harmful, or otherwise objectionable. You are solely responsible for your interactions and the content you provide. Misuse of the service may result in the termination of your account.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: 'No Illegal or Harmful Content:',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            'Prohibit users from using the app to record or transmit voice content that is illegal, defamatory, threatening, or harmful. This is especially important for voice-based input where emotional distress might be high.',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: 'Misuse of Service:',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            'Prohibit using the app for non-counselling purposes or attempting to manipulate the LLM\'s response.',
-                        style: textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: Dimensions.height(24)),
 
-                      // 5. Third-Party Services (The LLM)
-                      AppText(
-                        text: '5. Third-Party Services (The LLM)',
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      // Service Usage and Limitations
+                      _buildSectionTitle('5. Service Usage and Limitations', textTheme),
+                      _buildSectionContent(
+                        'Basic accounts are permitted to save a maximum of five (5) chat sessions. To save additional sessions beyond this limit, you must first delete an existing saved session.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: 'Third-Party Disclosure:',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+
+                      // Third-Party Services
+                      _buildSectionTitle('6. Third-Party Services', textTheme),
+                      _buildSectionContent(
+                        'Our service utilizes third-party providers, including Google\'s Firebase for data storage and authentication, and Google\'s Generative AI for chat functionalities. Your use of our app is also subject to the terms and policies of these third parties.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            'Disclose that user voice data (or its transcription) is sent to a third-party service provider (the LLM) for processing and generation of the reply.',
-                        style: textTheme.bodyMedium,
+
+                      // Disclaimers and Limitation of Liability
+                      _buildSectionTitle('7. Disclaimers and Limitation of Liability', textTheme),
+                      _buildSectionContent(
+                        'The service is provided "as is" without any warranties. We do not guarantee the accuracy, reliability, or suitability of the AI-generated responses. We are not liable for any damages or losses arising from your use of or inability to use the service.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(12)),
-                      AppText(
-                        text: 'Linking to LLM\'s Terms/Privacy:',
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+
+                      // Changes to Terms
+                      _buildSectionTitle('8. Changes to These Terms', textTheme),
+                      _buildSectionContent(
+                        'We reserve the right to modify these terms at any time. We will notify you of changes by updating the "Last updated" date. Your continued use of the app after such changes constitutes your acceptance of the new terms.',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(4)),
-                      AppText(
-                        text:
-                            'Reference or link to the specific terms and privacy policy of the LLM provider, as they will have their own rules regarding the data you send them.',
-                        style: textTheme.bodyMedium,
+
+                      // Contact Us
+                      _buildSectionTitle('9. Contact Us', textTheme),
+                      _buildSectionContent(
+                        'If you have any questions about these Terms of Service, please contact us at: shahjinay02@gmail.com',
+                        textTheme,
                       ),
-                      SizedBox(height: Dimensions.height(32)), // Extra padding at the end
                     ],
                   ),
                 ),
@@ -250,6 +103,33 @@ class TermsAndServiceScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title, TextTheme textTheme) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+      child: AppText(
+        text: title,
+        style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+    );
+  }
+
+  Widget _buildSubSectionTitle(String title, TextTheme textTheme) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
+      child: AppText(
+        text: title,
+        style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+      ),
+    );
+  }
+
+  Widget _buildSectionContent(String content, TextTheme textTheme) {
+    return AppText(
+      text: content,
+      style: textTheme.bodyMedium?.copyWith(height: 1.5, fontSize: 14),
     );
   }
 }
