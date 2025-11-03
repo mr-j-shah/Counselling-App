@@ -51,6 +51,10 @@ class Sidemenucontroller extends GetxController {
     Get.toNamed(Routes.PROFILE_SCREEN);
   }
 
+  void navigateToChatHistory() {
+    Get.toNamed(Routes.CHAT_HISTORY_SCREEN);
+  }
+
   void logOutUser() {
     CustomDialog.show(
       context: Get.context!,
@@ -68,7 +72,7 @@ class Sidemenucontroller extends GetxController {
   void sideMenuClick(int index) {
     switch (index) {
       case 1: // My Sessions - Placeholder if no specific navigation yet
-        Get.snackbar("Info", "My Sessions clicked, no action defined yet.");
+        navigateToChatHistory();
         break;
       case 2: // Medical Records
         navigateToMedicalRecords();

@@ -6,9 +6,6 @@ import 'package:project_counselling/app/views/Presentation/BreathingExercise/Bre
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/binding/BreathingBinding.dart';
 import 'package:project_counselling/app/views/Presentation/ChangePassword/ChangePasswordScreen.dart';
 import 'package:project_counselling/app/views/Presentation/ChangePassword/binding/ChangePasswordBinding.dart';
-import 'package:project_counselling/app/views/Presentation/ChatHistory/ChatHistoryDetailScreen.dart';
-import 'package:project_counselling/app/views/Presentation/ChatHistory/ChatHistoryScreen.dart';
-import 'package:project_counselling/app/views/Presentation/ChatHistory/bindings/ChatHistoryBindings.dart';
 import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/AddRecordsScreen.dart';
 import 'package:project_counselling/app/views/Presentation/MedicalRecordsScreen/bindings/AddRecordsBinding.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/SignupScreen/SignupScreen.dart';
@@ -62,7 +59,6 @@ abstract class Routes {
   static const String BREATHING_EXERCISE_SCREEN = '/breathing-exercise-screen';
   static const String AVATAR_DETAIL_SCREEN = '/avatar-detail-screen';
   static const String CHAT_HISTORY_DETAIL_SCREEN = '/chat-history-detail-screen';
-  static const String CHAT_HISTORY_SCREEN = '/chat-history-screen';
 }
 
 class AppRoutes {
@@ -177,20 +173,15 @@ class AppRoutes {
       page: () => const BreathingExerciseScreen(),
       binding: BreathingBinding(),
       transition: Transition.cupertino,
+    ), GetPage(
+      name: Routes.CHAT_HISTORY_DETAIL_SCREEN,
+      page: () => const BreathingExerciseScreen(),
+      transition: Transition.cupertino,
     ),
     GetPage(
       name: Routes.AVATAR_DETAIL_SCREEN,
       page: () => const AvatarDetailScreen(),
       binding: AvatarDetailBinding(),
-      transition: Transition.cupertino,
-    ),GetPage(
-      name: Routes.CHAT_HISTORY_SCREEN,
-      page: () => const ChatHistoryScreen(),
-      binding: ChatHistoryBindings(),
-      transition: Transition.cupertino,
-    ),GetPage(
-      name: Routes.CHAT_HISTORY_DETAIL_SCREEN,
-      page: () => const ChatHistoryDetailScreen(),
       transition: Transition.cupertino,
     ),
   ];
