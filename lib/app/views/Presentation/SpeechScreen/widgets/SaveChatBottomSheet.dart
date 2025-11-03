@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_counselling/app/constants/AppString.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppTextField.dart';
 import 'package:project_counselling/app/views/AppWidgets/BottomSheetHandle.dart';
 import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart';
 import 'package:project_counselling/app/views/Presentation/SpeechScreen/controller/SpeechController.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';
+import 'package:project_counselling/app/views/Utils/CustomSnackbar.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
-
-import '../../../AppWidgets/BottomSheetHandle.dart';
 
 void showSaveChatBottomSheet(BuildContext context) {
   final SpeechController controller = Get.find<SpeechController>();
@@ -28,7 +28,7 @@ void showSaveChatBottomSheet(BuildContext context) {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Bottomsheethandle(),
+            const Bottomsheethandle(),
             Container(
               padding: EdgeInsets.all(Dimensions.padding(20)),
               decoration: BoxDecoration(
@@ -42,16 +42,18 @@ void showSaveChatBottomSheet(BuildContext context) {
               ),
             ),
             SizedBox(height: Dimensions.height(24)),
-            AppText(
+            const AppText(
               text: "Save Conversation",
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
             SizedBox(height: Dimensions.height(8)),
-            AppText(
-              text: "Give your chat a title to save it for later. You can save total 5 chats with Free Tier.",
+            const AppText(
+              text:
+                  "Give your chat a title to save it for later. You can save a total of 5 chats with the Free Tier.",
               fontSize: 14,
               color: bottomSheetSubtitle,
+              align: TextAlign.center,
             ),
             SizedBox(height: Dimensions.height(20)),
             Apptextfield(
@@ -80,6 +82,12 @@ void showSaveChatBottomSheet(BuildContext context) {
                       final title = titleController.text.trim();
                       if (title.isNotEmpty) {
                         controller.saveChatSession(title);
+                      } else {
+                        Customsnackbar.show(
+                          title: Appstring.error,
+                          subtitle: "Please enter a title for your session.",
+                          type: SnackbarType.error,
+                        );
                       }
                     },
                   ),

@@ -28,7 +28,7 @@ class Startfreesessioncard extends StatelessWidget {
               ),
               SizedBox(height: Dimensions.height(12)),
               AppText(
-                text: "Take your first session today and discover how mindful conversations can transform your mental wellbeing.",
+                text: "Take your Quick session with default and discover how mindful conversations can transform your mental wellbeing.",
                 fontWeight: FontWeight.normal,
                 fontSize: Dimensions.font(16),
               ),

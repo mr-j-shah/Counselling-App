@@ -67,7 +67,7 @@ class Homeappbar extends StatelessWidget {
                       child: CircleAvatar(
                         radius: Dimensions.radius(30),
                         backgroundImage: NetworkImage(
-                           "https://i.imgur.com/BoN9kdC.png",
+                           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1wz0j6iNcsEAAUlxR1zS7jElJ8RnGj-74_w&s",
                         ),
                       ),
                     ),
