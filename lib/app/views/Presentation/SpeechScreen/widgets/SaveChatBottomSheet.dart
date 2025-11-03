@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
+import 'package:project_counselling/app/views/AppWidgets/AppTextField.dart';
+import 'package:project_counselling/app/views/AppWidgets/BottomSheetHandle.dart';
 import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart';
 import 'package:project_counselling/app/views/Presentation/SpeechScreen/controller/SpeechController.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';
@@ -10,9 +12,9 @@ import '../../../AppWidgets/BottomSheetHandle.dart';
 
 void showSaveChatBottomSheet(BuildContext context) {
   final SpeechController controller = Get.find<SpeechController>();
+  final TextEditingController titleController = TextEditingController();
 
   Get.bottomSheet(
-    isDismissible: true, // Allow dismissing by tapping outside
     SafeArea(
       child: Container(
         padding: EdgeInsets.all(Dimensions.padding(24)),
@@ -26,7 +28,6 @@ void showSaveChatBottomSheet(BuildContext context) {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Handle
             Bottomsheethandle(),
             Container(
               padding: EdgeInsets.all(Dimensions.padding(20)),
@@ -42,44 +43,50 @@ void showSaveChatBottomSheet(BuildContext context) {
             ),
             SizedBox(height: Dimensions.height(24)),
             AppText(
-              text: "Save Your Session?",
-              fontSize: 24,
+              text: "Save Conversation",
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
             SizedBox(height: Dimensions.height(8)),
             AppText(
-              text: "Do you want to save this chat session before you leave?",
-              align: TextAlign.center,
-              color: Colors.grey.shade600,
-              fontSize: 16,
+              text: "Give your chat a title to save it for later. You can save total 5 chats with Free Tier.",
+              fontSize: 14,
+              color: bottomSheetSubtitle,
             ),
-            SizedBox(height: Dimensions.height(24)),
-            PrimaryButton(
-              text: "Save Chat",
-              onPressed: () {
-                // controller.saveChatSession();
-                if (Get.isBottomSheetOpen ?? false) {
-                  Get.back(); // Close bottom sheet
-                }
-                Get.back(); // Navigate back from screen
-              },
+            SizedBox(height: Dimensions.height(20)),
+            Apptextfield(
+              controller: titleController,
+              hintText: "e.g., Evening Thoughts",
             ),
-            SizedBox(height: Dimensions.height(12)),
-            TextButton(
-              onPressed: () {
-                if (Get.isBottomSheetOpen ?? false) {
-                  Get.back(); // Close bottom sheet
-                }
-                Get.back(); // Navigate back from screen
-              },
-              child: AppText(
-                text: "Don't Save",
-                color: Colors.redAccent,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
+            SizedBox(height: Dimensions.height(20)),
+            Row(
+              children: [
+                Expanded(
+                  child: PrimaryButton(
+                    text: "Don't Save",
+                    onPressed: () {
+                      Get.back(); // Close bottom sheet
+                      Get.back(); // Navigate back from the screen
+                    },
+                    backgroundColor: Colors.grey.shade300,
+                    textColor: Colors.black87,
+                  ),
+                ),
+                SizedBox(width: Dimensions.width(16)),
+                Expanded(
+                  child: PrimaryButton(
+                    text: "Save",
+                    onPressed: () {
+                      final title = titleController.text.trim();
+                      if (title.isNotEmpty) {
+                        controller.saveChatSession(title);
+                      }
+                    },
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: Dimensions.height(10)),
+            SizedBox(height: Dimensions.height(30)),
           ],
         ),
       ),

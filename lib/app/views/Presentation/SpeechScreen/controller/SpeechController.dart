@@ -15,6 +15,7 @@ import 'package:project_counselling/app/data/services/local/AppPref.dart';
 import 'package:project_counselling/app/data/services/local/LocalResponse.dart';
 import 'package:project_counselling/app/data/services/network/ApiService.dart';
 import 'package:project_counselling/app/data/services/network/callback.dart';
+import 'package:project_counselling/app/repos/ChatRepo.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/Utils/CustomSnackbar.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
@@ -23,6 +24,7 @@ class SpeechController extends GetxController {
   final FlutterTts tts = FlutterTts();
   final stt.SpeechToText sttEngine = stt.SpeechToText();
   final AppPref _appPref = Get.find<AppPref>();
+  final ChatRepo _chatRepo = ChatRepo();
 
   var isListening = false.obs;
   var isSpeaking = false.obs;
@@ -291,15 +293,44 @@ class SpeechController extends GetxController {
       return "Something went wrong please try after some time.";
     }
   }
-  
-  void saveChatSession() {
-    // TODO: Implement actual logic to save the chat session to a database.
-    // For now, we'll just show a confirmation snackbar.
-    Customsnackbar.show(
-      title: "Success",
-      subtitle: "Chat session saved successfully!",
-      type: SnackbarType.success,
+
+  Future<void> saveChatSession(String title) async {
+    final user = _appPref.getUser();
+    if (user == null) {
+      Customsnackbar.show(
+          title: "Error",
+          subtitle: "You must be logged in to save a chat.",
+          type: SnackbarType.error);
+      return;
+    }
+
+    if (messageList.isEmpty) {
+      Customsnackbar.show(
+          title: "Cannot Save",
+          subtitle: "There are no messages to save.",
+          type: SnackbarType.info);
+      return;
+    }
+
+    final success = await _chatRepo.saveChatHistory(
+      userId: user.userID,
+      messages: messageList.toList(),
+      title: title,
     );
-    debugPrint("Chat session saved.");
+
+    if (success) {
+      Get.back();
+      Get.back();
+      Customsnackbar.show(
+          title: "Success",
+          subtitle: "Chat session saved!",
+          type: SnackbarType.success);
+       // Close bottom sheet
+    } else {
+      Customsnackbar.show(
+          title: "Limit Reached",
+          subtitle: "You have reached the maximum number of saved chats.",
+          type: SnackbarType.error);
+    }
   }
 }

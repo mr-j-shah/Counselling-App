@@ -105,11 +105,11 @@ class Sidemenucontroller extends GetxController {
   }
 
   List<SidemenuModel> sideMenuItems = [
-    // SidemenuModel(
-    //   index: 1,
-    //   title: Appstring.mySessions,
-    //   icon: Appassets.mySessionsIcon,
-    // ),
+    SidemenuModel(
+      index: 1,
+      title: Appstring.mySessions,
+      icon: Appassets.mySessionsIcon,
+    ),
     // SidemenuModel(
     //   index: 2,
     //   title: Appstring.medicalRecords,
@@ -123,7 +123,7 @@ class Sidemenucontroller extends GetxController {
     SidemenuModel(
       index: 8,
       title: "Box Breathing",
-      icon: Appassets.mySessionsIcon,
+      icon: Appassets.breathingIcon,
     ),
     SidemenuModel(
       index: 4,
