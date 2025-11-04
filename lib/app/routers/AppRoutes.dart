@@ -37,6 +37,7 @@ import '../views/Presentation/Legal/TermsAndService.dart';
 
 abstract class Routes {
   static const String HOME = '/home';
+  static const String NOT_FOUND = '/notfound';
   static const String SPLASH_SCREEN = '/splash_screen';
   static const String SPEECH_TEXT = '/speech-text';
   static const String USER_CHAT = '/user-chat';

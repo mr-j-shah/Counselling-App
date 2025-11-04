@@ -5,6 +5,7 @@ import 'package:get/route_manager.dart';
 import 'package:project_counselling/app/bindings/AppBinding.dart';
 import 'package:project_counselling/app/config/flavor_config.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
+import 'package:project_counselling/app/views/Presentation/NotFound/NotFoundScreen.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
 void main() async {
@@ -41,8 +42,8 @@ class MyApp extends StatelessWidget {
       getPages: AppRoutes.routes,
       initialRoute: Routes.SPLASH_SCREEN,
       unknownRoute: GetPage(
-        name: '/notfound',
-        page: () => const Center(child: Text('404 Page Not Found')),
+        name: Routes.NOT_FOUND,
+        page: () => const NotFoundScreen(),
       ),
     );
   }

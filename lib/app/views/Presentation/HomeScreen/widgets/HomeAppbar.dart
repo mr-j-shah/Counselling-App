@@ -66,9 +66,7 @@ class Homeappbar extends StatelessWidget {
                       onTap: _homecontroller.toggleMenu,
                       child: CircleAvatar(
                         radius: Dimensions.radius(30),
-                        backgroundImage: NetworkImage(
-                           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1wz0j6iNcsEAAUlxR1zS7jElJ8RnGj-74_w&s",
-                        ),
+                        child: Icon(Icons.person, color: primaryColor,size: Dimensions.radius(30),),
                       ),
                     ),
                   ],

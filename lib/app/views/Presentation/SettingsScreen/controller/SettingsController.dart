@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/data/enums/language.dart';
@@ -5,6 +6,7 @@ import 'package:project_counselling/app/data/services/local/AppPref.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/Presentation/SettingsScreen/widgets/LanguageBottomSheet.dart';
 
+import '../../../../Constants/AppString.dart';
 import '../../../Utils/CustomSnackbar.dart';
 
 class SettingsController extends GetxController {
@@ -18,11 +20,13 @@ class SettingsController extends GetxController {
   var selectedLanguage = Language.ENGLISH.obs;
   var selectedCurrency = "\$-USD".obs;
   var linkedAccounts = "Facebook, Google".obs;
+  final isPasswordAuthentication = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     _loadSelectedLanguage();
+    _checkAuthProvider();
   }
 
   void _loadSelectedLanguage() {
@@ -37,31 +41,19 @@ class SettingsController extends GetxController {
     }
   }
 
-  void toggleTextMessages(bool value) {
-    textMessagesEnabled.value = value;
-    Get.snackbar("Settings Updated", "Text messages ${value ? 'enabled' : 'disabled'}");
-  }
-
-  void togglePhoneCalls(bool value) {
-    phoneCallsEnabled.value = value;
-    Get.snackbar("Settings Updated", "Phone calls ${value ? 'enabled' : 'disabled'}");
-  }
-
-  // --- Navigation Handlers ---
-
-  void changePassword() {
-    // Get.toNamed(AppRoutes.CHANGE_PASSWORD_SCREEN);
-    // Get.snackbar("Navigation", "To Change Password Screen (${AppRoutes.CHANGE_PASSWORD_SCREEN})");
-  }
-
-  void goToNotificationsSettings() {
-    // Get.toNamed(AppRoutes.NOTIFICATIONS_SETTINGS_SCREEN);
-    // Get.snackbar("Navigation", "To Notifications Settings Screen (${AppRoutes.NOTIFICATIONS_SETTINGS_SCREEN})");
-  }
-
-  void goToStatistics() {
-    // Get.toNamed(AppRoutes.STATISTICS_SCREEN);
-    // Get.snackbar("Navigation", "To Statistics Screen (${AppRoutes.STATISTICS_SCREEN})");
+  void _checkAuthProvider() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // Check if the provider list contains a password provider
+      isPasswordAuthentication.value = user.providerData
+          .any((userInfo) => userInfo.providerId == 'password');
+    } else {
+      Customsnackbar.show(
+          title: Appstring.settingsChangePassword,
+          subtitle: "Third party login is not supported this feature.",
+          leadingIcon: Icon(Icons.password)
+      );
+    }
   }
 
   void goToAboutUs() {
@@ -85,13 +77,9 @@ class SettingsController extends GetxController {
     );
   }
 
-  void changeCurrency() {
-    // Get.toNamed(AppRoutes.CURRENCY_SELECTION_SCREEN);
-    // Get.snackbar("Navigation", "To Currency Selection Screen (${AppRoutes.CURRENCY_SELECTION_SCREEN})");
-  }
-
-  void manageLinkedAccounts() {
-    // Get.toNamed(AppRoutes.LINKED_ACCOUNTS_SCREEN);
-    // Get.snackbar("Navigation", "To Linked Accounts Screen (${AppRoutes.LINKED_ACCOUNTS_SCREEN})");
+  void goToChangePassword() {
+    if (isPasswordAuthentication.value) {
+      Get.toNamed(Routes.CHANGE_PASSWORD_SCREEN);
+    }
   }
 }
