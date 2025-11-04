@@ -48,7 +48,7 @@ class SettingsScreen extends StatelessWidget {
                       iconColor: Colors.white,
                       iconBackgroundColor: Colors.blueAccent,
                       title: Appstring.settingsStatistics,
-                      onTap: (){},
+                      onTap: controller.goToStatistics,
                     ),
                     _buildSettingsItem(
                       icon: Icons.person_outline,

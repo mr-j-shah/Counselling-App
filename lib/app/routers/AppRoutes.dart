@@ -27,6 +27,8 @@ import 'package:project_counselling/app/views/Presentation/SpeechScreen/binding/
 import 'package:project_counselling/app/views/Presentation/HomeScreen/HomeScreen.dart';
 import 'package:project_counselling/app/views/Presentation/SpeechScreen/SpeechScreen.dart';
 import 'package:project_counselling/app/views/Presentation/ChatScreen/UserChatScreen.dart';
+import 'package:project_counselling/app/views/Presentation/StatisticsScreen/StatisticsScreen.dart';
+import 'package:project_counselling/app/views/Presentation/StatisticsScreen/bindings/StatisticsBinding.dart';
 import 'package:project_counselling/app/views/Presentation/TopDoctors/TopDoctorsScreen.dart';
 import 'package:project_counselling/app/views/Presentation/TopDoctors/binding/TopDoctorsBinding.dart';
 
@@ -60,6 +62,7 @@ abstract class Routes {
   static const String AVATAR_DETAIL_SCREEN = '/avatar-detail-screen';
   static const String CHAT_HISTORY_DETAIL_SCREEN = '/chat-history-detail-screen';
   static const String CHAT_HISTORY_SCREEN = '/chat-history-screen';
+  static const String STATISTICS_SCREEN = '/statistics_screen';
 }
 
 class AppRoutes {
@@ -172,6 +175,11 @@ class AppRoutes {
       name: Routes.CHAT_HISTORY_SCREEN,
       page: () => const ChatHistoryScreen(),
       binding: ChatHistoryBindings(),
+      transition: Transition.cupertino,
+    ),GetPage(
+      name: Routes.STATISTICS_SCREEN,
+      page: () => const StatisticsScreen(),
+      binding: StatisticsBinding(),
       transition: Transition.cupertino,
     ),GetPage(
       name: Routes.CHAT_HISTORY_DETAIL_SCREEN,

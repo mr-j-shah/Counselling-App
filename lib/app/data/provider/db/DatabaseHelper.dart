@@ -1,3 +1,4 @@
+import 'package:project_counselling/app/models/BreathingSession.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -53,5 +54,13 @@ class DatabaseHelper {
       },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+  }
+
+  Future<List<BreathingSession>> getSessions() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('breathing_sessions');
+    return List.generate(maps.length, (i) {
+      return BreathingSession.fromMap(maps[i]);
+    });
   }
 }

@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/data/provider/db/DatabaseHelper.dart';
+import 'package:project_counselling/app/models/BreathingSession.dart';
 
 class BreathingRepository {
   final DatabaseHelper _dbHelper = Get.find<DatabaseHelper>();
@@ -17,6 +17,9 @@ class BreathingRepository {
       preMood: preMood,
       postMood: postMood,
     );
-    debugPrint("Session Saved Successfully");
+  }
+
+  Future<List<BreathingSession>> getSessions() async {
+    return await _dbHelper.getSessions();
   }
 }
