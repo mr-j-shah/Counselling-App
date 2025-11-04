@@ -6,6 +6,7 @@ import 'package:project_counselling/app/views/Utils/Colors.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
 void showExerciseCompleteDialog(BuildContext context) {
+  debugPrint("Visible Dialog");
   Get.dialog(
     Dialog(
       shape: RoundedRectangleBorder(

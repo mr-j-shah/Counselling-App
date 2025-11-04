@@ -160,7 +160,7 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
               SizedBox(height: Dimensions.height(20)),
               PrimaryButton(
                 text: "Start",
-                onPressed: controller.startExercise,
+                onPressed: () => controller.startExerciseWithMoodCheck(context),
               ),
             ],
           ),

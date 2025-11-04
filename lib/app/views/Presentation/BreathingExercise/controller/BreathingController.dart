@@ -2,13 +2,16 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_counselling/app/data/repos/BreathingRepository.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/widgets/ExerciseCompleteDialog.dart';
+import 'package:project_counselling/app/views/Presentation/BreathingExercise/widgets/MoodCheckInSheet.dart';
 
 import '../../../../Constants/AppAssets.dart';
 
 enum BreathingState { idle, gettingReady, inhaling, holding, exhaling }
 
 class BreathingController extends GetxController {
+  final BreathingRepository _breathingRepository = Get.find<BreathingRepository>();
   final RxInt selectedDuration = 2.obs; // in minutes
   final RxBool isExercising = false.obs;
   final RxInt remainingTime = 0.obs; // in seconds
@@ -22,6 +25,10 @@ class BreathingController extends GetxController {
   var inhaleDuration = 4.obs;
   var holdDuration = 4.obs;
   var exhaleDuration = 4.obs;
+
+  // Mood check-in
+  int? preMood;
+  int? postMood;
 
   Timer? _exerciseTimer;
   Timer? _countdownTimer;
@@ -62,6 +69,16 @@ class BreathingController extends GetxController {
     exhaleDuration.value = exhale;
   }
 
+  void startExerciseWithMoodCheck(BuildContext context) {
+    showMoodCheckInSheet(
+      context: context,
+      title: "Pre-Exercise Mood",
+      onMoodSelected: (mood) {
+        preMood = mood;
+        startExercise();
+      },
+    );
+  }
 
   void startExercise() {
     if (isExercising.value) return;
@@ -89,7 +106,20 @@ class BreathingController extends GetxController {
         remainingTime.value--;
       } else {
         stopExercise();
-        showExerciseCompleteDialog(Get.context!);
+        showMoodCheckInSheet(
+          context: Get.context!,
+          title: "Post-Exercise Mood",
+          onMoodSelected: (mood) async {
+            postMood = mood;
+            await _breathingRepository.addSession(
+              duration: selectedDuration.value,
+              preMood: preMood!,
+              postMood: postMood!,
+            );
+            debugPrint("Session Saved Successfully");
+            showExerciseCompleteDialog(Get.context!);
+          },
+        );
       }
     });
   }
