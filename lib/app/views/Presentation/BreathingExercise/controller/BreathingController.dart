@@ -7,6 +7,7 @@ import 'package:project_counselling/app/views/Presentation/BreathingExercise/wid
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/widgets/MoodCheckInSheet.dart';
 
 import '../../../../Constants/AppAssets.dart';
+import '../../SpeechScreen/widgets/CounselingSuggestionBottomSheet.dart';
 
 enum BreathingState { idle, gettingReady, inhaling, holding, exhaling }
 
@@ -117,7 +118,12 @@ class BreathingController extends GetxController {
               postMood: postMood!,
             );
             debugPrint("Session Saved Successfully");
-            showExerciseCompleteDialog(Get.context!);
+            if(mood>=7){
+              showExerciseCompleteDialog(Get.context!);
+            }else{
+              showCounselingSuggestionBottomSheet(Get.context!);
+            }
+
           },
         );
       }
