@@ -1,19 +1,17 @@
+import 'package:carousel_slider/carousel_options.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/data/models/Doctor.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
-import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/controller/HomeController.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/AvatarCard.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/DoctorCard.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/HomeAppbar.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/HomeBottomnavigation.dart';
-import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/SlideToBegin.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
-
-import '../../../../Constants/AppAssets.dart';
+import '../../../AppWidgets/ComingSoonWidget.dart';
 import 'HomeScreenSectionTitle.dart';
 import 'StartFreeSessionCard.dart';
 
@@ -29,13 +27,44 @@ class HomeMainwidget extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: Dimensions.height(250)),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 0,
-                ),
-                child: Startfreesessioncard(
-                  onPressed: _homecontroller.navigateToFreeCounselling,
+              SizedBox(
+                height: Dimensions.height(250),
+                child: CarouselSlider(
+                  items: [
+                    //1st Image of Slider
+                    Startfreesessioncard(
+                      title: "Begin Your Healing Journey",
+                      subString: "Take your Quick session with default and discover how mindful conversations can transform your mental wellbeing.",
+                      buttonText: "Start Session",
+                      onPressed: _homecontroller.navigateToFreeCounselling,
+                    ),
+
+                    Startfreesessioncard(
+                      title: "Feeling Stressed?",
+                      subString: "Do Breathing Exercises with guided audio to find immediate calm and recenter your mind.",
+                      buttonText: "Box Breathing",
+                      onPressed: _homecontroller.navigateToBoxBreathing,
+                    ),
+
+                    Startfreesessioncard(
+                      title: "Want to add Reminder?",
+                      subString: "Busy right now? Schedule a future session reminder so you don't miss out on your path to wellness.",
+                      buttonText: "Set Reminder", // Changed button text for clarity
+                      onPressed: (){}, // Assumed navigation change
+                    ),
+                  ],
+
+                  //Slider Container properties
+                  options: CarouselOptions(
+                    enlargeCenterPage: true,
+                    autoPlay: true,
+                    aspectRatio: 16 / 9,
+                    autoPlayCurve: Curves.linear,
+                    enableInfiniteScroll: true,
+                    autoPlayAnimationDuration: Duration(seconds: 2),
+                    autoPlayInterval: const Duration(seconds: 5),
+                    viewportFraction: 1,
+                  ),
                 ),
               ),
               SizedBox(height: Dimensions.height(10)),
@@ -47,7 +76,8 @@ class HomeMainwidget extends StatelessWidget {
                 child: HomeScreenSectionTitle(
                   title: "Popular Profiles",
                   onPressed: () {
-                    Get.toNamed(Routes.POPULAR_PROFILES_SCREEN, arguments: _homecontroller.avatarList);
+                    Get.toNamed(Routes.POPULAR_PROFILES_SCREEN,
+                        arguments: _homecontroller.avatarList);
                   },
                 ),
               ),
@@ -78,58 +108,18 @@ class HomeMainwidget extends StatelessWidget {
             ],
           ),
         ),
-        Homeappbar(),
       ],
     );
   }
 
   Widget _buildFavoritesTabContent(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          SizedBox(height: Dimensions.height(12)),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 0,
-            ),
-            child: Material(
-              elevation: 6,
-              borderRadius: BorderRadius.circular(Dimensions.radius(16)),
-              child: SizedBox(
-                width: double.maxFinite,
-                child: Padding(
-                  padding: EdgeInsets.all(Dimensions.padding(15)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(height: Dimensions.height(12)),
-                      Image.asset(Appassets.BreathingExerciseImage,width: Dimensions.width(200)),
-                      SizedBox(height: Dimensions.height(14)),
-                      SlideToBegin(onSlideCompleted: () =>
-                          Get.toNamed(Routes.BREATHING_EXERCISE_SCREEN), text: "Box Breathing",)
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+    return const ComingSoonWidget();
   }
 
   Widget _buildBookingsTabContent(BuildContext context) {
-    return const Center(
-      child: Text("Bookings/Journal Content", style: TextStyle(fontSize: 18)),
-    );
+    return const ComingSoonWidget();
   }
 
-  Widget _buildChatTabContent(BuildContext context) {
-    return const Center(
-      child: Text("Chat History Content", style: TextStyle(fontSize: 18)),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,17 +135,18 @@ class HomeMainwidget extends StatelessWidget {
                   return _buildFavoritesTabContent(context);
                 case 2:
                   return _buildBookingsTabContent(context);
-                case 3:
-                  return _buildChatTabContent(context);
                 default:
                   return _buildHomeTabContent(
                     context,
                   ); // Default to home content
               }
             }),
-            // Positioned(bottom: -Dimensions.height(1),
-            //     left: 0,
-            //     right: 0, child: Homebottomnavigation()),
+            Homeappbar(),
+            Positioned(
+                bottom: -Dimensions.height(1),
+                left: 0,
+                right: 0,
+                child: Homebottomnavigation()),
           ],
         ),
       ),
@@ -183,17 +174,20 @@ class DoctorList extends StatelessWidget {
 
 class AvatarList extends StatelessWidget {
   final Homecontroller _homecontroller = Get.find<Homecontroller>();
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Dimensions.height(260),
-      child: Obx(()=>ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: _homecontroller.homeScreenAvatars.length,
-        itemBuilder: (context, index) {
-          return AvatarCard(avatar: _homecontroller.homeScreenAvatars[index]);
-        },
-      ),)
-    );
+        height: Dimensions.height(260),
+        child: Obx(
+          () => ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: _homecontroller.homeScreenAvatars.length,
+            itemBuilder: (context, index) {
+              return AvatarCard(
+                  avatar: _homecontroller.homeScreenAvatars[index]);
+            },
+          ),
+        ));
   }
 }

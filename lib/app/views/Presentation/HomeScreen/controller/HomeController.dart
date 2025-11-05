@@ -14,6 +14,7 @@ class Homecontroller extends GetxController {
 
   // To manage the selected tab index for bottom navigation
   var selectedTabIndex = 0.obs;
+  var appBarOpacity = true.obs;
 
   final AvatarRepo _avatarRepo = AvatarRepo();
   var avatarList = <Avatar>[].obs;
@@ -46,10 +47,19 @@ class Homecontroller extends GetxController {
 
   void changeTabIndex(int index) {
     selectedTabIndex.value = index;
+    if(index == 0 ){
+      appBarOpacity.value = true;
+    }else{
+      appBarOpacity.value = false;
+    }
   }
 
   void navigateToFreeCounselling() {
     Get.toNamed(Routes.SPEECH_TEXT);
+  }
+
+  void navigateToBoxBreathing() {
+    Get.toNamed(Routes.BREATHING_EXERCISE_SCREEN);
   }
 
   String getUserName() {

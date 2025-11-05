@@ -6,6 +6,7 @@ import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart'
 import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/controller/BreathingController.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/widgets/CancelExerciseDialog.dart';
+import 'package:project_counselling/app/views/Presentation/BreathingExercise/widgets/CustomRhythmEditor.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/widgets/SoundToggleSlider.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
@@ -49,7 +50,7 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
                   Expanded(
                     child: controller.isExercising.value
                         ? _buildExerciseView(context)
-                        : _buildSelectionView(),
+                        : _buildSelectionView(context),
                   ),
                 ],
               );
@@ -60,7 +61,7 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
     );
   }
 
-  Widget _buildSelectionView() {
+  Widget _buildSelectionView(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -128,6 +129,18 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
                       );
                     }).toList(),
                   )),
+                 SizedBox(height: Dimensions.height(20)),
+                  GestureDetector(
+                onTap: () => showCustomRhythmEditor(context),
+                child: Chip(
+                  label: Obx(() => AppText(
+                      text:
+                          "Custom Rhythm: ${controller.inhaleDuration.value}-${controller.holdDuration.value}-${controller.exhaleDuration.value}")),
+                  avatar: Icon(Icons.edit, color: primaryColor),
+                  backgroundColor: primaryColor.withOpacity(0.1),
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                ),
+              ),
             ],
           ),
         ),
@@ -147,7 +160,7 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
               SizedBox(height: Dimensions.height(20)),
               PrimaryButton(
                 text: "Start",
-                onPressed: controller.startExercise,
+                onPressed: () => controller.startExerciseWithMoodCheck(context),
               ),
             ],
           ),
@@ -212,7 +225,7 @@ class BreathingExerciseScreen extends GetView<BreathingController> {
           ),
         ),
         Obx(() => AnimatedContainer(
-              duration: const Duration(seconds: 4),
+              duration: Duration(seconds: controller.circleTime.value),
               width: Dimensions.width(controller.circleSize.value),
               height: Dimensions.width(controller.circleSize.value),
               decoration: BoxDecoration(

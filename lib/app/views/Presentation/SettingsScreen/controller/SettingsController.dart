@@ -60,6 +60,10 @@ class SettingsController extends GetxController {
     Get.toNamed(Routes.ABOUT_US_SCREEN);
   }
 
+  void goToStatistics() {
+    Get.toNamed(Routes.STATISTICS_SCREEN);
+  }
+
   void changeLanguage(BuildContext context) {
     showLanguageBottomSheet(context, selectedLanguage.value, (Language language) {
       _updateLanguage(language);
