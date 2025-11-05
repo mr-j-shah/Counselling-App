@@ -11,8 +11,6 @@ import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/Do
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/HomeAppbar.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/HomeBottomnavigation.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
-
-import '../../../../Constants/AppAssets.dart';
 import '../../../AppWidgets/ComingSoonWidget.dart';
 import 'HomeScreenSectionTitle.dart';
 import 'StartFreeSessionCard.dart';
@@ -122,11 +120,6 @@ class HomeMainwidget extends StatelessWidget {
     return const ComingSoonWidget();
   }
 
-  Widget _buildChatTabContent(BuildContext context) {
-    return const Center(
-      child: Text("Chat History Content", style: TextStyle(fontSize: 18)),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

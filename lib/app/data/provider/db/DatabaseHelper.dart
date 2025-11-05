@@ -63,4 +63,10 @@ class DatabaseHelper {
       return BreathingSession.fromMap(maps[i]);
     });
   }
+
+  // New method to clear all sessions
+  Future<void> clearAllSessions() async {
+    final db = await database;
+    await db.delete('breathing_sessions');
+  }
 }

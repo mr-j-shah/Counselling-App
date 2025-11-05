@@ -8,7 +8,7 @@ class BreathingRepository {
   Future<void> addSession({
     required int duration,
     required int preMood,
-    required int postMood,
+        required int postMood,
   }) async {
     final timestamp = DateTime.now().toIso8601String();
     await _dbHelper.addSession(
@@ -21,5 +21,10 @@ class BreathingRepository {
 
   Future<List<BreathingSession>> getSessions() async {
     return await _dbHelper.getSessions();
+  }
+
+  // New method to clear all sessions
+  Future<void> clearAllSessions() async {
+    await _dbHelper.clearAllSessions();
   }
 }

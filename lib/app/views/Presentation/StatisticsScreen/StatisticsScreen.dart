@@ -1,10 +1,11 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
+import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart'; // Added import for PrimaryButton
 import 'package:project_counselling/app/views/Presentation/StatisticsScreen/controller/StatisticsController.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
@@ -21,15 +22,36 @@ class StatisticsScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              CustomAppbar(title: "Statistics"),
+              CustomAppbar(
+                title: "Statistics",
+                suffixAction: PopupMenuButton<String>(
+                  onSelected: (value) {
+                    if (value == 'clear_data') {
+                      controller.showClearDataConfirmationDialog();
+                    }
+                  },
+                  itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                    const PopupMenuItem<String>(
+                      value: 'clear_data',
+                      child: Row(
+                        children: [
+                          Icon(Icons.delete_sweep_outlined, color: Colors.redAccent),
+                          SizedBox(width: 8),
+                          Text('Clear Local Data'),
+                        ],
+                      ),
+                    ),
+                  ],
+                  icon: const Icon(Icons.more_vert, color: Colors.black54), // Menu icon
+                ),
+              ),
               Expanded(
                 child: Obx(() {
                   if (controller.isLoading.value) {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (controller.sessions.isEmpty) {
-                    return const Center(
-                        child: AppText(text: "No data available."));
+                    return _buildEmptyState(controller); // Show empty state when no data
                   }
                   return SingleChildScrollView(
                     padding: EdgeInsets.all(Dimensions.padding(16)),
@@ -49,6 +71,41 @@ class StatisticsScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(StatisticsController controller) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.insert_chart_outlined_rounded, // A relevant icon for statistics
+            size: Dimensions.font(80),
+            color: primaryColor,
+          ),
+          SizedBox(height: Dimensions.height(20)),
+          const AppText(
+            text: "No Session Data Yet",
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+          SizedBox(height: Dimensions.height(10)),
+          AppText(
+            text: "Complete a session to view your progress and insights here.",
+            fontSize: 16,
+            color: Colors.grey.shade600,
+            align: TextAlign.center,
+          ),
+          SizedBox(height: Dimensions.height(30)),
+          PrimaryButton(
+            text: "Start Breathing Exercise",
+            onPressed: controller.startNewSession, // Call method in controller
+            width: Dimensions.width(300),
+          ),
+        ],
       ),
     );
   }
@@ -108,14 +165,30 @@ class StatisticsScreen extends StatelessWidget {
     );
     String text;
     switch (value.toInt()) {
-      case 1: text = 'Mon'; break;
-      case 2: text = 'Tue'; break;
-      case 3: text = 'Wed'; break;
-      case 4: text = 'Thu'; break;
-      case 5: text = 'Fri'; break;
-      case 6: text = 'Sat'; break;
-      case 7: text = 'Sun'; break;
-      default: text = ''; break;
+      case 1:
+        text = 'Mon';
+        break;
+      case 2:
+        text = 'Tue';
+        break;
+      case 3:
+        text = 'Wed';
+        break;
+      case 4:
+        text = 'Thu';
+        break;
+      case 5:
+        text = 'Fri';
+        break;
+      case 6:
+        text = 'Sat';
+        break;
+      case 7:
+        text = 'Sun';
+        break;
+      default:
+        text = '';
+        break;
     }
     return SideTitleWidget(axisSide: meta.axisSide, child: Text(text, style: style));
   }
