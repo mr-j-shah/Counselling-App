@@ -1,21 +1,19 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:project_counselling/app/data/models/Doctor.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
-import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/controller/HomeController.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/AvatarCard.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/DoctorCard.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/HomeAppbar.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/HomeBottomnavigation.dart';
-import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/SlideToBegin.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
 import '../../../../Constants/AppAssets.dart';
+import '../../../AppWidgets/ComingSoonWidget.dart';
 import 'HomeScreenSectionTitle.dart';
 import 'StartFreeSessionCard.dart';
 
@@ -66,7 +64,7 @@ class HomeMainwidget extends StatelessWidget {
                     autoPlayCurve: Curves.linear,
                     enableInfiniteScroll: true,
                     autoPlayAnimationDuration: Duration(seconds: 2),
-                    autoPlayInterval: const Duration(seconds: 10),
+                    autoPlayInterval: const Duration(seconds: 5),
                     viewportFraction: 1,
                   ),
                 ),
@@ -117,45 +115,11 @@ class HomeMainwidget extends StatelessWidget {
   }
 
   Widget _buildFavoritesTabContent(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          // SizedBox(height: Dimensions.height(20)),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(
-          //     horizontal: 20,
-          //     vertical: 0,
-          //   ),
-          //   child: Material(
-          //     elevation: 6,
-          //     borderRadius: BorderRadius.circular(Dimensions.radius(16)),
-          //     child: SizedBox(
-          //       width: double.maxFinite,
-          //       child: Padding(
-          //         padding: EdgeInsets.all(Dimensions.padding(15)),
-          //         child: Column(
-          //           mainAxisAlignment: MainAxisAlignment.start,
-          //           children: [
-          //             SizedBox(height: Dimensions.height(12)),
-          //             Image.asset(Appassets.BreathingExerciseImage,width: Dimensions.width(200)),
-          //             SizedBox(height: Dimensions.height(14)),
-          //             SlideToBegin(onSlideCompleted: () =>
-          //                 Get.toNamed(Routes.BREATHING_EXERCISE_SCREEN), text: "Box Breathing",)
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-        ],
-      ),
-    );
+    return const ComingSoonWidget();
   }
 
   Widget _buildBookingsTabContent(BuildContext context) {
-    return const Center(
-      child: Text("Bookings/Journal Content", style: TextStyle(fontSize: 18)),
-    );
+    return const ComingSoonWidget();
   }
 
   Widget _buildChatTabContent(BuildContext context) {
@@ -178,8 +142,6 @@ class HomeMainwidget extends StatelessWidget {
                   return _buildFavoritesTabContent(context);
                 case 2:
                   return _buildBookingsTabContent(context);
-                case 3:
-                  return _buildChatTabContent(context);
                 default:
                   return _buildHomeTabContent(
                     context,
