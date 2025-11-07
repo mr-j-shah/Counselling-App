@@ -1,4 +1,5 @@
 import 'package:project_counselling/app/models/BreathingSession.dart';
+import 'package:project_counselling/app/models/JournalEntry.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -17,15 +18,27 @@ class DatabaseHelper {
 
   Future<Database> _initDatabase() async {
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, 'breathing_sessions.db');
+    final path = join(dbPath, 'aura_mind.db'); // Renamed db
     return await openDatabase(
       path,
-      version: 1,
+      version: 2, // Incremented version
       onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
     );
   }
 
   Future<void> _onCreate(Database db, int version) async {
+    await _createBreathingSessionsTable(db);
+    await _createJournalEntriesTable(db);
+  }
+
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await _createJournalEntriesTable(db);
+    }
+  }
+
+  Future<void> _createBreathingSessionsTable(Database db) async {
     await db.execute('''
       CREATE TABLE breathing_sessions(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,6 +50,19 @@ class DatabaseHelper {
     ''');
   }
 
+  Future<void> _createJournalEntriesTable(Database db) async {
+    await db.execute('''
+      CREATE TABLE journal_entries(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        content TEXT NOT NULL,
+        mood INTEGER NOT NULL,
+        timestamp TEXT NOT NULL
+      )
+    ''');
+  }
+
+  // Breathing Session Methods
   Future<void> addSession({
     required int duration,
     required String timestamp,
@@ -64,13 +90,11 @@ class DatabaseHelper {
     });
   }
 
-  // New method to clear all sessions
   Future<void> clearAllSessions() async {
     final db = await database;
     await db.delete('breathing_sessions');
   }
 
-  // New method to get sessions between two dates
   Future<List<BreathingSession>> getSessionsBetweenDates(
       DateTime startDate, DateTime endDate) async {
     final db = await database;
@@ -86,5 +110,29 @@ class DatabaseHelper {
     return List.generate(maps.length, (i) {
       return BreathingSession.fromMap(maps[i]);
     });
+  }
+
+  // Journal Entry Methods
+  Future<int> addJournalEntry(JournalEntry entry) async {
+    final db = await database;
+    return await db.insert('journal_entries', entry.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<List<JournalEntry>> getJournalEntries() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('journal_entries', orderBy: 'timestamp DESC');
+    return List.generate(maps.length, (i) {
+      return JournalEntry.fromMap(maps[i]);
+    });
+  }
+
+  Future<int> updateJournalEntry(JournalEntry entry) async {
+    final db = await database;
+    return await db.update('journal_entries', entry.toMap(), where: 'id = ?', whereArgs: [entry.id]);
+  }
+
+  Future<int> deleteJournalEntry(int id) async {
+    final db = await database;
+    return await db.delete('journal_entries', where: 'id = ?', whereArgs: [id]);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:project_counselling/app/models/JournalEntry.dart';
 import 'package:project_counselling/app/views/Presentation/AboutUsScreen/AboutUsScreen.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/BreathingExerciseScreen.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/binding/BreathingBinding.dart';
@@ -18,6 +19,9 @@ import 'package:project_counselling/app/views/Presentation/HomeScreen/bindings/H
 import 'package:project_counselling/app/views/Presentation/IntroScreen/IntroScreen.dart';
 import 'package:project_counselling/app/views/Presentation/IntroScreen/bindings/IntroBindings.dart';
 import 'package:project_counselling/app/views/Presentation/AuthScreens/LoginScreen/LoginScreen.dart';
+import 'package:project_counselling/app/views/Presentation/JournalScreen/JournalEntryScreen.dart';
+import 'package:project_counselling/app/views/Presentation/JournalScreen/JournalListScreen.dart';
+import 'package:project_counselling/app/views/Presentation/JournalScreen/bindings/JournalBinding.dart';
 import 'package:project_counselling/app/views/Presentation/PopularProfiles/PopularProfilesScreen.dart';
 import 'package:project_counselling/app/views/Presentation/PopularProfiles/binding/PopularProfilesBinding.dart';
 import 'package:project_counselling/app/views/Presentation/SettingsScreen/SettingsScreen.dart';
@@ -63,6 +67,8 @@ abstract class Routes {
   static const String CHAT_HISTORY_DETAIL_SCREEN = '/chat-history-detail-screen';
   static const String CHAT_HISTORY_SCREEN = '/chat-history-screen';
   static const String STATISTICS_SCREEN = '/statistics_screen';
+  static const String JOURNAL_LIST_SCREEN = '/journal-list-screen';
+  static const String JOURNAL_ENTRY_SCREEN = '/journal-entry-screen';
 }
 
 class AppRoutes {
@@ -184,6 +190,17 @@ class AppRoutes {
     ),GetPage(
       name: Routes.CHAT_HISTORY_DETAIL_SCREEN,
       page: () => const ChatHistoryDetailScreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: Routes.JOURNAL_LIST_SCREEN,
+      page: () => const JournalListScreen(),
+      binding: JournalBinding(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: Routes.JOURNAL_ENTRY_SCREEN,
+      page: () => JournalEntryScreen(entry: Get.arguments as JournalEntry?),
       transition: Transition.cupertino,
     ),
   ];

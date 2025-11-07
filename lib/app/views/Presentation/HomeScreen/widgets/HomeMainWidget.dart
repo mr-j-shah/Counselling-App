@@ -11,6 +11,7 @@ import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/Do
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/HomeAppbar.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/HomeBottomnavigation.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/StopStreakBreakCard.dart';
+import 'package:project_counselling/app/views/Presentation/MindJournalScreen/MindJournalScreen.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 import '../../../AppWidgets/ComingSoonWidget.dart';
 import 'HomeScreenSectionTitle.dart';
@@ -22,35 +23,36 @@ class HomeMainwidget extends StatelessWidget {
   HomeMainwidget({super.key});
 
   Widget _buildHomeTabContent(BuildContext context) {
-    _homecontroller.checkBreathingStreak();
     return Stack(
       children: [
         SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(height: Dimensions.height(230)),
+              Obx(() {
+                return _homecontroller.showStreakCard.value
+                    ? StopStreakBreakCard(
+                        onStartBreathing: _homecontroller.navigateToBoxBreathing,
+                      )
+                    : const SizedBox.shrink();
+              }),
               SizedBox(
                 height: Dimensions.height(250),
                 child: CarouselSlider(
                   items: [
                     //1st Image of Slider
-                    Obx(() {
-                      return (_homecontroller.showStreakCard.value)
-                          ? StopStreakBreakCard(
-                        onStartBreathing: _homecontroller.navigateToBoxBreathing,
-                      )
-                          : Startfreesessioncard(
-                        title: "Feeling Stressed?",
-                        subString: "Do Breathing Exercises with guided audio to find immediate calm and recenter your mind.",
-                        buttonText: "Box Breathing",
-                        onPressed: _homecontroller.navigateToBoxBreathing,
-                      );
-                    }),
                     Startfreesessioncard(
                       title: "Begin Your Healing Journey",
                       subString: "Take your Quick session with default and discover how mindful conversations can transform your mental wellbeing.",
                       buttonText: "Start Session",
                       onPressed: _homecontroller.navigateToFreeCounselling,
+                    ),
+
+                    Startfreesessioncard(
+                      title: "Feeling Stressed?",
+                      subString: "Do Breathing Exercises with guided audio to find immediate calm and recenter your mind.",
+                      buttonText: "Box Breathing",
+                      onPressed: _homecontroller.navigateToBoxBreathing,
                     ),
 
                     Startfreesessioncard(
@@ -90,24 +92,6 @@ class HomeMainwidget extends StatelessWidget {
               ),
               SizedBox(height: Dimensions.height(10)),
               AvatarList(),
-              // SizedBox(height: Dimensions.height(10)),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(
-              //     horizontal: 15,
-              //     vertical: 0,
-              //   ),
-              //   child: HomeScreenSectionTitle(
-              //     title: "Top Doctors",
-              //     onPressed: () {
-              //       Get.toNamed(Routes.TOP_DOCTORS_SCREEN);
-              //     },
-              //   ),
-              // ),
-              // SizedBox(height: Dimensions.height(10)),
-              // Padding(
-              //   padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-              //   child: DoctorList(),
-              // ),
               SizedBox(height: Dimensions.height(120)),
             ],
           ),
@@ -116,8 +100,8 @@ class HomeMainwidget extends StatelessWidget {
     );
   }
 
-  Widget _buildFavoritesTabContent(BuildContext context) {
-    return const ComingSoonWidget();
+  Widget _buildMindJournalTabContent(BuildContext context) {
+    return const MindJournalScreen();
   }
 
   Widget _buildBookingsTabContent(BuildContext context) {
@@ -136,7 +120,7 @@ class HomeMainwidget extends StatelessWidget {
                 case 0:
                   return _buildHomeTabContent(context);
                 case 1:
-                  return _buildFavoritesTabContent(context);
+                  return _buildMindJournalTabContent(context);
                 case 2:
                   return _buildBookingsTabContent(context);
                 default:
