@@ -27,4 +27,10 @@ class BreathingRepository {
   Future<void> clearAllSessions() async {
     await _dbHelper.clearAllSessions();
   }
+
+  // New method to get sessions between two dates
+  Future<List<BreathingSession>> getSessionsBetweenDates(
+      DateTime startDate, DateTime endDate) async {
+    return await _dbHelper.getSessionsBetweenDates(startDate, endDate);
+  }
 }

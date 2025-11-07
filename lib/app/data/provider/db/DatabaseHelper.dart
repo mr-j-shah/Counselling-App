@@ -69,4 +69,22 @@ class DatabaseHelper {
     final db = await database;
     await db.delete('breathing_sessions');
   }
+
+  // New method to get sessions between two dates
+  Future<List<BreathingSession>> getSessionsBetweenDates(
+      DateTime startDate, DateTime endDate) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'breathing_sessions',
+      where: 'timestamp BETWEEN ? AND ?',
+      whereArgs: [
+        startDate.toIso8601String(),
+        endDate.toIso8601String(),
+      ],
+      orderBy: 'timestamp DESC',
+    );
+    return List.generate(maps.length, (i) {
+      return BreathingSession.fromMap(maps[i]);
+    });
+  }
 }
