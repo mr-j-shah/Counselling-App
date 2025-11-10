@@ -8,6 +8,8 @@ import 'package:project_counselling/app/views/Presentation/JournalScreen/widgets
 import 'package:project_counselling/app/views/Utils/Colors.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 
+import '../HomeScreen/widgets/HomeScreenSectionTitle.dart';
+
 class MindJournalScreen extends StatelessWidget {
   const MindJournalScreen({super.key});
 
@@ -26,11 +28,11 @@ class MindJournalScreen extends StatelessWidget {
             SizedBox(height: Dimensions.height(24)),
             _buildQuickActions(),
             SizedBox(height: Dimensions.height(24)),
-            const AppText(
-              text: "Recent Entries",
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            Obx((){
+              return HomeScreenSectionTitle(
+                title: "Recent Entries",onPressed: controller.journalEntries.length>5 ? () => Get.toNamed(Routes.JOURNAL_LIST_SCREEN) : null,
+              );
+            }),
             SizedBox(height: Dimensions.height(10)),
             Obx(() {
               if (controller.isLoading.value) {
@@ -65,7 +67,7 @@ class MindJournalScreen extends StatelessWidget {
               return ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: controller.journalEntries.length,
+                itemCount: controller.journalEntries.length > 5 ? 5 : controller.journalEntries.length,
                 separatorBuilder: (context, index) => SizedBox(height: Dimensions.height(12)),
                 itemBuilder: (context, index) {
                   final entry = controller.journalEntries[index];
@@ -98,7 +100,7 @@ class MindJournalScreen extends StatelessWidget {
             text: "Reflection of the Day",
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: primaryColor,
+            color: Colors.black,
           ),
           SizedBox(height: 8),
           AppText(

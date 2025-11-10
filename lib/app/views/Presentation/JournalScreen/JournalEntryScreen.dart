@@ -89,23 +89,76 @@ class _JournalEntryScreenState extends State<JournalEntryScreen> {
             children: [
               CustomAppbar(
                 title: widget.entry == null ? "New Journal Entry" : "Edit Journal Entry",
-                // Add a delete button for existing entries
                 suffixAction: widget.entry != null
                     ? IconButton(
                         icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
                         onPressed: () {
-                          // Show confirmation dialog before deleting
-                          Get.defaultDialog(
-                              title: "Delete Entry",
-                              middleText: "Are you sure you want to delete this journal entry?",
-                              textConfirm: "Delete",
-                              textCancel: "Cancel",
-                              confirmTextColor: Colors.white,
-                              onConfirm: () {
-                                _journalController.deleteJournalEntry(widget.entry!.id!);
-                                Get.back(); // Close dialog
-                                Get.back(); // Go back from entry screen
-                              });
+                          Get.dialog(
+                            Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(Dimensions.radius(20)),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(Dimensions.padding(24)),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.all(Dimensions.padding(20)),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red.withOpacity(0.1),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        Icons.delete_outline_rounded,
+                                        color: Colors.redAccent,
+                                        size: Dimensions.font(50),
+                                      ),
+                                    ),
+                                    SizedBox(height: Dimensions.height(24)),
+                                    const AppText(
+                                      text: "Delete Entry?",
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    SizedBox(height: Dimensions.height(8)),
+                                    const AppText(
+                                      text: "Are you sure you want to delete this journal entry? This action cannot be undone.",
+                                      align: TextAlign.center,
+                                      color: Colors.grey,
+                                      fontSize: 16,
+                                    ),
+                                    SizedBox(height: Dimensions.height(24)),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: PrimaryButton(
+                                            text: "Cancel",
+                                            onPressed: () => Get.back(),
+                                            backgroundColor: Colors.grey.shade300,
+                                            textColor: Colors.black87,
+                                          ),
+                                        ),
+                                        SizedBox(width: Dimensions.width(16)),
+                                        Expanded(
+                                          child: PrimaryButton(
+                                            text: "Delete",
+                                            onPressed: () {
+                                              _journalController.deleteJournalEntry(widget.entry!.id!);
+                                              Get.back(); 
+                                              Get.back();
+                                            },
+                                            backgroundColor: Colors.redAccent,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
                         },
                       )
                     : null,
@@ -130,7 +183,6 @@ class _JournalEntryScreenState extends State<JournalEntryScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Title TextField
                         const AppText(text: "Title", fontWeight: FontWeight.bold),
                         SizedBox(height: Dimensions.height(8)),
                         TextField(
@@ -138,7 +190,6 @@ class _JournalEntryScreenState extends State<JournalEntryScreen> {
                           decoration: _inputDecoration("What's on your mind?"),
                         ),
                         SizedBox(height: Dimensions.height(24)),
-                        // Content TextField
                         const AppText(text: "Content", fontWeight: FontWeight.bold),
                         SizedBox(height: Dimensions.height(8)),
                         TextField(
@@ -148,8 +199,6 @@ class _JournalEntryScreenState extends State<JournalEntryScreen> {
                           keyboardType: TextInputType.multiline,
                         ),
                         SizedBox(height: Dimensions.height(24)),
-
-                        // Mood Selector
                         const AppText(text: "How are you feeling?", fontWeight: FontWeight.bold),
                         SizedBox(height: Dimensions.height(16)),
                         Center(
@@ -173,33 +222,33 @@ class _JournalEntryScreenState extends State<JournalEntryScreen> {
                           },
                         ),
                         SizedBox(height: Dimensions.height(32)),
-
-                        // Save Button
-                        PrimaryButton(
-                          text: 'Save Entry',
-                          onPressed: () {
-                            if (_titleController.text.isEmpty && _contentController.text.isEmpty) {
-                              Get.snackbar(
-                                "Empty Entry",
-                                "Please write a title or content for your journal entry.",
-                                snackPosition: SnackPosition.BOTTOM,
+                        Center(
+                          child: PrimaryButton(
+                            text: 'Save Entry',
+                            onPressed: () {
+                              if (_titleController.text.isEmpty && _contentController.text.isEmpty) {
+                                Get.snackbar(
+                                  "Empty Entry",
+                                  "Please write a title or content for your journal entry.",
+                                  snackPosition: SnackPosition.BOTTOM,
+                                );
+                                return;
+                              }
+                              final newEntry = JournalEntry(
+                                id: widget.entry?.id,
+                                title: _titleController.text.isEmpty ? "Untitled" : _titleController.text,
+                                content: _contentController.text,
+                                mood: _currentMood.round(),
+                                timestamp: DateTime.now(),
                               );
-                              return;
-                            }
-                            final newEntry = JournalEntry(
-                              id: widget.entry?.id,
-                              title: _titleController.text.isEmpty ? "Untitled" : _titleController.text,
-                              content: _contentController.text,
-                              mood: _currentMood.round(),
-                              timestamp: DateTime.now(),
-                            );
-                            if (widget.entry == null) {
-                              _journalController.addJournalEntry(newEntry);
-                            } else {
-                              _journalController.updateJournalEntry(newEntry);
-                            }
-                            Get.back();
-                          },
+                              if (widget.entry == null) {
+                                _journalController.addJournalEntry(newEntry);
+                              } else {
+                                _journalController.updateJournalEntry(newEntry);
+                              }
+                              Get.back();
+                            },
+                          ),
                         ),
                       ],
                     ),

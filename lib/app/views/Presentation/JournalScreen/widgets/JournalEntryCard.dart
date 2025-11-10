@@ -8,7 +8,7 @@ import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 class JournalEntryCard extends StatelessWidget {
   final JournalEntry entry;
 
-  const JournalEntryCard({super.key, required this.entry});
+  JournalEntryCard({super.key, required this.entry});
 
   // Helper to get a color based on mood
   Color _getMoodColor(int mood) {
@@ -17,13 +17,22 @@ class JournalEntryCard extends StatelessWidget {
     return Colors.orange.shade300;
   }
 
+  final List<String> _moodEmojis = [
+    '😔', // 1
+    '😟', // 2
+    '😕', // 3
+    '😐', // 4
+    '🙂', // 5
+    '😊', // 6
+    '😄', // 7
+    '😁', // 8
+    '🤩', // 9
+    '😍'  // 10
+  ];
+
   // Helper to get an emoji based on mood
   String _getMoodEmoji(int mood) {
-    if (mood <= 2) return '😔';
-    if (mood <= 4) return '😕';
-    if (mood <= 6) return '🙂';
-    if (mood <= 8) return '😊';
-    return '🤩';
+    return _moodEmojis[(mood - 1).round()];
   }
 
   @override
