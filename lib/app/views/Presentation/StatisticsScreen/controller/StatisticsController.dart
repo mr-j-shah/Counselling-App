@@ -2,23 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:collection/collection.dart';
 import 'package:project_counselling/app/data/repos/BreathingRepository.dart';
+import 'package:project_counselling/app/data/repos/JournalRepository.dart';
 import 'package:project_counselling/app/models/BreathingSession.dart';
+import 'package:project_counselling/app/models/JournalEntry.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
-import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart'; // Import PrimaryButton
-import 'package:project_counselling/app/views/Utils/Colors.dart'; // Import Colors for primaryColor
-import 'package:project_counselling/app/views/Utils/Dimensions.dart'; // Import Dimensions
+import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart'; 
+import 'package:project_counselling/app/views/Utils/Colors.dart'; 
+import 'package:project_counselling/app/views/Utils/Dimensions.dart'; 
 
 class StatisticsController extends GetxController {
   final BreathingRepository _breathingRepository = Get.find<BreathingRepository>();
+  final JournalRepository _journalRepository = Get.put(JournalRepository());
 
-  var sessions = <BreathingSession>[].obs;
+  var breathingSessions = <BreathingSession>[].obs;
+  var journalEntries = <JournalEntry>[].obs;
   var isLoading = true.obs;
 
-  // Summary stats
+  // Breathing summary stats
   var totalSessions = 0.obs;
   var totalTime = 0.obs;
   var avgMoodImprovement = 0.0.obs;
+
+  // Journal summary stats
+  var totalJournalEntries = 0.obs;
+  var avgJournalMood = 0.0.obs;
 
   // Chart data
   var weeklyChartData = <int, double>{}.obs;
@@ -26,13 +34,14 @@ class StatisticsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchSessions();
+    fetchData();
   }
 
-  void fetchSessions() async {
+  void fetchData() async {
     try {
       isLoading(true);
-      sessions.value = await _breathingRepository.getSessions();
+      breathingSessions.value = await _breathingRepository.getSessions();
+      journalEntries.value = await _journalRepository.getJournalEntries();
       _processData();
     } finally {
       isLoading(false);
@@ -40,48 +49,53 @@ class StatisticsController extends GetxController {
   }
 
   void _processData() {
-    if (sessions.isEmpty) {
+    // Process breathing sessions
+    if (breathingSessions.isEmpty) {
       totalSessions.value = 0;
       totalTime.value = 0;
       avgMoodImprovement.value = 0.0;
       weeklyChartData.value = {};
-      return;
-    }
-
-    // Calculate summary stats
-    totalSessions.value = sessions.length;
-    totalTime.value = sessions.map((s) => s.duration).sum;
-
-    final moodImprovements = sessions
-        .where((s) => s.postMood > s.preMood)
-        .map((s) => s.postMood - s.preMood);
-
-    if (moodImprovements.isNotEmpty) {
-      avgMoodImprovement.value = moodImprovements.average;
     } else {
-      avgMoodImprovement.value = 0.0;
+      totalSessions.value = breathingSessions.length;
+      totalTime.value = breathingSessions.map((s) => s.duration).sum;
+
+      final moodImprovements = breathingSessions
+          .where((s) => s.postMood > s.preMood)
+          .map((s) => s.postMood - s.preMood);
+
+      if (moodImprovements.isNotEmpty) {
+        avgMoodImprovement.value = moodImprovements.average;
+      } else {
+        avgMoodImprovement.value = 0.0;
+      }
+
+      final today = DateTime.now();
+      final last7Days = List.generate(7, (i) => today.subtract(Duration(days: i)));
+
+      final Map<int, double> dailyTotals = {};
+      for (var day in last7Days) {
+        final sessionsOnDay = breathingSessions.where((s) =>
+            s.timestamp.year == day.year &&
+            s.timestamp.month == day.month &&
+            s.timestamp.day == day.day);
+        dailyTotals[day.weekday] = sessionsOnDay.map((s) => s.duration).sum.toDouble();
+      }
+
+      final processedData = <int, double>{};
+      for (int i = 1; i <= 7; i++) {
+        processedData[i] = dailyTotals[i] ?? 0.0;
+      }
+      weeklyChartData.value = processedData;
     }
 
-    // Process data for the weekly bar chart (last 7 days)
-    final today = DateTime.now();
-    final last7Days = List.generate(7, (i) => today.subtract(Duration(days: i)));
-
-    final Map<int, double> dailyTotals = {};
-    for (var day in last7Days) {
-      final sessionsOnDay = sessions.where((s) =>
-          s.timestamp.year == day.year &&
-          s.timestamp.month == day.month &&
-          s.timestamp.day == day.day);
-      dailyTotals[day.weekday] = sessionsOnDay.map((s) => s.duration).sum.toDouble();
+    // Process journal entries
+    if (journalEntries.isEmpty) {
+      totalJournalEntries.value = 0;
+      avgJournalMood.value = 0.0;
+    } else {
+      totalJournalEntries.value = journalEntries.length;
+      avgJournalMood.value = journalEntries.map((e) => e.mood).average;
     }
-
-    // Ensure all 7 days of the week are present for the chart
-    final processedData = <int, double>{};
-    for (int i = 1; i <= 7; i++) {
-      processedData[i] = dailyTotals[i] ?? 0.0;
-    }
-    weeklyChartData.value = processedData;
-    
   }
 
   void startNewSession() {
@@ -120,7 +134,7 @@ class StatisticsController extends GetxController {
               SizedBox(height: Dimensions.height(8)),
               const AppText(
                 text:
-                    "Are you sure you want to clear all your breathing session data? This action cannot be undone.",
+                    "Are you sure you want to clear all your session data? This action cannot be undone.",
                 align: TextAlign.center,
                 color: Colors.grey,
                 fontSize: 16,
@@ -132,7 +146,7 @@ class StatisticsController extends GetxController {
                   Expanded(
                     child: PrimaryButton(
                       text: "No",
-                      onPressed: () => Get.back(), // Just close the dialog
+                      onPressed: () => Get.back(), 
                       backgroundColor: Colors.grey.shade300,
                       textColor: Colors.black87,
                     ),
@@ -142,8 +156,8 @@ class StatisticsController extends GetxController {
                     child: PrimaryButton(
                       text: "Yes, Clear",
                       onPressed: () {
-                        Get.back(); // Close the dialog
-                        clearBreathingSessionData();
+                        Get.back(); 
+                        clearAllData();
                       },
                       backgroundColor: Colors.redAccent,
                     ),
@@ -157,11 +171,10 @@ class StatisticsController extends GetxController {
     );
   }
 
-  void clearBreathingSessionData() async {
+  void clearAllData() async {
     isLoading(true);
     await _breathingRepository.clearAllSessions();
-    sessions.clear(); // Clear local observable list
-    _processData(); // Re-process to update summary stats and chart data to empty
-    isLoading(false);
+    await _journalRepository.getJournalEntries().then((entries) => entries.forEach((entry) { _journalRepository.deleteJournalEntry(entry.id!); }));
+    fetchData();
   }
 }

@@ -12,13 +12,16 @@ import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/Ho
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/HomeBottomnavigation.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/StopStreakBreakCard.dart';
 import 'package:project_counselling/app/views/Presentation/MindJournalScreen/MindJournalScreen.dart';
+import 'package:project_counselling/app/views/Presentation/ReminderScreen/ReminderBottomSheet.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
+import '../../../../data/services/local/NotificationService.dart';
 import '../../../AppWidgets/ComingSoonWidget.dart';
 import 'HomeScreenSectionTitle.dart';
 import 'StartFreeSessionCard.dart';
 
 class HomeMainwidget extends StatelessWidget {
   final Homecontroller _homecontroller = Get.find<Homecontroller>();
+  final NotificationService _notificationService = Get.find<NotificationService>();
 
   HomeMainwidget({super.key});
 
@@ -59,7 +62,16 @@ class HomeMainwidget extends StatelessWidget {
                       title: "Want to add Reminder?",
                       subString: "Busy right now? Schedule a future session reminder so you don't miss out on your path to wellness.",
                       buttonText: "Set Reminder", // Changed button text for clarity
-                      onPressed: (){}, // Assumed navigation change
+                      onPressed: (){
+                        showReminderBottomSheet(context, (TimeOfDay p1){
+                          _notificationService.scheduleDailyReminder(
+                            id: 2,
+                            title: '🧘 Time for a mindful moment',
+                            body: 'Take a deep breath and find your calm.',
+                            time: p1,
+                          );
+                        });
+                      }, // Assumed navigation change
                     ),
                   ],
 

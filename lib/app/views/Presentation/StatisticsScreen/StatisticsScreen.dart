@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:project_counselling/app/views/AppWidgets/AppText.dart';
 import 'package:project_counselling/app/views/AppWidgets/CustomAppBar.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
-import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart'; // Added import for PrimaryButton
+import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart';
 import 'package:project_counselling/app/views/Presentation/StatisticsScreen/controller/StatisticsController.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
@@ -24,43 +24,36 @@ class StatisticsScreen extends StatelessWidget {
             children: [
               CustomAppbar(
                 title: "Statistics",
-                suffixAction: PopupMenuButton<String>(
-                  onSelected: (value) {
-                    if (value == 'clear_data') {
-                      controller.showClearDataConfirmationDialog();
-                    }
-                  },
-                  itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                    const PopupMenuItem<String>(
-                      value: 'clear_data',
-                      child: Row(
-                        children: [
-                          Icon(Icons.delete_sweep_outlined, color: Colors.redAccent),
-                          SizedBox(width: 8),
-                          Text('Clear Local Data'),
-                        ],
-                      ),
-                    ),
-                  ],
-                  icon: const Icon(Icons.more_vert, color: Colors.black54), // Menu icon
-                ),
               ),
               Expanded(
                 child: Obx(() {
                   if (controller.isLoading.value) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  if (controller.sessions.isEmpty) {
-                    return _buildEmptyState(controller); // Show empty state when no data
+                  if (controller.breathingSessions.isEmpty &&
+                      controller.journalEntries.isEmpty) {
+                    return _buildEmptyState(controller);
                   }
                   return SingleChildScrollView(
                     padding: EdgeInsets.all(Dimensions.padding(16)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildSummaryCards(controller),
+                        const AppText(
+                            text: "Breathing Sessions",
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                        SizedBox(height: Dimensions.height(16)),
+                        _buildBreathingSummaryCards(controller),
                         SizedBox(height: Dimensions.height(24)),
                         _buildSessionChart(controller),
+                        SizedBox(height: Dimensions.height(24)),
+                        const AppText(
+                            text: "Journal Entries",
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                        SizedBox(height: Dimensions.height(16)),
+                        _buildJournalSummaryCards(controller),
                         SizedBox(height: Dimensions.height(24)),
                         _buildMoodChart(controller),
                       ],
@@ -81,20 +74,21 @@ class StatisticsScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            Icons.insert_chart_outlined_rounded, // A relevant icon for statistics
+            Icons.insert_chart_outlined_rounded,
             size: Dimensions.font(80),
             color: primaryColor,
           ),
           SizedBox(height: Dimensions.height(20)),
           const AppText(
-            text: "No Session Data Yet",
+            text: "No Data Yet",
             fontSize: 24,
             fontWeight: FontWeight.bold,
             color: Colors.black87,
           ),
           SizedBox(height: Dimensions.height(10)),
           AppText(
-            text: "Complete a session to view your progress and insights here.",
+            text:
+                "Complete a session or write a journal entry to see your progress.",
             fontSize: 16,
             color: Colors.grey.shade600,
             align: TextAlign.center,
@@ -102,7 +96,7 @@ class StatisticsScreen extends StatelessWidget {
           SizedBox(height: Dimensions.height(30)),
           PrimaryButton(
             text: "Start Breathing Exercise",
-            onPressed: controller.startNewSession, // Call method in controller
+            onPressed: controller.startNewSession,
             width: Dimensions.width(300),
           ),
         ],
@@ -110,12 +104,12 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSummaryCards(StatisticsController controller) {
+  Widget _buildBreathingSummaryCards(StatisticsController controller) {
     return Row(
       children: [
         Expanded(
-            child: _buildSummaryCard("Total Sessions",
-                controller.totalSessions.value.toString())),
+            child: _buildSummaryCard(
+                "Total Sessions", controller.totalSessions.value.toString())),
         SizedBox(width: Dimensions.width(12)),
         Expanded(
             child: _buildSummaryCard(
@@ -124,6 +118,21 @@ class StatisticsScreen extends StatelessWidget {
         Expanded(
           child: _buildSummaryCard("Avg. Mood Boost",
               "+${controller.avgMoodImprovement.value.toStringAsFixed(1)}"),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildJournalSummaryCards(StatisticsController controller) {
+    return Row(
+      children: [
+        Expanded(
+            child: _buildSummaryCard("Total Entries",
+                controller.totalJournalEntries.value.toString())),
+        SizedBox(width: Dimensions.width(12)),
+        Expanded(
+          child: _buildSummaryCard(
+              "Avg. Mood", controller.avgJournalMood.value.toStringAsFixed(1)),
         ),
       ],
     );
@@ -190,7 +199,8 @@ class StatisticsScreen extends StatelessWidget {
         text = '';
         break;
     }
-    return SideTitleWidget(axisSide: meta.axisSide, child: Text(text, style: style));
+    return SideTitleWidget(
+        axisSide: meta.axisSide, child: Text(text, style: style));
   }
 
   Widget _buildSessionChart(StatisticsController controller) {
@@ -202,68 +212,99 @@ class StatisticsScreen extends StatelessWidget {
             fontSize: 18,
             fontWeight: FontWeight.bold),
         SizedBox(height: Dimensions.height(16)),
-        SizedBox(
-          height: Dimensions.height(200),
-          child: BarChart(
-            BarChartData(
-              alignment: BarChartAlignment.spaceAround,
-              barGroups: controller.weeklyChartData.entries.map((entry) {
-                return BarChartGroupData(
-                  x: entry.key,
-                  barRods: [
-                    BarChartRodData(
-                      toY: entry.value,
-                      gradient: LinearGradient(
-                        colors: [primaryColor, primaryColor.withOpacity(0.5)],
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                      ),
-                      width: 20,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ],
-                );
-              }).toList(),
-              titlesData: FlTitlesData(
-                show: true,
-                rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    getTitlesWidget: getBarTitles,
-                    reservedSize: 30,
+        if (controller.weeklyChartData.entries.isEmpty)
+          SizedBox(
+            height: Dimensions.height(200),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Icon(
+                    Icons.insert_chart_outlined_rounded,
+                    size: Dimensions.font(80),
+                    color: primaryColor,
                   ),
-                ),
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 40,
-                    getTitlesWidget: (value, meta) {
-                       if (value == meta.max || value == 0) {
-                         return const SizedBox();
-                       }
-                      return Text(value.toInt().toString(), style: const TextStyle(fontSize: 12));
-                    }
+                  SizedBox(height: Dimensions.height(20)),
+                  const AppText(
+                      text: "No Breathing Session Done Yet.",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                  SizedBox(
+                    height: Dimensions.height(10),
                   ),
-                ),
+                  PrimaryButton(
+                      text: "Strat Session",
+                      onPressed: controller.startNewSession),
+                ],
               ),
-              gridData: FlGridData(
-                show: true,
-                drawVerticalLine: false,
-                horizontalInterval: 5,
-                getDrawingHorizontalLine: (value) {
-                  return const FlLine(
-                    color: Colors.grey,
-                    strokeWidth: 0.4,
-                    dashArray: [4, 4],
-                  );
-                },
-              ),
-              borderData: FlBorderData(show: false),
             ),
           ),
-        ),
+        if (controller.weeklyChartData.entries.isNotEmpty)
+          SizedBox(
+            height: Dimensions.height(200),
+            child: BarChart(
+              BarChartData(
+                alignment: BarChartAlignment.spaceAround,
+                barGroups: controller.weeklyChartData.entries.map((entry) {
+                  return BarChartGroupData(
+                    x: entry.key,
+                    barRods: [
+                      BarChartRodData(
+                        toY: entry.value,
+                        gradient: LinearGradient(
+                          colors: [primaryColor, primaryColor.withOpacity(0.5)],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                        ),
+                        width: 20,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ],
+                  );
+                }).toList(),
+                titlesData: FlTitlesData(
+                  show: true,
+                  rightTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false)),
+                  topTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false)),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: getBarTitles,
+                      reservedSize: 30,
+                    ),
+                  ),
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 40,
+                        getTitlesWidget: (value, meta) {
+                          if (value == meta.max || value == 0) {
+                            return const SizedBox();
+                          }
+                          return Text(value.toInt().toString(),
+                              style: const TextStyle(fontSize: 12));
+                        }),
+                  ),
+                ),
+                gridData: FlGridData(
+                  show: true,
+                  drawVerticalLine: false,
+                  horizontalInterval: 5,
+                  getDrawingHorizontalLine: (value) {
+                    return const FlLine(
+                      color: Colors.grey,
+                      strokeWidth: 0.4,
+                      dashArray: [4, 4],
+                    );
+                  },
+                ),
+                borderData: FlBorderData(show: false),
+              ),
+            ),
+          ),
       ],
     );
   }
@@ -273,7 +314,9 @@ class StatisticsScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const AppText(
-            text: "Mood Tracking", fontSize: 18, fontWeight: FontWeight.bold),
+            text: "Journal Mood Tracking",
+            fontSize: 18,
+            fontWeight: FontWeight.bold),
         SizedBox(height: Dimensions.height(16)),
         SizedBox(
           height: Dimensions.height(200),
@@ -282,8 +325,8 @@ class StatisticsScreen extends StatelessWidget {
               gridData: FlGridData(
                 show: true,
                 drawVerticalLine: false,
-                 horizontalInterval: 2,
-                 getDrawingHorizontalLine: (value) {
+                horizontalInterval: 2,
+                getDrawingHorizontalLine: (value) {
                   return const FlLine(
                     color: Colors.grey,
                     strokeWidth: 0.4,
@@ -294,90 +337,52 @@ class StatisticsScreen extends StatelessWidget {
               borderData: FlBorderData(show: false),
               lineBarsData: [
                 LineChartBarData(
-                  spots: controller.sessions.map((session) {
-                    return FlSpot(session.timestamp.millisecondsSinceEpoch.toDouble(),
-                        session.preMood.toDouble());
+                  spots: controller.journalEntries.map((entry) {
+                    return FlSpot(
+                        entry.timestamp.millisecondsSinceEpoch.toDouble(),
+                        entry.mood.toDouble());
                   }).toList(),
                   isCurved: true,
-                  color: Colors.blueAccent,
+                  color: Colors.purpleAccent,
                   barWidth: 3,
                   isStrokeCapRound: true,
-                  belowBarData: BarAreaData(show: true, color: Colors.blueAccent.withOpacity(0.2)),
-                  dotData: const FlDotData(show: false),
-                ),
-                LineChartBarData(
-                  spots: controller.sessions.map((session) {
-                    return FlSpot(session.timestamp.millisecondsSinceEpoch.toDouble(),
-                        session.postMood.toDouble());
-                  }).toList(),
-                  isCurved: true,
-                  color: Colors.greenAccent,
-                  barWidth: 3,
-                   isStrokeCapRound: true,
-                  belowBarData: BarAreaData(show: true, color: Colors.greenAccent.withOpacity(0.2)),
+                  belowBarData: BarAreaData(
+                      show: true, color: Colors.purpleAccent.withOpacity(0.2)),
                   dotData: const FlDotData(show: false),
                 ),
               ],
-               titlesData: FlTitlesData(
+              titlesData: FlTitlesData(
                 leftTitles: AxisTitles(
                     sideTitles: SideTitles(
-                      showTitles: true,
-                      reservedSize: 40,
-                      interval: 2,
-                       getTitlesWidget: (value, meta) =>
-                        Text(value.toInt().toString(), style: const TextStyle(fontSize: 12)),
-                      )
-                    ),
-                rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                bottomTitles: AxisTitles(sideTitles: SideTitles(
+                  showTitles: true,
+                  reservedSize: 40,
+                  interval: 2,
+                  getTitlesWidget: (value, meta) => Text(
+                      value.toInt().toString(),
+                      style: const TextStyle(fontSize: 12)),
+                )),
+                rightTitles:
+                    const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                topTitles:
+                    const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
                     showTitles: true,
-                    reservedSize: 30,
-                    interval: const Duration(days: 2).inMilliseconds.toDouble(),
                     getTitlesWidget: (value, meta) {
-                      final date = DateTime.fromMillisecondsSinceEpoch(value.toInt());
+                      final dateTime =
+                          DateTime.fromMillisecondsSinceEpoch(value.toInt());
                       return SideTitleWidget(
                         axisSide: meta.axisSide,
-                        space: 8.0,
-                        child: Text(DateFormat.MMMd().format(date), style: const TextStyle(fontSize: 12)),
+                        child: Text(DateFormat.E().format(dateTime),
+                            style: const TextStyle(fontSize: 10)),
                       );
-                    }
-                  )
+                    },
+                  ),
                 ),
               ),
             ),
           ),
         ),
-        SizedBox(height: Dimensions.height(16)),
-        _buildLegend(),
-      ],
-    );
-  }
-
-   Widget _buildLegend() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        _buildLegendItem(Colors.blueAccent, "Pre-Session Mood"),
-        SizedBox(width: Dimensions.width(20)),
-        _buildLegendItem(Colors.greenAccent, "Post-Session Mood"),
-      ],
-    );
-  }
-
-  Widget _buildLegendItem(Color color, String text) {
-    return Row(
-      children: [
-        Container(
-          width: 16,
-          height: 16,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(4),
-          ),
-        ),
-        SizedBox(width: Dimensions.width(8)),
-        AppText(text: text, fontSize: 14),
       ],
     );
   }
