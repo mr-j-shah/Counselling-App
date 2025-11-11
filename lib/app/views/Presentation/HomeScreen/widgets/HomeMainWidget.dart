@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:project_counselling/app/data/models/Doctor.dart';
 import 'package:project_counselling/app/routers/AppRoutes.dart';
 import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart';
+import 'package:project_counselling/app/views/Presentation/CalmSpaceScreen/CalmSpaceScreen.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/controller/HomeController.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/AvatarCard.dart';
 import 'package:project_counselling/app/views/Presentation/HomeScreen/widgets/DoctorCard.dart';
@@ -62,7 +63,7 @@ class HomeMainwidget extends StatelessWidget {
                       title: "Want to add Reminder?",
                       subString: "Busy right now? Schedule a future session reminder so you don't miss out on your path to wellness.",
                       buttonText: "Set Reminder", // Changed button text for clarity
-                      onPressed: (){
+                      onPressed: (){ 
                         showReminderBottomSheet(context, (TimeOfDay p1){
                           _notificationService.scheduleDailyReminder(
                             id: 2,
@@ -71,7 +72,7 @@ class HomeMainwidget extends StatelessWidget {
                             time: p1,
                           );
                         });
-                      }, // Assumed navigation change
+                      }, 
                     ),
                   ],
 
@@ -116,8 +117,8 @@ class HomeMainwidget extends StatelessWidget {
     return const MindJournalScreen();
   }
 
-  Widget _buildBookingsTabContent(BuildContext context) {
-    return const ComingSoonWidget();
+  Widget _buildCalmSpaceTabContent(BuildContext context) {
+    return const CalmSpaceScreen();
   }
 
 
@@ -134,7 +135,7 @@ class HomeMainwidget extends StatelessWidget {
                 case 1:
                   return _buildMindJournalTabContent(context);
                 case 2:
-                  return _buildBookingsTabContent(context);
+                  return _buildCalmSpaceTabContent(context);
                 default:
                   return _buildHomeTabContent(
                     context,
