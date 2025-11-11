@@ -24,6 +24,8 @@ import 'package:project_counselling/app/views/Presentation/JournalScreen/Journal
 import 'package:project_counselling/app/views/Presentation/JournalScreen/bindings/JournalBinding.dart';
 import 'package:project_counselling/app/views/Presentation/PopularProfiles/PopularProfilesScreen.dart';
 import 'package:project_counselling/app/views/Presentation/PopularProfiles/binding/PopularProfilesBinding.dart';
+import 'package:project_counselling/app/views/Presentation/ReminderScreen/ReminderScreen.dart';
+import 'package:project_counselling/app/views/Presentation/ReminderScreen/bindings/ReminderBinding.dart';
 import 'package:project_counselling/app/views/Presentation/SettingsScreen/SettingsScreen.dart';
 import 'package:project_counselling/app/views/Presentation/SettingsScreen/bindings/SettingsBinding.dart';
 import 'package:project_counselling/app/views/Presentation/SplashScreen/SplashScreen.dart';
@@ -69,6 +71,7 @@ abstract class Routes {
   static const String STATISTICS_SCREEN = '/statistics_screen';
   static const String JOURNAL_LIST_SCREEN = '/journal-list-screen';
   static const String JOURNAL_ENTRY_SCREEN = '/journal-entry-screen';
+  static const String REMINDER_SCREEN = '/reminder-screen';
 }
 
 class AppRoutes {
@@ -201,6 +204,12 @@ class AppRoutes {
     GetPage(
       name: Routes.JOURNAL_ENTRY_SCREEN,
       page: () => JournalEntryScreen(entry: Get.arguments as JournalEntry?),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: Routes.REMINDER_SCREEN,
+      page: () => const ReminderScreen(),
+      binding: ReminderBinding(),
       transition: Transition.cupertino,
     ),
   ];

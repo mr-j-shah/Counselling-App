@@ -41,7 +41,7 @@ class SettingsScreen extends StatelessWidget {
                       iconColor: Colors.white,
                       iconBackgroundColor: Colors.green,
                       title: Appstring.settingsNotifications,
-                      onTap: (){},
+                      onTap: () => Get.toNamed(Routes.REMINDER_SCREEN),
                     ),
                     _buildSettingsItem(
                       icon: Icons.bar_chart_outlined,
@@ -60,31 +60,11 @@ class SettingsScreen extends StatelessWidget {
                     SizedBox(height: Dimensions.height(24)),
                     _buildSectionTitle(Appstring.settingsMoreOptions, textTheme),
                     SizedBox(height: Dimensions.height(10)),
-                    // _buildToggleItem(
-                    //     title: 'Text messages',
-                    //     value: controller.textMessagesEnabled,
-                    //     onChanged: controller.toggleTextMessages,
-                    //     textTheme: textTheme),
-                    // _buildToggleItem(
-                    //     title: 'Phone calls',
-                    //     value: controller.phoneCallsEnabled,
-                    //     onChanged: controller.togglePhoneCalls,
-                    //     textTheme: textTheme),
                     Obx(() => _buildSettingsItem(
                           title: Appstring.settingsConversationLanguages,
                           trailingText: controller.selectedLanguage.value.toDisplayName(),
                           onTap: () => controller.changeLanguage(context),
                         )),
-                    // Obx(() => _buildSettingsItem(
-                    //       title: 'Currency',
-                    //       trailingText: controller.selectedCurrency.value,
-                    //       onTap: controller.changeCurrency,
-                    //     )),
-                    // Obx(() => _buildSettingsItem(
-                    //       title: 'Linked accounts',
-                    //       trailingText: controller.linkedAccounts.value,
-                    //       onTap: controller.manageLinkedAccounts,
-                    //     )),
                   ],
                 ),
               ),

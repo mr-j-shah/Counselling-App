@@ -8,10 +8,11 @@ plugins {
 
 android {
     namespace = "com.ai.project_counselling"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 35
     ndkVersion = "27.0.12077973"
 
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -59,6 +60,9 @@ android {
     dependencies {
         implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
         implementation("com.google.firebase:firebase-analytics")
+        coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+        implementation("androidx.window:window:1.0.0")
+        implementation("androidx.window:window-java:1.0.0")
     }
 }
 
