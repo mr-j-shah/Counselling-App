@@ -78,7 +78,7 @@ class CalmSpaceScreen extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(Dimensions.radius(20)),
             gradient: LinearGradient(
-              colors: [color.withOpacity(0.1), Colors.white],
+              colors: [color.withOpacity(0.2), color.withOpacity(0.05)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),

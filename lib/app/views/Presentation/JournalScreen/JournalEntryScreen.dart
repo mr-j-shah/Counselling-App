@@ -7,6 +7,7 @@ import 'package:project_counselling/app/views/AppWidgets/DefaultBackground.dart'
 import 'package:project_counselling/app/views/AppWidgets/PrimaryButton.dart';
 import 'package:project_counselling/app/views/Presentation/JournalScreen/controller/JournalController.dart';
 import 'package:project_counselling/app/views/Utils/Colors.dart';
+import 'package:project_counselling/app/views/Utils/CustomSnackbar.dart';
 import 'package:project_counselling/app/views/Utils/Dimensions.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -227,11 +228,7 @@ class _JournalEntryScreenState extends State<JournalEntryScreen> {
                             text: 'Save Entry',
                             onPressed: () {
                               if (_titleController.text.isEmpty && _contentController.text.isEmpty) {
-                                Get.snackbar(
-                                  "Empty Entry",
-                                  "Please write a title or content for your journal entry.",
-                                  snackPosition: SnackPosition.BOTTOM,
-                                );
+                                Customsnackbar.show(title: "Empty Entry", subtitle: "Please write a title or content for your journal entry.");
                                 return;
                               }
                               final newEntry = JournalEntry(
@@ -257,14 +254,6 @@ class _JournalEntryScreenState extends State<JournalEntryScreen> {
               ),
             ],
           ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _listen,
-        backgroundColor: primaryColor,
-        child: Icon(
-          _isListening ? Icons.mic : Icons.mic_none,
-          color: Colors.white,
         ),
       ),
     );

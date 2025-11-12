@@ -70,7 +70,7 @@ class Homebottomnavigation extends StatelessWidget {
                 _buildNavItem(homeController, Icons.home_rounded, "Exercise", 0),
                 const SizedBox(width: 40), // Space for the center button
                 _buildNavItem(
-                    homeController, Icons.chat_bubble, "Chat", 2),
+                    homeController, Icons.eco, "Chat", 2),
               ],
             ),
           ),

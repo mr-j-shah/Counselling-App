@@ -87,9 +87,6 @@ class Sidemenucontroller extends GetxController {
       case 7: // Settings
         navigateToSettingsScreen();
         break;
-      case 8: // Box Breathing
-        navigateToBoxBreathingScreen();
-        break;
       default:
         Get.snackbar("Info", "Menu item $index clicked, no action defined.");
     }
@@ -119,11 +116,6 @@ class Sidemenucontroller extends GetxController {
     //   title: Appstring.payments,
     //   icon: Appassets.paymentsIcon,
     // ),
-    SidemenuModel(
-      index: 8,
-      title: "Box Breathing",
-      icon: Appassets.breathingIcon,
-    ),
     SidemenuModel(
       index: 4,
       title: Appstring.privacyAndPolicy,
