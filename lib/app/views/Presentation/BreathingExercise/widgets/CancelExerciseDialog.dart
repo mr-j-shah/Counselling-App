@@ -56,7 +56,7 @@ void showCancelExerciseDialog(BuildContext context, {required VoidCallback onCon
                 SizedBox(width: Dimensions.width(16)),
                 Expanded(
                   child: PrimaryButton(
-                    text: "Yes, Stop",
+                    text: "Yes",
                     onPressed: onConfirm,
                     backgroundColor: Colors.redAccent,
                   ),

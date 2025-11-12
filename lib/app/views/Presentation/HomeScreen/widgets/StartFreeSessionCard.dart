@@ -41,7 +41,7 @@ class Startfreesessioncard extends StatelessWidget {
                   fontWeight: FontWeight.normal,
                   fontSize: Dimensions.font(16),
                 ),
-                SizedBox(height: Dimensions.height(14)),
+                SizedBox(height: Dimensions.height(10)),
                 PrimaryButton(text: buttonText, onPressed: onPressed),
               ],
             ),
