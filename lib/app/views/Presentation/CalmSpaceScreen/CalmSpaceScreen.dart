@@ -17,17 +17,7 @@ class CalmSpaceScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: Dimensions.height(10)), // Space for the main app bar
-            // const AppText(
-            //   text: "Calm Space",
-            //   fontSize: 28,
-            //   fontWeight: FontWeight.bold,
-            // ),
-            // SizedBox(height: Dimensions.height(4)),
-            // AppText(
-            //   text: "Your guided mental reset zone.",
-            //   color: Colors.grey.shade700,
-            //   fontSize: 16,
-            // ),
+            
             SizedBox(height: Dimensions.height(10)),
             Expanded(
               child: ListView(
@@ -54,9 +44,7 @@ class CalmSpaceScreen extends StatelessWidget {
                     icon: Icons.waves_rounded,
                     title: "Ambient Sounds",
                     subtitle: "Mix sounds to create your calm scene.",
-                    onTap: () {
-                      Get.snackbar("Coming Soon!", "The sound mixer is being built.");
-                    },
+                    onTap: () => Get.toNamed(Routes.AMBIENT_MIXER_SCREEN),
                     color: Colors.blue,
                   ),
                   SizedBox(height: Dimensions.height(100)),

@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:project_counselling/app/models/JournalEntry.dart';
 import 'package:project_counselling/app/views/Presentation/AboutUsScreen/AboutUsScreen.dart';
+import 'package:project_counselling/app/views/Presentation/AmbientMixerScreen/AmbientMixerScreen.dart';
+import 'package:project_counselling/app/views/Presentation/AmbientMixerScreen/bindings/AmbientAIBinding.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/BreathingExerciseScreen.dart';
 import 'package:project_counselling/app/views/Presentation/BreathingExercise/binding/BreathingBinding.dart';
 import 'package:project_counselling/app/views/Presentation/ChangePassword/ChangePasswordScreen.dart';
@@ -72,6 +74,7 @@ abstract class Routes {
   static const String JOURNAL_LIST_SCREEN = '/journal-list-screen';
   static const String JOURNAL_ENTRY_SCREEN = '/journal-entry-screen';
   static const String REMINDER_SCREEN = '/reminder-screen';
+  static const String AMBIENT_MIXER_SCREEN = '/ambient-mixer-screen';
 }
 
 class AppRoutes {
@@ -210,6 +213,12 @@ class AppRoutes {
       name: Routes.REMINDER_SCREEN,
       page: () => const ReminderScreen(),
       binding: ReminderBinding(),
+      transition: Transition.cupertino,
+    ),
+     GetPage(
+      name: Routes.AMBIENT_MIXER_SCREEN,
+      page: () => const AmbientMixerScreen(),
+      binding: AmbientAIBinding(),
       transition: Transition.cupertino,
     ),
   ];
